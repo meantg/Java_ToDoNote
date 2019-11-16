@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class CategoryBUS {
-    public static List<CategoryDTO> getListCategory() throws SQLException {
-        return CategoryDAO.getListCategory();
+    public static List<CategoryDTO> getListCategory(Integer maNguoiDung) throws SQLException {
+        return CategoryDAO.getListCategory(maNguoiDung);
     }
 
     public static Integer getNumOfNotesByMaPhanLoai(Integer maPhanLoai) throws SQLException {

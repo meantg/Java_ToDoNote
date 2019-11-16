@@ -12,12 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NoteDAO {
-    public static List<NoteDTO> getToDoList(Integer maNguoiDung, Integer maPhanLoai) throws SQLException {
+    public static List<NoteDTO> getToDoList(Integer maPhanLoai, Integer maTinhTrang) throws SQLException {
         Connection conn = DBHelper.getConnection();
-        String query = "SELECT * FROM ToDo_Note WHERE MaNguoiDung = ? AND MaPhanLoai = ?";
+        String query = "SELECT * FROM ToDo_Note WHERE MaPhanLoai = ? AND MaTinhTrang = ?";
         PreparedStatement statement = conn.prepareStatement(query);
-        statement.setInt(1, maNguoiDung);
-        statement.setInt(2, maPhanLoai);
+        statement.setInt(1, maPhanLoai);
+        statement.setInt(2, maTinhTrang);
         ResultSet rs = statement.executeQuery();
 
         List<NoteDTO> output = new ArrayList<NoteDTO>();
@@ -25,10 +25,9 @@ public class NoteDAO {
             NoteDTO note = new NoteDTO(
                     rs.getInt("MaNote"),
                     rs.getInt("MaPhanLoai"),
-                    rs.getInt("MaNguoiDung"),
                     rs.getString("TieuDe"),
                     rs.getString("NoiDung"),
-                    rs.getInt("maPhanLoai"),
+                    rs.getInt("MaTinhTrang"),
                     rs.getTimestamp("NgayTao").toLocalDateTime().toLocalDate()
                     //rs.getTimestamp("HanChot").toLocalDateTime().toLocalDate()
             );
@@ -40,14 +39,24 @@ public class NoteDAO {
 
     public static boolean insertToDoList(NoteDTO note) throws SQLException {
         Connection conn = DBHelper.getConnection();
-        String query = "INSERT INTO todo_note(MaLoaiNote, MaNguoiDung, TieuDe, NoiDung, HanChot) "
-                + "VALUES (?,?,?,?,?)";
+        String query = "INSERT INTO todo_note(MaLoaiNote, TieuDe, NoiDung, HanChot) "
+                + "VALUES (?,?,?,?)";
         PreparedStatement statement = conn.prepareStatement(query);
         statement.setInt(1, note.getMaPhanLoai());
-        statement.setInt(2, note.getMaNguoiDung());
-        statement.setString(3, note.getTieuDe());
-        statement.setString(4, note.getNoiDung());
-        statement.setString(5, note.getHanChot().toString());
+        statement.setString(2, note.getTieuDe());
+        statement.setString(3, note.getNoiDung());
+        statement.setString(4, note.getHanChot().toString());
+        int records = statement.executeUpdate();
+        conn.close();
+        return records > 0;
+    }
+
+    public static boolean updateTinhTrang(Integer maTinhTrang, Integer maNote) throws SQLException {
+        Connection conn = DBHelper.getConnection();
+        String query = "UPDATE todo_note SET MaTinhTrang = ? WHERE MaNote = ?";
+        PreparedStatement statement = conn.prepareStatement(query);
+        statement.setInt(1, maTinhTrang);
+        statement.setInt(2, maNote);
         int records = statement.executeUpdate();
         conn.close();
         return records > 0;

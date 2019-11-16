@@ -8,16 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryDAO {
-    public static List<CategoryDTO> getListCategory() throws SQLException {
+    public static List<CategoryDTO> getListCategory(Integer maNguoiDung) throws SQLException {
         Connection conn = DBHelper.getConnection();
-        String query = "SELECT * FROM PhanLoai";
-        Statement statement = conn.createStatement();
-        ResultSet rs = statement.executeQuery(query);
+        String query = "SELECT * FROM PhanLoai WHERE MaNguoiDung = ?";
+        PreparedStatement statement = conn.prepareStatement(query);
+        statement.setInt(1, maNguoiDung);
+        ResultSet rs = statement.executeQuery();
 
-        List<CategoryDTO> output = new ArrayList<>();
+        List<CategoryDTO> output = new ArrayList<CategoryDTO>();
         while (rs.next()) {
             CategoryDTO category = new CategoryDTO(
                     rs.getInt("MaPhanLoai"),
+                    rs.getInt("MaNguoiDung"),
                     rs.getString("TenPhanLoai"),
                     rs.getString("Icon")
             );

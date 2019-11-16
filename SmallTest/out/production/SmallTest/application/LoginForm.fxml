@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="533.0" prefWidth="822.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox alignment="CENTER" prefHeight="533.0" prefWidth="354.0" style="-fx-background-color: #dcde54;">
+         <children>
+            <ImageView fitHeight="196.0" fitWidth="260.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../resources/images/note@3x.png" />
+               </image>
+            </ImageView>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome To">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="ToDoNote">
+               <font>
+                  <Font name="Berlin Sans FB" size="30.0" />
+               </font>
+            </Text>
+         </children>
+      </VBox>
+      <Pane layoutX="354.0" prefHeight="533.0" prefWidth="475.0">
+         <children>
+            <Text layoutX="55.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome Back,">
+               <font>
+                  <Font name="Bodoni MT Bold" size="25.0" />
+               </font>
+            </Text>
+            <Text layoutX="55.0" layoutY="119.0" opacity="0.38" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign in to continue">
+               <font>
+                  <Font name="Bodoni MT Black" size="15.0" />
+               </font>
+            </Text>
+            <TextField fx:id="tfUserName" layoutX="55.0" layoutY="207.0" prefHeight="31.0" prefWidth="307.0" promptText="UserName" />
+            <Button layoutX="55.0" layoutY="352.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="307.0" style="-fx-background-color: #dcde54; -fx-background-radius: 50;" text="Login" textFill="WHITE">
+               <font>
+                  <Font name="Berlin Sans FB" size="27.0" />
+               </font>
+            </Button>
+            <Text fill="RED" layoutX="55.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username is uncorrect or not sign up" />
+            <Text fill="RED" layoutX="55.0" layoutY="314.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wrong password or username" />
+            <Text layoutX="106.0" layoutY="440.0" opacity="0.51" strokeType="OUTSIDE" strokeWidth="0.0" text="New to ToDoNote ?">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Text>
+            <PasswordField fx:id="pfPassword" layoutX="55.0" layoutY="267.0" prefHeight="31.0" prefWidth="307.0" promptText="Password" />
+            <Hyperlink layoutX="245.0" layoutY="419.0" text="Sign up">
+               <font>
+                  <Font name="System Italic" size="15.0" />
+               </font>
+            </Hyperlink>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

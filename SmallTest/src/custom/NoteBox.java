@@ -1,26 +1,37 @@
 package custom;
 
 import BUS.CategoryBUS;
+import BUS.NoteBUS;
 import DTO.NoteDTO;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-import java.awt.*;
 import java.sql.SQLException;
 
 public class NoteBox extends HBox {
     private CheckBox checkBtn;
     private Label lbTitle;
     private Label lbCategory;
+    private enum TinhTrang{
+        DONE(12001),
+        WORKING(12002);
+        private Integer id;
+        TinhTrang(int id) {
+            this.id = id;
+        }
+        Integer getId() {
+            return id;
+        }
+    };
 
     public NoteBox(NoteDTO note) throws SQLException {
+        this.getStylesheets().add("custom/styles.css");
         checkBtn = new CheckBox();
+        checkBtn.setSelected(note.getMaTinhTrang() == 12001 ? true : false);
         checkBtn.setPrefSize(30,40);
 
         VBox contentBox = new VBox(3);
@@ -39,18 +50,40 @@ public class NoteBox extends HBox {
         this.getChildren().addAll(checkBtn, contentBox);
 
         this.setOnMouseEntered(e -> {
-            this.setBackground(
-                    new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
+            if(!checkBtn.isSelected())
+                this.setBackground(
+                        new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
         });
 
         this.setOnMouseExited(e -> {
+            if(!checkBtn.isSelected())
                 this.setBackground(
                         new Background(new BackgroundFill(Color.rgb(244, 244, 244), CornerRadii.EMPTY, Insets.EMPTY)));
         });
+        changedStatus(note);
+    }
 
-        checkBtn.setOnMouseClicked(e-> {
-            if(checkBtn.isSelected())
-                System.out.println("Hi");
-        });
+    public void changedStatus(NoteDTO note) {
+        if(checkBtn.isSelected()) {
+            lbTitle.setId("strikethrough");
+            this.setId("done");
+            try {
+                NoteBUS.updateTinhTrang(TinhTrang.DONE.getId(), note.getMaNote());
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        else {
+            lbTitle.setId("un-strike-through");
+            this.setId("undone");
+            try {
+                NoteBUS.updateTinhTrang(TinhTrang.WORKING.getId(), note.getMaNote());
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+    public CheckBox getCheckBtn() {
+        return checkBtn;
     }
 }

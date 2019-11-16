@@ -19,14 +19,12 @@ public class ListCategory {
         dsPhanLoai.stream().forEach(phanLoai -> {
             try {
                 CategoryBox category = new CategoryBox(phanLoai);
-
-
                 if (curCategory == null) {
                     curCategory = category;
                     curCategory.changeBackgroundColor(Color.LIGHTGRAY);
                 }
                 category.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-                    curCategory.changeBackgroundColor(Color.rgb(244, 244, 244));
+                    curCategory.changeBackgroundColor(Color.valueOf("dcde54"));
                     curCategory = category;
                     category.changeBackgroundColor(Color.LIGHTGRAY);
                 });

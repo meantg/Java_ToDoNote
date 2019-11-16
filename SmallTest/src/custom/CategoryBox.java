@@ -15,13 +15,13 @@ import javafx.scene.text.Font;
 import java.sql.SQLException;
 
 public class CategoryBox extends HBox {
-    private int categoryID;
+    private CategoryDTO category;
     private Label lbIcon;
     private Label lbTitle;
     private Label lbNumOfNotes;
     private boolean isClicked = false;
     public CategoryBox(CategoryDTO category) throws SQLException {
-        this.categoryID = category.getMaPhanLoai();
+        this.category = category;
 
         lbIcon = new Label();
         lbIcon.setText(category.getIcon());
@@ -35,7 +35,7 @@ public class CategoryBox extends HBox {
         lbTitle.setFont(Font.font("system", 20));
         lbTitle.setPrefSize(150,10);
 
-        Integer numOfNotes = CategoryBUS.getNumOfNotesByMaPhanLoai(categoryID);
+        Integer numOfNotes = CategoryBUS.getNumOfNotesByMaPhanLoai(category.getMaPhanLoai());
         lbNumOfNotes = new Label();
         lbNumOfNotes.setText(numOfNotes.toString());
         lbNumOfNotes.setAlignment(Pos.CENTER_RIGHT);
@@ -43,6 +43,7 @@ public class CategoryBox extends HBox {
         lbNumOfNotes.setFont(Font.font("system", 20));
 
         this.setPrefWidth(330);
+        this.setAlignment(Pos.CENTER_LEFT);
         this.setPadding(new Insets(10));
         this.getChildren().clear();
         this.getChildren().addAll(lbIcon,lbTitle);
@@ -67,8 +68,8 @@ public class CategoryBox extends HBox {
                 new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
-    public int getTypeCategory() {
-        return categoryID;
+    public CategoryDTO getCategory() {
+        return category;
     }
 
 }
