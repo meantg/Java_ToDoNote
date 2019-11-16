@@ -61,4 +61,22 @@ public class UserDAO {
             conn.close();
         }
     }
+
+
+    public static UserDTO getUserByUsername(String username) throws SQLException {
+        Connection conn = DBHelper.getConnection();
+        try {
+            String query = "SELECT * FROM NguoiDung WHERE TenDangNhap = ?";
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setString(1, username);
+            ResultSet rs = statement.executeQuery();
+            rs.next();
+            UserDTO output = new UserDTO(rs.getInt("MaNguoiDung"), rs.getString("TenNguoiDung"),
+                    rs.getString("GioiTinh"), rs.getString("SoDienThoai"), rs.getString("Email"));
+            return output;
+        } finally {
+            conn.close();
+        }
+    }
+
 }

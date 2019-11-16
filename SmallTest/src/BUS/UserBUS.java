@@ -16,4 +16,8 @@ public class UserBUS {
         }
         return UserDAO.insertUser(user);
     }
+
+    public static UserDTO getUserByUsername(String username) throws SQLException {
+        return UserDAO.getUserByUsername(username);
+    }
 }
