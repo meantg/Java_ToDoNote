@@ -14,8 +14,7 @@ public class UserBox extends HBox {
 
     public UserBox(UserDTO user) {
         lbAvatar = new Label();
-
-        lbAvatar.setText(user.getGioiTinh() == "Nam" ? "➕" : "Nữ");
+        lbAvatar.setText(user.getGioiTinh().equals("Nam") ? "➕" : "Nữ");
         lbAvatar.setPrefSize(70,10);
         lbAvatar.setFont(Font.font("system", 20));
         lbAvatar.setAlignment(Pos.CENTER);

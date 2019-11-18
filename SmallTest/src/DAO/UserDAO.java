@@ -71,8 +71,8 @@ public class UserDAO {
             statement.setString(1, username);
             ResultSet rs = statement.executeQuery();
             rs.next();
-            UserDTO output = new UserDTO(rs.getInt("MaNguoiDung"), rs.getString("TenNguoiDung"),
-                    rs.getString("GioiTinh"), rs.getString("SoDienThoai"), rs.getString("Email"));
+            UserDTO output = new UserDTO(rs.getInt("MaNguoiDung"), rs.getString("TenNguoiDung"), rs.getString("TenDangNhap"),
+                    rs.getString("MatKhau"), rs.getString("GioiTinh"), rs.getString("SoDienThoai"), rs.getString("Email"));
             return output;
         } finally {
             conn.close();

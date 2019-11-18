@@ -30,10 +30,8 @@ public class LoginController implements Initializable {
     private PasswordField pfPassword;
 
     @FXML
-    private Text textLoginFail_1;
+    private Text textLoginFail;
 
-    @FXML
-    private Text textLoginFail_2;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -47,8 +45,7 @@ public class LoginController implements Initializable {
         });
         FXMLLoader loader = (FXMLLoader) mainStage.getUserData();
         mainController = loader.getController();
-        textLoginFail_1.setVisible(false);
-        textLoginFail_2.setVisible(false);
+        textLoginFail.setVisible(false);
     }
 
     public void handleLogin() {
@@ -63,12 +60,13 @@ public class LoginController implements Initializable {
                 mainController.initialize(user);
                 mainStage.showAndWait();
             } else {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+/*                Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Lỗi");
                 alert.setHeaderText("Không thể đăng nhập!");
                 alert.setContentText("Sai tên tài khoản hoặc mật khẩu!");
-                alert.showAndWait();
+                alert.showAndWait();*/
                 tfUsername.requestFocus();
+                textLoginFail.setVisible(true);
             }
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -81,7 +79,7 @@ public class LoginController implements Initializable {
     }
 
     public void handleSignUp() {
-        Stage signInStage = PopupHelper.createStage("/application/SignUpForm.fxml", 757, 540);
+        Stage signInStage = PopupHelper.createStage("/application/SignUpForm.fxml", 757, 530);
         signInStage.showAndWait();
     }
 }

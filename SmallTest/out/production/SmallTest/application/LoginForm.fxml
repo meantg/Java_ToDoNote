@@ -18,7 +18,7 @@
          <children>
             <ImageView fitHeight="196.0" fitWidth="260.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../resources/images/note@3x.png" />
+                  <Image url="@../resources/note.png" />
                </image>
             </ImageView>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome To">
@@ -51,8 +51,7 @@
                   <Font name="Berlin Sans FB" size="27.0" />
                </font>
             </Button>
-            <Text fx:id="textLoginFail_1" fill="RED" layoutX="55.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username is uncorrect or not sign up" />
-            <Text fx:id="textLoginFail_2" fill="RED" layoutX="55.0" layoutY="314.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wrong password or username" />
+            <Text fx:id="textLoginFail" fill="RED" layoutX="55.0" layoutY="314.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wrong password or username" />
             <Text layoutX="106.0" layoutY="440.0" opacity="0.51" strokeType="OUTSIDE" strokeWidth="0.0" text="New to ToDoNote ?">
                <font>
                   <Font name="System Bold" size="15.0" />

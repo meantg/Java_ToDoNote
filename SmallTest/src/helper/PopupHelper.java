@@ -17,7 +17,7 @@ public class PopupHelper {
             Scene scene = new Scene(loader.load(), width, height);
             stage.setUserData(loader);
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("💰 Todo List 🍃");
+            stage.setTitle("📚 Todo Note 📚");
             stage.setResizable(false);
             stage.setScene(scene);
             return stage;

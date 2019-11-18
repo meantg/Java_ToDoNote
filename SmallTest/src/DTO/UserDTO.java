@@ -19,9 +19,10 @@ public class UserDTO {
         this.Email = Email;
     }
 
-    public UserDTO(Integer maNguoiDung, String tenNguoiDung, String gioiTinh, String soDienThoai, String Email) {
-        this.maNguoiDung = maNguoiDung;
+    public UserDTO(String tenNguoiDung, String tenDangNhap, String matKhau, String gioiTinh, String soDienThoai, String Email) {
         this.tenNguoiDung = tenNguoiDung;
+        this.tenDangNhap = tenDangNhap;
+        this.matKhau = matKhau;
         this.gioiTinh = gioiTinh;
         this.soDienThoai = soDienThoai;
         this.Email = Email;
@@ -35,9 +36,7 @@ public class UserDTO {
         return tenDangNhap;
     }
 
-    public String getMatKhau() {
-        return matKhau;
-    }
+    public String getMatKhau() { return matKhau; }
 
     public String getTenNguoiDung() {
         return tenNguoiDung;
