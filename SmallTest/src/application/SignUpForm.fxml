@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -44,23 +45,23 @@
                   <Font name="Bodoni MT Black" size="15.0" />
                </font>
             </Text>
-            <TextField fx:id="tfName" layoutX="55.0" layoutY="109.0" prefHeight="31.0" prefWidth="307.0" promptText="Name" />
+            <TextField fx:id="tfName" layoutX="55.0" layoutY="109.0" prefHeight="31.0" prefWidth="307.0" promptText="Full name" />
             <TextField fx:id="tfEmail" layoutX="55.0" layoutY="150.0" prefHeight="31.0" prefWidth="307.0" promptText="Email" />
-            <TextField fx:id="tfPhoneNumber" layoutX="55.0" layoutY="193.0" prefHeight="26.0" prefWidth="307.0" promptText="PhoneNumber" />
-            <CheckBox fx:id="tfGender_F" layoutX="129.0" layoutY="239.0" mnemonicParsing="false" text="Female" />
-            <CheckBox fx:id="tfGender_M" layoutX="223.0" layoutY="239.0" mnemonicParsing="false" text="Male" />
-            <CheckBox fx:id="tfGender_O" layoutX="297.0" layoutY="239.0" mnemonicParsing="false" text="Other" />
-            <TextField fx:id="tfUserName" layoutX="55.0" layoutY="273.0" prefHeight="31.0" prefWidth="307.0" promptText="UserName" />
-            <TextField fx:id="tfPassword" layoutX="55.0" layoutY="315.0" prefHeight="31.0" prefWidth="307.0" promptText="Password" />
-            <TextField fx:id="tfRepassword" layoutX="55.0" layoutY="357.0" prefHeight="26.0" prefWidth="307.0" promptText="Re-Password (Type password again)" />
+            <TextField fx:id="tfPhoneNumber" layoutX="55.0" layoutY="193.0" prefHeight="31.0" prefWidth="307.0" promptText="Phone number" />
+            <CheckBox fx:id="cdGender_F" layoutX="129.0" layoutY="239.0" mnemonicParsing="false" text="Female" />
+            <CheckBox fx:id="cdGender_M" layoutX="223.0" layoutY="239.0" mnemonicParsing="false" text="Male" />
+            <CheckBox fx:id="cdGender_O" layoutX="297.0" layoutY="239.0" mnemonicParsing="false" text="Other" />
+            <TextField fx:id="tfUserName" layoutX="55.0" layoutY="273.0" prefHeight="31.0" prefWidth="307.0" promptText="Username" />
             <Text fill="RED" layoutX="362.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
             <Text fill="RED" layoutX="112.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
             <Text fill="RED" layoutX="362.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
             <Text fill="RED" layoutX="362.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
-            <Text fill="RED" layoutX="362.0" layoutY="375.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
-            <Text fill="RED" layoutX="362.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
-            <Text layoutX="64.0" layoutY="257.0" opacity="0.37" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 15;" text="Gender" wrappingWidth="50.92236328125" />
+            <Text fill="RED" layoutX="362.0" layoutY="384.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+            <Text fill="RED" layoutX="362.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+            <Text layoutX="55.0" layoutY="253.0" opacity="0.37" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 15;" text="Gender" wrappingWidth="50.92236328125" />
             <Text fill="RED" layoutX="64.0" layoutY="425.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 15;" text="Field with red start is required" />
+            <PasswordField fx:id="pfPassword" layoutX="55.0" layoutY="316.0" prefHeight="31.0" prefWidth="307.0" promptText="Password" />
+            <PasswordField fx:id="pfRePassword" layoutX="55.0" layoutY="364.0" prefHeight="31.0" prefWidth="307.0" promptText="Re-Password (Type password again)" />
          </children>
       </Pane>
       <Button layoutX="379.0" layoutY="451.0" mnemonicParsing="false" onAction="#handleSignUp" prefHeight="53.0" prefWidth="298.0" style="-fx-background-color: #dcde54; -fx-background-radius: 50; -fx-font-size: 30;" text="Sign up" textFill="WHITE">

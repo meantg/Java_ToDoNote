@@ -9,11 +9,14 @@ import DAO.UserDAO;
 import DTO.UserDTO;
 import helper.ConfirmDialogHelper;
 import helper.PopupHelper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -31,9 +34,9 @@ public class SignUpController implements Initializable {
     @FXML
     private TextField tfUserName;
     @FXML
-    private TextField tfPassword;
+    private PasswordField pfPassword;
     @FXML
-    private TextField tfRepassword;
+    private PasswordField pfRePassword;
     @FXML
     private CheckBox cdGender_M;
     @FXML
@@ -53,6 +56,33 @@ public class SignUpController implements Initializable {
         });
         FXMLLoader loader = (FXMLLoader) mainStage.getUserData();
         mainController = loader.getController();
+
+        cdGender_F.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                cdGender_M.setSelected(false);
+                cdGender_O.setSelected(false);
+                cdGender_F.setSelected(newValue);
+            }
+        });
+        cdGender_M.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                cdGender_F.setSelected(false);
+                cdGender_O.setSelected(false);
+                cdGender_M.setSelected(newValue);
+            }
+        });
+        cdGender_O.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                cdGender_M.setSelected(false);
+                cdGender_F.setSelected(false);
+                cdGender_O.setSelected(newValue);
+            }
+        });
+
+
     }
 
     public void handleSignUp() throws SQLException {
@@ -61,9 +91,9 @@ public class SignUpController implements Initializable {
         String email = tfEmail.getText();
         String phonenumber = tfPhoneNumber.getText();
         String username = tfUserName.getText();
-        String password = tfPassword.getText();
-        String repassword = tfRepassword.getText();
-        String gender= "Nam";
+        String password = pfPassword.getText();
+        String repassword = pfRePassword.getText();
+        String gender = cdGender_F.isSelected() ? "Nữ" : cdGender_M.isSelected() ? "Nam" : "Other";
 
         if(!password.equals(repassword))
         {
@@ -83,6 +113,8 @@ public class SignUpController implements Initializable {
             alert.setHeaderText("Tạo tài khoản thành công");
             alert.setContentText("Đã tạo tài khoản thành công!");
             alert.showAndWait();
+            Stage stage = (Stage)tfUserName.getScene().getWindow();
+            stage.close();
         } else
         {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

@@ -31,7 +31,7 @@ CREATE TABLE `nguoidung` (
   `SoDienThoai` varchar(45) NOT NULL,
   `Email` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`MaNguoiDung`)
-) ENGINE=InnoDB AUTO_INCREMENT=11003 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11008 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,9 +40,28 @@ CREATE TABLE `nguoidung` (
 
 LOCK TABLES `nguoidung` WRITE;
 /*!40000 ALTER TABLE `nguoidung` DISABLE KEYS */;
-INSERT INTO `nguoidung` VALUES (11001,'Dat Wang','datvt99','datvt99','Nam','0782369351','17520343@gm.uit.edu.vn'),(11002,'Thắng Mập','thangvm99','thangvm99','Nam','0379221432','1751041@gm.uit.edu.vn');
+INSERT INTO `nguoidung` VALUES (11001,'Dat Wang','datvt99','datvt99','Nam','0782369351','17520343@gm.uit.edu.vn'),(11002,'Thắng Mập','thangvm99','thangvm99','Nam','0379221432','1751041@gm.uit.edu.vn'),(11003,'Nguyễn Thị Tường Vy','vyntt99','vyntt99','Nữ','0376628667','vyntt99@gmail.com'),(11004,'Đinh Hoàng Nhi','nhidh99','nhidh99','Nam','0124356789','nhidh99@gmail.com'),(11005,'Phạm Trung Trường','truongpt99','truongpt99','Nam','1234567890','truongpt99@gmail.com'),(11006,'Vương Tuyết Nhung','vuongtuyetnhung','vuongtuyetnhung','Nữ','0782369351','vuongtuyetnhung@gmail.com'),(11007,'Nguyễn Tí','abc99','abc99','Other','0122515123','abc@gmail.com');
 /*!40000 ALTER TABLE `nguoidung` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `nguoidung_AFTER_INSERT` AFTER INSERT ON `nguoidung` FOR EACH ROW BEGIN
+	INSERT INTO phanloai (MaNguoiDung, TenPhanLoai, Icon) VALUES (NEW.MaNguoiDung, 'To Do ', '📋');
+	INSERT INTO phanloai (MaNguoiDung, TenPhanLoai, Icon) VALUES (NEW.MaNguoiDung, 'Work', '🏬');
+	INSERT INTO phanloai (MaNguoiDung, TenPhanLoai, Icon) VALUES (NEW.MaNguoiDung, 'Groceries', '🛒');
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -53,4 +72,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-16 17:52:41
+-- Dump completed on 2019-11-18 15:30:05

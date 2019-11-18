@@ -28,7 +28,7 @@ CREATE TABLE `phanloai` (
   `TenPhanLoai` varchar(45) NOT NULL,
   `Icon` varchar(5) NOT NULL,
   PRIMARY KEY (`MaPhanLoai`)
-) ENGINE=InnoDB AUTO_INCREMENT=10010 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10025 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,7 @@ CREATE TABLE `phanloai` (
 
 LOCK TABLES `phanloai` WRITE;
 /*!40000 ALTER TABLE `phanloai` DISABLE KEYS */;
-INSERT INTO `phanloai` VALUES (10001,11001,'To Do','?'),(10002,11001,'Work','?'),(10003,11001,'Groceries','?'),(10007,11002,'To Do','?'),(10008,11002,'Work','?'),(10009,11002,'Groceries','?');
+INSERT INTO `phanloai` VALUES (10001,11001,'To Do','?'),(10002,11001,'Work','?'),(10003,11001,'Groceries','?'),(10007,11002,'To Do','?'),(10008,11002,'Work','?'),(10009,11002,'Groceries','?'),(10010,11003,'To Do ','?'),(10011,11003,'Work','?'),(10012,11003,'Groceries','?'),(10013,11004,'To Do ','?'),(10014,11004,'Work','?'),(10015,11004,'Groceries','?'),(10016,11005,'To Do ','?'),(10017,11005,'Work','?'),(10018,11005,'Groceries','?'),(10019,11006,'To Do ','?'),(10020,11006,'Work','?'),(10021,11006,'Groceries','?'),(10022,11007,'To Do ','?'),(10023,11007,'Work','?'),(10024,11007,'Groceries','?');
 /*!40000 ALTER TABLE `phanloai` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-16 17:52:41
+-- Dump completed on 2019-11-18 15:30:05
