@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+    <center>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <Separator orientation="VERTICAL" prefHeight="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                <SplitPane dividerPositions="0.16693679092382496" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                            <children>
+                                <Text fx:id="lbNameCategory_Content" layoutX="144.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NameListNoteHere">
+                                    <font>
+                                        <Font name="Bodoni MT Bold" size="40.0" />
+                                    </font>
+                                </Text>
+                                <Text fx:id="lbIcon_Content" layoutX="79.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Icon">
+                                    <font>
+                                        <Font size="30.0" />
+                                    </font>
+                                </Text>
+                            </children></AnchorPane>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                            <children>
+                                <Text fill="#cda051" layoutX="49.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Undone">
+                                    <font>
+                                        <Font name="Bodoni MT" size="30.0" />
+                                    </font>
+                                </Text>
+                                <Separator layoutX="188.0" layoutY="14.0" orientation="VERTICAL" prefHeight="471.0" prefWidth="3.0" />
+                                <Text fill="#0eb941" layoutX="252.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Done">
+                                    <font>
+                                        <Font name="Bodoni MT" size="30.0" />
+                                    </font>
+                                </Text>
+                                <VBox fx:id="done_note_box" layoutX="194.0" layoutY="74.0" prefHeight="415.0" prefWidth="174.0" />
+                                <VBox fx:id="note_box" layoutY="80.0" prefHeight="418.0" prefWidth="182.0" />
+                                <Separator layoutX="371.0" layoutY="14.0" orientation="VERTICAL" prefHeight="474.0" prefWidth="6.0" />
+                                <VBox fx:id="overdue_note_box" layoutX="377.0" layoutY="90.0" prefHeight="398.0" prefWidth="189.0" />
+                                <Text fill="RED" layoutX="418.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Overdue">
+                                    <font>
+                                        <Font name="Bodoni MT" size="30.0" />
+                                    </font>
+                                </Text>
+                            </children>
+                        </AnchorPane>
+                    </items>
+                </SplitPane>
+            </children>
+        </AnchorPane>
+    </center>
+    <left>
+        <AnchorPane prefHeight="619.0" prefWidth="299.0" BorderPane.alignment="CENTER">
+            <children>
+                <TilePane fx:id="menu_pane" layoutX="4.0" orientation="VERTICAL" prefHeight="619.0" prefWidth="412.0" style="-fx-background-color: #dcde54;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleButton" prefHeight="107.0" prefWidth="307.0" text="UserName">
+                            <graphic>
+                                <ImageView fitHeight="50.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
+                                </ImageView>
+                            </graphic>
+                            <font>
+                                <Font name="Berlin Sans FB" size="21.0" />
+                            </font>
+                        </Button>
+                    </children></TilePane>
+            </children>
+        </AnchorPane>
+    </left>
+</BorderPane>
