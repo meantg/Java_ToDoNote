@@ -114,7 +114,7 @@ public class MainController implements Initializable {
                             loadNotePane(categoryBox);
                         }
                     });
-                    done_note_box.getChildren().add(noteBox);
+                    note_box.getChildren().add(noteBox);
                 }
                 catch (SQLException e) {
                     e.printStackTrace();

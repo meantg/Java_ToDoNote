@@ -14,6 +14,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -68,7 +69,7 @@ public class LoginController implements Initializable {
                 tfUsername.requestFocus();
                 textLoginFail.setVisible(true);
             }
-        } catch (SQLException e) {
+        } catch (SQLException | IOException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Lỗi");
             alert.setHeaderText("Không thể đăng nhập!");

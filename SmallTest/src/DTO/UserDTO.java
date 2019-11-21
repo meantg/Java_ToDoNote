@@ -50,7 +50,7 @@ public class UserDTO {
         return soDienThoai;
     }
 
-    public  String getEmail() {
+    public String getEmail() {
         return Email;
     }
 }
