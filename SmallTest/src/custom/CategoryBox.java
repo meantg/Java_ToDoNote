@@ -20,6 +20,7 @@ public class CategoryBox extends HBox {
     private Label lbTitle;
     private Label lbNumOfNotes;
     private boolean isClicked = false;
+    private boolean isEditable = false;
     public CategoryBox(CategoryDTO category) throws SQLException {
         this.category = category;
 
@@ -46,8 +47,12 @@ public class CategoryBox extends HBox {
         this.setAlignment(Pos.CENTER_LEFT);
         this.setPadding(new Insets(10));
         this.getChildren().clear();
-        this.getChildren().addAll(lbIcon,lbTitle);
-        if(numOfNotes > 0) this.getChildren().add(lbNumOfNotes);
+        this.getChildren().addAll(lbIcon,lbTitle, lbNumOfNotes);
+        if (numOfNotes > 0) {
+            lbNumOfNotes.setVisible(true);
+        } else {
+            lbNumOfNotes.setVisible(false);
+        }
 
         /*
         this.setOnMouseEntered(e -> {
@@ -68,8 +73,21 @@ public class CategoryBox extends HBox {
                 new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
+    public void updateNumOfNotes() throws SQLException {
+        Integer numOfNotes = CategoryBUS.getNumOfNotesByMaPhanLoai(category.getMaPhanLoai());
+        lbNumOfNotes.setText(numOfNotes.toString());
+        if (numOfNotes > 0) {
+            lbNumOfNotes.setVisible(true);
+        } else {
+            lbNumOfNotes.setVisible(false);
+        }
+    }
+
     public CategoryDTO getCategory() {
         return category;
     }
-
+    public boolean isEditable() {return isEditable; }
+    public void setEditable(boolean b) {
+        isEditable = b;
+    }
 }

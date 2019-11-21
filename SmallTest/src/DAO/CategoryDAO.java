@@ -57,4 +57,19 @@ public class CategoryDAO {
         conn.close();
         return output;
     }
+
+    public static boolean insertCategory(CategoryDTO category) throws SQLException {
+        Connection conn = DBHelper.getConnection();
+        try {
+            String query = "INSERT INTO PhanLoai (MaNguoiDung, TenPhanLoai, Icon) VALUES (?,?,?)";
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setInt(1, category.getMaNguoiDung());
+            statement.setString(2, category.getTenPhanLoai());
+            statement.setString(3, category.getIcon());
+            int records = statement.executeUpdate();
+            return records > 0;
+        } finally {
+            conn.close();
+        }
+    }
 }

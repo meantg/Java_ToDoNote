@@ -2,6 +2,7 @@ package controller;
 
 import BUS.CategoryBUS;
 import BUS.NoteBUS;
+import DTO.CategoryDTO;
 import DTO.NoteDTO;
 import DTO.UserDTO;
 import custom.*;
@@ -33,45 +34,66 @@ public class MainController{
     BorderPane root;
 
     @FXML
-    Text lbIcon_Content;
-    @FXML
-    Text lbNameCategory_Content;
+    AnchorPane title_pane;
 
     @FXML
-    TilePane menu_pane;
+    VBox menu_pane;
 
     //UserDTO user -> userID = user.getID();
     private UserDTO user;
     private Pane pane;
+    private TilePane categoryPane;
 
     public void initialize(UserDTO user) {
-        menu_pane.getScene().getRoot().setOnMousePressed(e-> menu_pane.getScene().getRoot().requestFocus());
-        lbIcon_Content.getParent().setOnMousePressed(e->lbIcon_Content.getParent().requestFocus());
+        menu_pane.setOnMousePressed(e-> menu_pane.requestFocus());
+        title_pane.setOnMousePressed(e->title_pane.requestFocus());
         this.user = user;
-        loadMenu();
+        initMenu();
     }
 
-    public void loadContent(CategoryBox categoryBox) {
-        lbIcon_Content.setText(categoryBox.getCategory().getIcon());
-        lbNameCategory_Content.setText(categoryBox.getCategory().getTenPhanLoai());
-    }
 
-    public void loadMenu() {
+    public void initMenu() {
         menu_pane.getChildren().clear();
         menu_pane.getChildren().add(new UserBox(user));
+        categoryPane = new TilePane();
+        loadCategories();
+        menu_pane.getChildren().add(categoryPane);
+        CategoryBox categoryBox = (CategoryBox)categoryPane.getChildren().get(0);
+        loadNotePane(categoryBox);
+        loadTitlePane(categoryBox);
+        //Add New List
+        AddListBox addListBox = new AddListBox();
+        addListBox.setOnMouseClicked(e-> {
+            try {
+                CategoryBUS.insertCategory(new CategoryDTO(user.getMaNguoiDung(), "Untitled List", "☰"));
+                loadCategories();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        });
+        menu_pane.getChildren().add(addListBox);
+    }
+    public void loadTitlePane(CategoryBox categoryBox) {
+        title_pane.getChildren().clear();
+        title_pane.getChildren().add(new EditableCategoryBox(categoryBox));
+    }
+    public void loadCategories() {
         //Add categoryBox
+        categoryPane.getChildren().clear();
+
         try {
             ListCategory listCategory = new ListCategory(CategoryBUS.getListCategory(user.getMaNguoiDung()));
             listCategory.getList().stream().forEach(categoryBox -> {
-                loadNotePane(categoryBox);
                 categoryBox.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-                    loadContent(categoryBox);
+                    if(listCategory.getList().indexOf(categoryBox) > 2) {
+                        categoryBox.setEditable(true);
+                    }
                     loadNotePane(categoryBox);
+                    loadTitlePane(categoryBox);
                 });
-                menu_pane.getChildren().add(categoryBox);
+                categoryPane.getChildren().add(categoryBox);
             });
-            loadContent(listCategory.getList().get(0));
-            loadNotePane(listCategory.getList().get(0));
+
         }
         catch (SQLException SQLException) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -81,16 +103,6 @@ public class MainController{
             alert.showAndWait();
             SQLException.printStackTrace();
         }
-        //Add New List
-        menu_pane.getChildren().add(new AddListBox());
-        Button closeButton = new Button("Close");
-        closeButton.setOnAction(e->{
-            root.getChildren().remove(root.getRight());
-        });
-        pane = new Pane();
-        pane.getChildren().add(closeButton);
-        pane.setPrefWidth(120);
-        root.setRight(pane);
     }
 
     public void loadNotePane(CategoryBox categoryBox) {
@@ -109,7 +121,11 @@ public class MainController{
                         public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                             noteBox.changedStatus(note);
                             loadNotePane(categoryBox);
-                            loadMenu();
+                            try {
+                                categoryBox.updateNumOfNotes();
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
                         }
                     });
                     note_box.getChildren().add(noteBox);
@@ -129,7 +145,11 @@ public class MainController{
                         public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                             noteBox.changedStatus(note);
                             loadNotePane(categoryBox);
-                            loadMenu();
+                            try {
+                                categoryBox.updateNumOfNotes();
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
                         }
                     });
                     done_note_box.getChildren().add(noteBox);
@@ -142,8 +162,6 @@ public class MainController{
         catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-    public void handleButton() {
     }
 
 }

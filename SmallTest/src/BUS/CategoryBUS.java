@@ -18,4 +18,8 @@ public class CategoryBUS {
     public static String getTenPhanLoaiByMa(Integer maPhanLoai) throws SQLException {
         return CategoryDAO.getTenPhanLoaiByMa(maPhanLoai);
     }
+
+    public static boolean insertCategory(CategoryDTO category) throws SQLException {
+        return CategoryDAO.insertCategory(category);
+    }
 }

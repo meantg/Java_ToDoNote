@@ -46,9 +46,5 @@ public class AddListBox extends HBox {
                     new Background(new BackgroundFill(Color.valueOf("dcde54"), CornerRadii.EMPTY, Insets.EMPTY)));
         });
 
-        this.setOnMouseClicked(e -> {
-            System.out.println("Open popup");
-        });
-
     }
 }

@@ -5,3 +5,11 @@
 .text-field: hover{
     -fx-background-color: grey;
 }
+
+.label: hover{
+-fx-background-color: grey;
+}
+
+#mybox: hover {
+-fx-background-color: grey;
+}

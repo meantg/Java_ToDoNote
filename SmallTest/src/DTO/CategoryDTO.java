@@ -15,6 +15,12 @@ public class CategoryDTO {
         this.icon = icon;
     }
 
+    public CategoryDTO(Integer maNguoiDung, String tenPhanLoai, String icon) {
+        this.maNguoiDung = maNguoiDung;
+        this.tenPhanLoai = tenPhanLoai;
+        this.icon = icon;
+
+    }
     public Integer getMaPhanLoai() {
         return maPhanLoai;
     }

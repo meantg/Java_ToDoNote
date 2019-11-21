@@ -12,35 +12,54 @@ import javafx.scene.text.Font;
 
 public class EditableCategoryBox extends HBox {
     private IconPickerBox picker;
-    private TextField lbCategoryName;
-
-    public EditableCategoryBox() {
+    private TextField tfCategoryName;
+    private Label lbCategoryName;
+    private Label lbIcon;
+    public EditableCategoryBox(CategoryBox categoryBox) {
         IconPickerBox picker = new IconPickerBox();
-        picker.setPrefSize(70,10);
+        picker.setPrefSize(50,10);
         picker.setFont(Font.font("system", 20));
-        picker.setText("📝");
+        picker.setText(categoryBox.getCategory().getIcon());
+
+        lbIcon = new Label();
+        lbIcon.setPrefSize(50,10);
+        lbIcon.setPadding(new Insets(10));
+        lbIcon.setAlignment(Pos.CENTER);
+        lbIcon.setFont(Font.font("system", 20));
+        lbIcon.setText(categoryBox.getCategory().getIcon());
 /*
         if(picker.getText().isEmpty()) {
             picker.setVisible(false);
         }
 */
 
-        lbCategoryName = new TextField("Untitled List");
+        tfCategoryName = new TextField(categoryBox.getCategory().getTenPhanLoai());
+        tfCategoryName.setFont(Font.font("system", 20));
+        tfCategoryName.setPrefSize(180, 10);
+        tfCategoryName.setAlignment(Pos.CENTER_LEFT);
+        tfCategoryName.setOnMouseClicked(e-> {
+            if(tfCategoryName.isFocused())
+                tfCategoryName.selectAll();
+        });
+
+        lbCategoryName = new Label(categoryBox.getCategory().getTenPhanLoai());
+        lbCategoryName.setPadding(new Insets(10));
         lbCategoryName.setFont(Font.font("system", 20));
         lbCategoryName.setPrefSize(180, 10);
         lbCategoryName.setAlignment(Pos.CENTER_LEFT);
-        lbCategoryName.setOnMouseClicked(e-> {
-            if(lbCategoryName.isFocused())
-                lbCategoryName.selectAll();
-        });
-
 
         this.getStylesheets().add("custom/editableCategory.css");
+        this.setId("mybox");
         this.setPrefWidth(330);
         this.setAlignment(Pos.CENTER_LEFT);
         this.setPadding(new Insets(10));
         this.getChildren().clear();
-        this.getChildren().addAll(picker, lbCategoryName);
+        if(categoryBox.isEditable()) {
+            this.getChildren().addAll(picker, tfCategoryName);
+        }
+        else {
+            this.getChildren().addAll(lbIcon, lbCategoryName);
 
+        }
     }
 }

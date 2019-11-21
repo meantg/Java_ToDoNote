@@ -21,7 +21,7 @@ public class IconPickerBox extends MenuButton {
         TilePane pane = new TilePane();
         pane.setHgap(10);
         pane.setVgap(10);
-        pane.setPrefSize(80, 80);
+        pane.setPrefSize(150, 100);
         pane.setPadding(new Insets(0,0,10,0));
 
         List<String> list = new ArrayList<String>();
@@ -65,5 +65,6 @@ public class IconPickerBox extends MenuButton {
         CustomMenuItem item = new CustomMenuItem(contentPane);
         this.getStylesheets().add("custom/iconPicker.css");
         this.getItems().addAll(item);
+        this.hide();
     }
 }
