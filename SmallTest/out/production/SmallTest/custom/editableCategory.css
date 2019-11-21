@@ -1,0 +1,7 @@
+.text-field {
+    -fx-background-color: transparent;
+}
+
+.text-field: hover{
+    -fx-background-color: grey;
+}

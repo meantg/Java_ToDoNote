@@ -31,9 +31,10 @@ public class CategoryDAO {
 
     public static Integer getNumOfNotesByMaPhanLoai(Integer maPhanLoai) throws SQLException {
         Connection conn = DBHelper.getConnection();
-        String query = "SELECT COUNT(*) AS NumOfNotes FROM ToDo_Note WHERE MaPhanLoai = ?";
+        String query = "SELECT COUNT(*) AS NumOfNotes FROM ToDo_Note WHERE MaPhanLoai = ? And MaTinhTrang = ?";
         PreparedStatement statement = conn.prepareStatement(query);
         statement.setInt(1,maPhanLoai);
+        statement.setInt(2,12002);
         ResultSet rs = statement.executeQuery();
         Integer output = null;
         if(rs.next()) {

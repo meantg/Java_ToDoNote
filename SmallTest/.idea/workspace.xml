@@ -80,7 +80,7 @@
     <property name="OverrideImplement.combined" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/application" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/custom" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -88,14 +88,15 @@
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Third Year\App To-Do-Note\SmallTest\src\custom" />
+      <recent name="D:\Third Year\App To-Do-Note\SmallTest\src\application" />
+      <recent name="D:\Third Year\App To-Do-Note\SmallTest\lib" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Third Year\App To-Do-Note\SmallTest\src" />
       <recent name="D:\Third Year\App To-Do-Note\SmallTest\resources\images" />
       <recent name="D:\Third Year\App To-Do-Note\SmallTest\src\sample" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Third Year\App To-Do-Note\SmallTest\src\application" />
-      <recent name="D:\Third Year\App To-Do-Note\SmallTest\lib" />
     </key>
   </component>
   <component name="RunDashboard">

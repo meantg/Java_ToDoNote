@@ -12,8 +12,9 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("LoginForm.fxml"));
+        Scene scene = new Scene(root, 825, 522);
         primaryStage.setTitle("📚 Todo Note 📚");
-        primaryStage.setScene(new Scene(root, 825, 522));
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 
