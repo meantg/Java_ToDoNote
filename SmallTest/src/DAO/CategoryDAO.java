@@ -72,4 +72,16 @@ public class CategoryDAO {
             conn.close();
         }
     }
+
+    public static boolean updateCategory(CategoryDTO category) throws SQLException {
+        Connection conn = DBHelper.getConnection();
+        String query = "UPDATE PhanLoai SET TenPhanLoai = ?, Icon = ? WHERE MaPhanLoai = ?";
+        PreparedStatement statement = conn.prepareStatement(query);
+        statement.setString(1, category.getTenPhanLoai());
+        statement.setString(2, category.getIcon());
+        statement.setInt(3, category.getMaPhanLoai());
+        int records = statement.executeUpdate();
+        conn.close();
+        return records > 0;
+    }
 }

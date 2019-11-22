@@ -26,8 +26,6 @@ import java.util.ResourceBundle;
 public class MainController{
 
     @FXML
-    VBox done_note_box;
-    @FXML
     VBox note_box;
 
     @FXML
@@ -107,7 +105,6 @@ public class MainController{
 
     public void loadNotePane(CategoryBox categoryBox) {
         note_box.getChildren().clear();
-        done_note_box.getChildren().clear();
 
         try {
             List<NoteDTO> listNotes = NoteBUS.getToDoList(categoryBox.getCategory().getMaPhanLoai(), 12002);
@@ -152,7 +149,7 @@ public class MainController{
                             }
                         }
                     });
-                    done_note_box.getChildren().add(noteBox);
+                    note_box.getChildren().add(noteBox);
                 }
                 catch (SQLException e) {
                     e.printStackTrace();

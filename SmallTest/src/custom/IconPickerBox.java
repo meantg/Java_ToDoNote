@@ -2,6 +2,7 @@ package custom;
 
 import com.sun.javafx.scene.control.skin.ColorPalette;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.MenuButton;
@@ -26,7 +27,7 @@ public class IconPickerBox extends MenuButton {
 
         List<String> list = new ArrayList<String>();
         list.add("🔍");
-        list.add("B");
+        list.add("🛒");
         list.add("C");
         list.add("D");
         list.add("E");
@@ -65,6 +66,7 @@ public class IconPickerBox extends MenuButton {
         CustomMenuItem item = new CustomMenuItem(contentPane);
         this.getStylesheets().add("custom/iconPicker.css");
         this.getItems().addAll(item);
+        this.setAlignment(Pos.CENTER);
         this.hide();
     }
 }

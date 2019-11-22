@@ -4,8 +4,9 @@
     -fx-background-insets: 0 0 0 0, 0;
 }
 
-.menu-button .label {
-    -fx-background-color:  #dcde54;
+.menu-button {
+    -fx-background-color:transparent;
+    -fx-padding: 0em 0em 0em 0em;
 }
 .menu-item {
     -fx-background-color: transparent;
@@ -20,6 +21,7 @@
 .scroll-bar: vertical{
     -fx-background-color:transparent;
 }
+
 .increment-button, .decrement-button {
     -fx-background-color: transparent;
     -fx-border-color: transparent;

@@ -22,4 +22,8 @@ public class CategoryBUS {
     public static boolean insertCategory(CategoryDTO category) throws SQLException {
         return CategoryDAO.insertCategory(category);
     }
+
+    public static boolean updateCategory(CategoryDTO category) throws SQLException {
+        return CategoryDAO.updateCategory(category);
+    }
 }

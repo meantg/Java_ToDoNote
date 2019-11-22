@@ -1,5 +1,6 @@
 .text-field {
     -fx-background-color: transparent;
+    -fx-padding: 5 5 5 5;
 }
 
 .text-field: hover{
@@ -7,9 +8,13 @@
 }
 
 .label: hover{
--fx-background-color: grey;
+    -fx-background-color: grey;
+}
+
+.label {
+    -fx-padding: 5 5 5 5;
 }
 
 #mybox: hover {
--fx-background-color: grey;
+    -fx-background-color: grey;
 }

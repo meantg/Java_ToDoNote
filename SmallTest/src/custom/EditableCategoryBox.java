@@ -1,5 +1,6 @@
 package custom;
 
+import BUS.CategoryBUS;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
@@ -9,6 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 
+import java.sql.SQLException;
+
 
 public class EditableCategoryBox extends HBox {
     private IconPickerBox picker;
@@ -16,15 +19,14 @@ public class EditableCategoryBox extends HBox {
     private Label lbCategoryName;
     private Label lbIcon;
     public EditableCategoryBox(CategoryBox categoryBox) {
-        IconPickerBox picker = new IconPickerBox();
-        picker.setPrefSize(50,10);
+        picker = new IconPickerBox();
         picker.setFont(Font.font("system", 20));
+        picker.setPadding(new Insets(5));
         picker.setText(categoryBox.getCategory().getIcon());
 
         lbIcon = new Label();
-        lbIcon.setPrefSize(50,10);
-        lbIcon.setPadding(new Insets(10));
-        lbIcon.setAlignment(Pos.CENTER);
+        lbIcon.setAlignment(Pos.CENTER_LEFT);
+        lbIcon.setPadding(new Insets(5));
         lbIcon.setFont(Font.font("system", 20));
         lbIcon.setText(categoryBox.getCategory().getIcon());
 /*
@@ -41,10 +43,28 @@ public class EditableCategoryBox extends HBox {
             if(tfCategoryName.isFocused())
                 tfCategoryName.selectAll();
         });
+        tfCategoryName.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(!tfCategoryName.isFocused())
+                    requestFocus();
+            }
+        });
 
+        this.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(isFocused()) {
+                    System.out.println("focus box");
+                }
+                else {
+                    System.out.println("unfocus");
+                }
+            }
+        });
         lbCategoryName = new Label(categoryBox.getCategory().getTenPhanLoai());
-        lbCategoryName.setPadding(new Insets(10));
         lbCategoryName.setFont(Font.font("system", 20));
+        lbCategoryName.setPadding(new Insets(10));
         lbCategoryName.setPrefSize(180, 10);
         lbCategoryName.setAlignment(Pos.CENTER_LEFT);
 
@@ -60,6 +80,20 @@ public class EditableCategoryBox extends HBox {
         else {
             this.getChildren().addAll(lbIcon, lbCategoryName);
 
+        }
+    }
+
+    public void updateCategory(CategoryBox categoryBox) throws SQLException {
+        CategoryBUS.updateCategory(categoryBox.getCategory());
+    }
+
+    public void setEditable(boolean flags) {
+        this.getChildren().clear();
+        if(flags) {
+            this.getChildren().addAll(picker, tfCategoryName);
+        }
+        else {
+            this.getChildren().addAll(lbIcon, lbCategoryName);
         }
     }
 }
