@@ -8,6 +8,7 @@ import DTO.UserDTO;
 import custom.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -41,6 +42,7 @@ public class MainController{
     private UserDTO user;
     private Pane pane;
     private TilePane categoryPane;
+    private CategoryBox curCategoryBox;
 
     public void initialize(UserDTO user) {
         menu_pane.setOnMousePressed(e-> menu_pane.requestFocus());
@@ -56,9 +58,9 @@ public class MainController{
         categoryPane = new TilePane();
         loadCategories();
         menu_pane.getChildren().add(categoryPane);
-        CategoryBox categoryBox = (CategoryBox)categoryPane.getChildren().get(0);
-        loadNotePane(categoryBox);
-        loadTitlePane(categoryBox);
+        curCategoryBox = (CategoryBox)categoryPane.getChildren().get(0);
+        loadNotePane();
+        loadTitlePane();
         //Add New List
         AddListBox addListBox = new AddListBox();
         addListBox.setOnMouseClicked(e-> {
@@ -71,9 +73,9 @@ public class MainController{
         });
         menu_pane.getChildren().add(addListBox);
     }
-    public void loadTitlePane(CategoryBox categoryBox) {
+    public void loadTitlePane() {
         title_pane.getChildren().clear();
-        title_pane.getChildren().add(new EditableCategoryBox(categoryBox));
+        title_pane.getChildren().add(new EditableCategoryBox(curCategoryBox));
     }
     public void loadCategories() {
         //Add categoryBox
@@ -83,12 +85,14 @@ public class MainController{
             ListCategory listCategory = new ListCategory(CategoryBUS.getListCategory(user.getMaNguoiDung()));
             listCategory.getList().stream().forEach(categoryBox -> {
                 categoryBox.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                    curCategoryBox = categoryBox;
                     if(listCategory.getList().indexOf(categoryBox) > 2) {
                         categoryBox.setEditable(true);
                     }
-                    loadNotePane(categoryBox);
-                    loadTitlePane(categoryBox);
+                    loadNotePane();
+                    loadTitlePane();
                 });
+                categoryBox.setUserData(reloadMenuPane);
                 categoryPane.getChildren().add(categoryBox);
             });
 
@@ -103,11 +107,11 @@ public class MainController{
         }
     }
 
-    public void loadNotePane(CategoryBox categoryBox) {
+    public void loadNotePane() {
         note_box.getChildren().clear();
 
         try {
-            List<NoteDTO> listNotes = NoteBUS.getToDoList(categoryBox.getCategory().getMaPhanLoai(), 12002);
+            List<NoteDTO> listNotes = NoteBUS.getToDoList(curCategoryBox.getCategory().getMaPhanLoai(), 12002);
             listNotes.stream().forEach(note -> {
 
                 try {
@@ -117,9 +121,9 @@ public class MainController{
                         @Override
                         public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                             noteBox.changedStatus(note);
-                            loadNotePane(categoryBox);
+                            loadNotePane();
                             try {
-                                categoryBox.updateNumOfNotes();
+                                curCategoryBox.updateNumOfNotes();
                             } catch (SQLException e) {
                                 e.printStackTrace();
                             }
@@ -131,7 +135,7 @@ public class MainController{
                     e.printStackTrace();
                 }
             });
-            List<NoteDTO> listFinishedNotes = NoteBUS.getToDoList(categoryBox.getCategory().getMaPhanLoai(), 12001);
+            List<NoteDTO> listFinishedNotes = NoteBUS.getToDoList(curCategoryBox.getCategory().getMaPhanLoai(), 12001);
             listFinishedNotes.stream().forEach(note -> {
                 try {
                     NoteBox noteBox = new NoteBox(note);
@@ -141,9 +145,9 @@ public class MainController{
                         @Override
                         public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                             noteBox.changedStatus(note);
-                            loadNotePane(categoryBox);
+                            loadNotePane();
                             try {
-                                categoryBox.updateNumOfNotes();
+                                curCategoryBox.updateNumOfNotes();
                             } catch (SQLException e) {
                                 e.printStackTrace();
                             }
@@ -161,4 +165,23 @@ public class MainController{
         }
     }
 
+
+    Runnable reloadMenuPane = () -> {
+        ObservableList list = categoryPane.getChildren();
+        int curIndex = list.indexOf(curCategoryBox);
+        loadCategories();
+        curCategoryBox = (CategoryBox)categoryPane.getChildren().get((curIndex -1));
+        curCategoryBox.requestFocus();
+        loadNotePane();
+        loadTitlePane();
+
+    };
+
+    Runnable reloadTitlePane = () -> {
+        loadTitlePane();
+    };
+
+    Runnable reloadNotePane = () -> {
+        loadNotePane();
+    };
 }

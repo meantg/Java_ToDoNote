@@ -84,4 +84,16 @@ public class CategoryDAO {
         conn.close();
         return records > 0;
     }
+
+    public static boolean deleteCategory(Integer maPhanLoai) throws SQLException {
+        Connection conn = DBHelper.getConnection();
+        try {
+            String query = "DELETE FROM PhanLoai WHERE MaPhanLoai = " + maPhanLoai;
+            Statement statement = conn.createStatement();
+            int records = statement.executeUpdate(query);
+            return records > 0;
+        } finally {
+            conn.close();
+        }
+    }
 }

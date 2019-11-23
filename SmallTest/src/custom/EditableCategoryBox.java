@@ -1,6 +1,7 @@
 package custom;
 
 import BUS.CategoryBUS;
+import com.sun.javafx.tk.FontMetrics;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
@@ -9,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 import java.sql.SQLException;
 
@@ -35,22 +37,43 @@ public class EditableCategoryBox extends HBox {
         }
 */
 
+        Font font = Font.font("system", 20);
         tfCategoryName = new TextField(categoryBox.getCategory().getTenPhanLoai());
-        tfCategoryName.setFont(Font.font("system", 20));
-        tfCategoryName.setPrefSize(180, 10);
+        tfCategoryName.setFont(font);
+        tfCategoryName.setPrefHeight(10);
+        tfCategoryName.setMinWidth(20);
+        computeWidth();
         tfCategoryName.setAlignment(Pos.CENTER_LEFT);
         tfCategoryName.setOnMouseClicked(e-> {
-            if(tfCategoryName.isFocused())
+            if(tfCategoryName.isFocused()) {
                 tfCategoryName.selectAll();
+                picker.setId("menubutton");
+                this.setId("mybox");
+            }
+        });
+
+        tfCategoryName.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                computeWidth();
+            }
         });
         tfCategoryName.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if(!tfCategoryName.isFocused())
-                    requestFocus();
+                if(!tfCategoryName.isFocused() && !picker.isFocused()) {
+                    System.out.println("Update note");
+                }
             }
         });
-
+        picker.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(!picker.isFocused() && !tfCategoryName.isFocused()) {
+                    System.out.println("Update");
+                }
+            }
+        });
         this.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
@@ -65,14 +88,12 @@ public class EditableCategoryBox extends HBox {
         lbCategoryName = new Label(categoryBox.getCategory().getTenPhanLoai());
         lbCategoryName.setFont(Font.font("system", 20));
         lbCategoryName.setPadding(new Insets(10));
-        lbCategoryName.setPrefSize(180, 10);
+        lbCategoryName.setPrefHeight(10);
         lbCategoryName.setAlignment(Pos.CENTER_LEFT);
 
         this.getStylesheets().add("custom/editableCategory.css");
-        this.setId("mybox");
-        this.setPrefWidth(330);
+        //this.setPrefWidth(330);
         this.setAlignment(Pos.CENTER_LEFT);
-        this.setPadding(new Insets(10));
         this.getChildren().clear();
         if(categoryBox.isEditable()) {
             this.getChildren().addAll(picker, tfCategoryName);
@@ -87,6 +108,11 @@ public class EditableCategoryBox extends HBox {
         CategoryBUS.updateCategory(categoryBox.getCategory());
     }
 
+    public void computeWidth() {
+        Text t = new Text(tfCategoryName.getText());
+        t.setFont(Font.font("system", 20));
+        tfCategoryName.setPrefWidth(t.getLayoutBounds().getWidth() + 12);
+    }
     public void setEditable(boolean flags) {
         this.getChildren().clear();
         if(flags) {

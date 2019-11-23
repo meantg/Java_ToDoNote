@@ -2,6 +2,8 @@ package custom;
 
 import BUS.CategoryBUS;
 import DTO.CategoryDTO;
+import controller.MainController;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -17,6 +19,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.sql.SQLException;
@@ -68,19 +71,16 @@ public class CategoryBox extends HBox {
         MenuItem item1 = new MenuItem("Delete");
         item1.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
-                editCategoryBox();
-            }
-        });
-        contextMenu.getItems().addAll(item1);
-
-        this.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (event.isSecondaryButtonDown()) {
-                    showContextMenu(event);
+                try {
+                    CategoryBUS.deleteCategory(getCategory().getMaPhanLoai());
+                    Runnable reloadMenuPane = (Runnable) getUserData();
+                    reloadMenuPane.run();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
                 }
             }
         });
+        contextMenu.getItems().addAll(item1);
 
         /*
         this.setOnMouseEntered(e -> {
@@ -128,5 +128,15 @@ public class CategoryBox extends HBox {
     public boolean isEditable() {return isEditable; }
     public void setEditable(boolean b) {
         isEditable = b;
+
+        this.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.isSecondaryButtonDown()) {
+                    showContextMenu(event);
+                }
+            }
+        });
+
     }
 }
