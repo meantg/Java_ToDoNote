@@ -30,6 +30,7 @@ public class NoteDTO {
         this.noiDung = noiDung;
     }
 
+
     public Integer getMaNote() {
         return maNote;
     }

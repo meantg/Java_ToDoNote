@@ -112,7 +112,7 @@ public class MainController{
                     NoteBox noteBox = new NoteBox(note);
                     noteBox.setOnMouseClicked(e-> {
                         root.setRight(pane);
-                        System.out.print(note.getMaNote());
+                        System.out.print(note.getTieuDe());
                     });
                     CheckBox checkBox = (CheckBox)noteBox.getCheckBtn();
                     checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {

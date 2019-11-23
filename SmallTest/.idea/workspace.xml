@@ -2,41 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/../.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/Java_ToDoNote.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SmallTest/application/editNote.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SmallTest/controller/editNoteController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/application/editNote.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controller/editNoteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_5_1_48_bin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_5_1_48_bin.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SmallTest/application/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SmallTest/application/MainController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SmallTest/application/todo_main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SmallTest/application/todo_main.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SmallTest/controller/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SmallTest/controller/LoginController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SmallTest/controller/MainController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SmallTest/controller/MainController$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SmallTest/controller/MainController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SmallTest/controller/MainController$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SmallTest/application/editNote.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SmallTest/application/editNote.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/SmallTest/controller/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SmallTest/controller/MainController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SmallTest/helper/DBHelper.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SmallTest/helper/DBHelper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SmallTest/sample/Controller.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SmallTest/sample/CustomControl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SmallTest/sample/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SmallTest/sample/customControl.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SmallTest/sample/sample.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DTO/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DTO/UserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/application/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/application/todo_main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/todo_main.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SmallTest/controller/editNoteController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SmallTest/controller/editNoteController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BUS/NoteBUS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BUS/NoteBUS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/NoteDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/NoteDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DTO/NoteDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DTO/NoteDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/application/editNote.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/editNote.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/helper/DBHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/helper/DBHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Controller.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/CustomControl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/customControl.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/sample.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/editNoteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/editNoteController.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -123,10 +98,7 @@
     <property name="OverrideImplement.combined" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/application" />
-    <property name="project.structure.last.edited" value="SDKs" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/mysql-connector-java-5.1.48-bin.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -134,14 +106,14 @@
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Third Year\App To-Do-Note\SmallTest\src\application" />
+      <recent name="D:\Third Year\App To-Do-Note\SmallTest\lib" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Third Year\App To-Do-Note\SmallTest\src" />
       <recent name="D:\Third Year\App To-Do-Note\SmallTest\resources\images" />
       <recent name="D:\Third Year\App To-Do-Note\SmallTest\src\sample" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Third Year\App To-Do-Note\SmallTest\src\application" />
-      <recent name="D:\Third Year\App To-Do-Note\SmallTest\lib" />
     </key>
   </component>
   <component name="RunDashboard">

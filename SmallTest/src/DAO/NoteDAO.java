@@ -8,7 +8,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class NoteDAO {
@@ -57,6 +59,28 @@ public class NoteDAO {
         PreparedStatement statement = conn.prepareStatement(query);
         statement.setInt(1, maTinhTrang);
         statement.setInt(2, maNote);
+        int records = statement.executeUpdate();
+        conn.close();
+        return records > 0;
+    }
+
+    public static boolean insertNote(NoteDTO noteDTO) throws SQLException {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        Connection conn = DBHelper.getConnection();
+        String query = "INSERT INTO `todolist`.`todo_note` (" +
+                "`MaPhanLoai`, " +
+                "`TieuDe`, " +
+                "`NoiDung`, " +
+                "`MaTinhTrang`, " +
+                "`NgayTao`) " +
+                "VALUES (?, ?, ?, ?, ?)";
+        PreparedStatement statement = conn.prepareStatement(query);
+        statement.setInt(1,noteDTO.getMaPhanLoai());
+        statement.setString(2, noteDTO.getTieuDe());
+        statement.setString(3, noteDTO.getNoiDung());
+        statement.setInt(4, noteDTO.getMaTinhTrang());
+        statement.setString(5,formatter.format(date);
         int records = statement.executeUpdate();
         conn.close();
         return records > 0;
