@@ -85,4 +85,24 @@ public class NoteDAO {
         conn.close();
         return records > 0;
     }
+
+    public static boolean updateNote(NoteDTO noteDTO) throws SQLException{
+        Connection conn = DBHelper.getConnection();
+        String query = "UPDATE `todolist`.`todo_note` SET  " +
+                "`MaPhanLoai` = ?"+
+                "`TieuDe` = ?" +
+                "`NoiDung` = ?" +
+                "`MaTinhTrang` = ?" +
+                "WHERE (`MaNote` = '?')";
+        PreparedStatement statement = conn.prepareStatement(query);
+        statement.setInt(1,noteDTO.getMaPhanLoai());
+        statement.setString(2,noteDTO.getTieuDe());
+        statement.setString(3,noteDTO.getNoiDung());
+        statement.setInt(4,noteDTO.getMaTinhTrang());
+        statement.setInt(5,noteDTO.getMaNote());
+        int records = statement.executeUpdate();
+        conn.close();
+        return records > 0;
+
+    }
 }
