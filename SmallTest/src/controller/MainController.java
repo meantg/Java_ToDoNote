@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
+import java.awt.geom.NoninvertibleTransformException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -40,7 +41,9 @@ public class MainController{
     //UserDTO user -> userID = user.getID();
     private UserDTO user;
     private Pane pane;
+    private NoteDTO selectedNote;
 
+    public NoteDTO getselectedNoteDTO(){return selectedNote;}
 
     public void initialize(UserDTO user) throws IOException {
         menu_pane.getScene().getRoot().setOnMousePressed(e-> menu_pane.getScene().getRoot().requestFocus());
@@ -82,22 +85,16 @@ public class MainController{
         //Add New List
         menu_pane.getChildren().add(new AddListBox());
 
+
+
+    }
+    public void loadeditNote(NoteDTO noteDTO) throws IOException {
         Button closeButton = new Button("Close");
         closeButton.setOnAction(e->{
             root.getChildren().remove(root.getRight());
         });
 
         //CustomPane
-        pane = new Pane();
-        Pane newLoadedPane =  FXMLLoader.load(getClass().getResource("/application/editNote.fxml"));
-        pane.getChildren().add(newLoadedPane);
-        pane.getChildren().add(closeButton);
-        pane.setPrefWidth(400);
-        root.setRight(pane);
-
-    }
-
-    public void loadeditNote(NoteDTO noteDTO){
 
     }
 
@@ -107,12 +104,22 @@ public class MainController{
         try {
             List<NoteDTO> listNotes = NoteBUS.getToDoList(categoryBox.getCategory().getMaPhanLoai(), 12002);
             listNotes.stream().forEach(note -> {
-
                 try {
                     NoteBox noteBox = new NoteBox(note);
                     noteBox.setOnMouseClicked(e-> {
-                        root.setRight(pane);
+                        FXMLLoader loader = new FXMLLoader();
+                        loader.setLocation(getClass().getResource("/application/editNote.fxml"));
+                        try {
+                            pane = loader.load();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                        editNoteController editNoteController = loader.getController();
+                        editNoteController.loadNote(note);
+                        pane.setPrefWidth(400);
+
                         System.out.print(note.getTieuDe());
+                        System.out.println(selectedNote.getTieuDe());
                     });
                     CheckBox checkBox = (CheckBox)noteBox.getCheckBtn();
                     checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
@@ -139,6 +146,16 @@ public class MainController{
             listFinishedNotes.stream().forEach(note -> {
                 try {
                     NoteBox noteBox = new NoteBox(note);
+                    noteBox.setOnMouseClicked(e-> {
+                        selectedNote = note;
+                        try {
+                            loadeditNote(note);
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                        System.out.print(note.getTieuDe());
+                    });
+
                     CheckBox checkBox = (CheckBox)noteBox.getCheckBtn();
                     checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
                         @Override

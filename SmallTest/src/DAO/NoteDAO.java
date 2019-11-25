@@ -80,7 +80,7 @@ public class NoteDAO {
         statement.setString(2, noteDTO.getTieuDe());
         statement.setString(3, noteDTO.getNoiDung());
         statement.setInt(4, noteDTO.getMaTinhTrang());
-        statement.setString(5,formatter.format(date);
+        statement.setString(5,formatter.format(date));
         int records = statement.executeUpdate();
         conn.close();
         return records > 0;
