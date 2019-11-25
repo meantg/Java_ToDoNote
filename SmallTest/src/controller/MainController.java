@@ -44,6 +44,7 @@ public class MainController{
     private UserDTO user;
     private Pane pane;
     private TilePane categoryPane;
+    private ListCategory listCategory;
     private CategoryBox curCategoryBox;
     private NoteBox curNoteBox;
 
@@ -63,7 +64,8 @@ public class MainController{
         categoryPane = new TilePane();
         loadCategories();
         menu_pane.getChildren().add(categoryPane);
-        curCategoryBox = (CategoryBox)categoryPane.getChildren().get(0);
+        curCategoryBox = listCategory.getList().get(0);
+
         loadNotePane();
         loadTitlePane();
         //Add New List
@@ -71,7 +73,8 @@ public class MainController{
         addListBox.setOnMouseClicked(e-> {
             try {
                 CategoryBUS.insertCategory(new CategoryDTO(user.getMaNguoiDung(), "Untitled List", "☰"));
-                loadCategories();
+                reloadMenuPane.run();
+
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -81,14 +84,16 @@ public class MainController{
     }
     public void loadTitlePane() {
         title_pane.getChildren().clear();
-        title_pane.getChildren().add(new EditableCategoryBox(curCategoryBox));
+        EditableCategoryBox editBox = new EditableCategoryBox(curCategoryBox);
+        editBox.setUserData(reloadMenuPane);
+        title_pane.getChildren().add(editBox);
     }
     public void loadCategories() {
         //Add categoryBox
         categoryPane.getChildren().clear();
 
         try {
-            ListCategory listCategory = new ListCategory(CategoryBUS.getListCategory(user.getMaNguoiDung()));
+            listCategory = new ListCategory(CategoryBUS.getListCategory(user.getMaNguoiDung()));
             listCategory.getList().stream().forEach(categoryBox -> {
                 categoryBox.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
                     curCategoryBox = categoryBox;
@@ -98,7 +103,8 @@ public class MainController{
                     loadNotePane();
                     loadTitlePane();
                 });
-                categoryBox.setUserData(reloadMenuPane);
+                categoryBox.setUserData(deleteCategoryBox);
+                categoryBox.getChildren().get(0).setUserData(reloadMenuPane);
                 categoryPane.getChildren().add(categoryBox);
             });
 
@@ -165,7 +171,26 @@ public class MainController{
             listFinishedNotes.stream().forEach(note -> {
                 try {
                     NoteBox noteBox = new NoteBox(note);
-                    noteBox.setOnMouseClicked(e-> root.setRight(pane));
+                    noteBox.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+                        if(root.getRight() != null && noteBox == curNoteBox) {
+                            root.getChildren().remove(root.getRight());
+                        }
+                        else {
+                            try {
+                                FXMLLoader loader = new FXMLLoader();
+                                loader.setLocation(getClass().getResource("/application/EditPane.fxml"));
+                                pane = loader.load();
+                                EditPaneController editPaneController = loader.getController();
+                                editPaneController.loadNote(note);
+                                pane.setPrefWidth(400);
+                            } catch (IOException exception) {
+                                System.out.println("Can't load fxml file");
+                                exception.printStackTrace();
+                            }
+                            root.setRight(pane);
+                        }
+                        curNoteBox = noteBox;
+                    });
                     CheckBox checkBox = (CheckBox)noteBox.getCheckBtn();
                     checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
                         @Override
@@ -193,14 +218,22 @@ public class MainController{
 
 
     Runnable reloadMenuPane = () -> {
-        ObservableList list = categoryPane.getChildren();
-        int curIndex = list.indexOf(curCategoryBox);
+        int curIndex = listCategory.getList().indexOf(curCategoryBox);
         loadCategories();
-        curCategoryBox = (CategoryBox)categoryPane.getChildren().get((curIndex -1));
-        curCategoryBox.requestFocus();
+        curCategoryBox = listCategory.getList().get((curIndex));
+        listCategory.setCurCategory(curCategoryBox);
         loadNotePane();
         loadTitlePane();
+    };
 
+    Runnable deleteCategoryBox = () -> {
+        int curIndex = listCategory.getList().indexOf(curCategoryBox);
+        loadCategories();
+        curCategoryBox = listCategory.getList().get((curIndex -1));
+        curCategoryBox.requestFocus();
+        listCategory.setCurCategory(curCategoryBox);
+        loadTitlePane();
+        loadNotePane();
     };
 
     Runnable reloadTitlePane = () -> {

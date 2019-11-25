@@ -9,14 +9,9 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -67,9 +62,32 @@ public class CategoryBox extends HBox {
 
 
         contextMenu = new ContextMenu();
-        contextMenu.setPrefWidth(300);
-        MenuItem item1 = new MenuItem("Delete");
-        item1.setOnAction(new EventHandler<ActionEvent>() {
+        VBox contentItems = new VBox();
+        contentItems.setPrefWidth(300);
+        Button b = new Button("Delete");
+        b.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    CategoryBUS.deleteCategory(getCategory().getMaPhanLoai());
+                    Runnable deleteCategoryBox = (Runnable) getUserData();
+                    deleteCategoryBox.run();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        Button b2 = new Button("Rename");
+        b2.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Rename");
+                CreateEditCategoryBox();
+            }
+        });
+        contentItems.getChildren().addAll(b2, b);
+        CustomMenuItem item = new CustomMenuItem(contentItems);
+/*        item1.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
                 try {
                     CategoryBUS.deleteCategory(getCategory().getMaPhanLoai());
@@ -79,30 +97,20 @@ public class CategoryBox extends HBox {
                     ex.printStackTrace();
                 }
             }
-        });
-        contextMenu.getItems().addAll(item1);
-
-        /*
-        this.setOnMouseEntered(e -> {
-            this.setBackground(
-                    new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
-        });
-
-        this.setOnMouseExited(e -> {
-            if(!isClicked)
-            this.setBackground(
-                    new Background(new BackgroundFill(Color.rgb(244, 244, 244), CornerRadii.EMPTY, Insets.EMPTY)));
-        });
-        */
+        });*/
+        contextMenu.getItems().addAll(item);
     }
 
     public void showContextMenu(MouseEvent event) {
-        contextMenu.show(this, Side.TOP, event.getSceneX(), 0);
+        contextMenu.show(this, Side.TOP, 10, 0);
     }
-    public void editCategoryBox() {
+    public void CreateEditCategoryBox() {
         //TODO: set auto focus textfield
+        Runnable reloadMenuPane = (Runnable) getChildren().get(0).getUserData();
         EditableCategoryBox editableCategoryBox = new EditableCategoryBox(this);
         editableCategoryBox.setEditable(true);
+        editableCategoryBox.setFocusTextfield();
+        editableCategoryBox.setUserData(reloadMenuPane);
         this.getChildren().clear();
         this.getChildren().add(editableCategoryBox);
     }
@@ -126,8 +134,8 @@ public class CategoryBox extends HBox {
         return category;
     }
     public boolean isEditable() {return isEditable; }
-    public void setEditable(boolean b) {
-        isEditable = b;
+    public void setEditable(boolean flag) {
+        isEditable = flag;
 
         this.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override

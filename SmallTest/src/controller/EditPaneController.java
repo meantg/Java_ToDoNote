@@ -7,10 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -34,6 +31,8 @@ public class EditPaneController {
     TextArea ta_editNote_NoteDiscription;
     @FXML
     MenuButton mb_editNote_Category;
+    @FXML
+    CheckBox btnCheck;
 
     private NoteDTO noteDTO;
 
@@ -41,6 +40,12 @@ public class EditPaneController {
     }
 
     public void loadNote(NoteDTO noteDTO) {
+        if(noteDTO.getMaTinhTrang().toString().equals("12002")) {
+            btnCheck.setSelected(false);
+        }
+        else {
+            btnCheck.setSelected(true);
+        }
         this.noteDTO = noteDTO;
         tf_editNote_NoteName.setText(noteDTO.getTieuDe());
         ta_editNote_NoteDiscription.setText(noteDTO.getNoiDung());

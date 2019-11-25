@@ -38,4 +38,10 @@ public class ListCategory {
     public List<CategoryBox> getList() {
         return listCategory;
     }
+
+    public void setCurCategory(CategoryBox categoryBox) {
+        curCategory.changeBackgroundColor(Color.valueOf("dcde54"));
+        curCategory = categoryBox;
+        curCategory.changeBackgroundColor(Color.LIGHTGRAY);
+    }
 }

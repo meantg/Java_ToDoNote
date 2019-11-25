@@ -34,4 +34,8 @@ public class CategoryDTO {
     public String getIcon() {
         return icon;
     }
+
+    public void setTenPhanLoai(String tenPhanLoai) { this.tenPhanLoai = tenPhanLoai; }
+
+    public void setIcon(String icon) { this.icon = icon; }
 }

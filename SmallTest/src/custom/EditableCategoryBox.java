@@ -1,6 +1,7 @@
 package custom;
 
 import BUS.CategoryBUS;
+import DTO.CategoryDTO;
 import com.sun.javafx.tk.FontMetrics;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -61,7 +62,22 @@ public class EditableCategoryBox extends HBox {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if(!tfCategoryName.isFocused() && !picker.isFocused()) {
-                    System.out.println("Update note");
+                    try {
+                        CategoryDTO category = categoryBox.getCategory();
+                        if(picker.getText() == null) {
+                            category.setIcon("☰");
+                        }
+                        else {
+                            category.setIcon(picker.getText());
+                        }
+                        category.setTenPhanLoai(tfCategoryName.getText());
+                        CategoryBUS.updateCategory(category);
+                        Runnable reloadMenuPane = (Runnable) getUserData();
+                        reloadMenuPane.run();
+                    } catch (SQLException e) {
+                        System.out.println("UPDATE FAILED");
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -69,7 +85,23 @@ public class EditableCategoryBox extends HBox {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if(!picker.isFocused() && !tfCategoryName.isFocused()) {
-                    System.out.println("Update");
+                    try {
+                        CategoryDTO category = categoryBox.getCategory();
+                        if(picker.getText() == null) {
+                            category.setIcon("☰");
+                        }
+                        else
+                        {
+                            category.setIcon(picker.getText());
+                        }
+                        category.setTenPhanLoai(tfCategoryName.getText());
+                        CategoryBUS.updateCategory(category);
+                        Runnable reloadMenuPane = (Runnable) getUserData();
+                        reloadMenuPane.run();
+                    } catch (SQLException e) {
+                        System.out.println("UPDATE FAILED");
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -107,11 +139,15 @@ public class EditableCategoryBox extends HBox {
         CategoryBUS.updateCategory(categoryBox.getCategory());
     }
 
+    public void setFocusTextfield() {
+        tfCategoryName.requestFocus();
+    }
     public void computeWidth() {
         Text t = new Text(tfCategoryName.getText());
         t.setFont(Font.font("system", 20));
         tfCategoryName.setPrefWidth(t.getLayoutBounds().getWidth() + 12);
     }
+
     public void setEditable(boolean flags) {
         this.getChildren().clear();
         if(flags) {

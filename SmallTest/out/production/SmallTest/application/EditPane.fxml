@@ -32,7 +32,7 @@
                 </Button>
             </children>
         </HBox>
-        <CheckBox fx:id="cb_editNote_isDone" layoutX="37.0" layoutY="59.0" mnemonicParsing="false" />
+        <CheckBox fx:id="btnCheck" layoutX="37.0" layoutY="59.0" mnemonicParsing="false" stylesheets="@../custom/styles.css" />
         <TextField fx:id="tf_editNote_NoteName" layoutX="65.0" layoutY="54.0" text="NoteName" />
         <MenuButton fx:id="mb_editNote_Icon" layoutX="85.0" layoutY="88.0" mnemonicParsing="false" text="MenuButton">
             <items>

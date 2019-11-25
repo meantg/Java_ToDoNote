@@ -4,6 +4,7 @@ import BUS.CategoryBUS;
 import BUS.NoteBUS;
 import DTO.NoteDTO;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
@@ -15,7 +16,7 @@ import java.sql.SQLException;
 public class NoteBox extends HBox {
     private CheckBox checkBtn;
     private Label lbTitle;
-    private Label lbCategory;
+    private Label lbDescription;
     private enum TinhTrang{
         DONE(12001),
         WORKING(12002);
@@ -32,23 +33,28 @@ public class NoteBox extends HBox {
         this.getStylesheets().add("custom/styles.css");
         checkBtn = new CheckBox();
         checkBtn.setSelected(note.getMaTinhTrang() == 12001 ? true : false);
-        checkBtn.setPrefSize(30,40);
+        checkBtn.setPrefSize(30,30);
 
-        VBox contentBox = new VBox(3);
+        VBox contentBox = new VBox();
+        contentBox.setSpacing(3);
         lbTitle = new Label(note.getTieuDe());
         lbTitle.setPrefSize(400, 30);
         lbTitle.setFont(Font.font("System", 20));
 
-        lbCategory = new Label(CategoryBUS.getTenPhanLoaiByMa(note.getMaPhanLoai()));
-        lbCategory.setFont(Font.font("System", 14));
+        lbDescription = new Label(note.getNoiDung());
+        lbDescription.setFont(Font.font("System", 14));
 
         contentBox.setPrefWidth(200);
-        contentBox.getChildren().addAll(lbTitle, lbCategory);
+        contentBox.getChildren().add(lbTitle);
+        if(!lbDescription.getText().isEmpty()) {
+            contentBox.getChildren().add(lbDescription);
+        }
 
         this.setPrefWidth(600);
         this.setPadding(new Insets(10));
         this.getChildren().addAll(checkBtn, contentBox);
 
+        this.setAlignment(Pos.CENTER_LEFT);
         this.setOnMouseEntered(e -> {
             if(!checkBtn.isSelected())
                 this.setBackground(
