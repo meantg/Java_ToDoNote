@@ -9,6 +9,7 @@ import custom.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -18,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
@@ -43,12 +45,15 @@ public class MainController{
     private Pane pane;
     private TilePane categoryPane;
     private CategoryBox curCategoryBox;
+    private NoteBox curNoteBox;
 
-    public void initialize(UserDTO user) {
+    public void initialize(UserDTO user){
         menu_pane.setOnMousePressed(e-> menu_pane.requestFocus());
         title_pane.setOnMousePressed(e->title_pane.requestFocus());
         this.user = user;
         initMenu();
+
+
     }
 
 
@@ -72,6 +77,7 @@ public class MainController{
             }
         });
         menu_pane.getChildren().add(addListBox);
+
     }
     public void loadTitlePane() {
         title_pane.getChildren().clear();
@@ -116,7 +122,27 @@ public class MainController{
 
                 try {
                     NoteBox noteBox = new NoteBox(note);
-                    CheckBox checkBox = (CheckBox)noteBox.getCheckBtn();
+                    noteBox.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+                        if(root.getRight() != null && noteBox == curNoteBox) {
+                            root.getChildren().remove(root.getRight());
+                        }
+                        else {
+                            try {
+                                FXMLLoader loader = new FXMLLoader();
+                                loader.setLocation(getClass().getResource("/application/EditPane.fxml"));
+                                pane = loader.load();
+                                EditPaneController editPaneController = loader.getController();
+                                editPaneController.loadNote(note);
+                                pane.setPrefWidth(400);
+                            } catch (IOException exception) {
+                                System.out.println("Can't load fxml file");
+                                exception.printStackTrace();
+                            }
+                            root.setRight(pane);
+                        }
+                        curNoteBox = noteBox;
+                    });
+                    CheckBox checkBox = noteBox.getCheckBtn();
                     checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
                         @Override
                         public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
@@ -184,4 +210,6 @@ public class MainController{
     Runnable reloadNotePane = () -> {
         loadNotePane();
     };
+
+
 }

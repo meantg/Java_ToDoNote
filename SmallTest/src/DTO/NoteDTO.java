@@ -54,6 +54,8 @@ public class NoteDTO {
         return hanChot;
     }
 
+    public LocalDate getNgayTao() {return ngayTao;}
+
     //Set Methods
 
     public void setMaPhanLoai(Integer maPhanLoai) {

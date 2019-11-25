@@ -11,42 +11,47 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditPaneController">
     <children>
         <Label layoutX="37.0" layoutY="90.0" text="Icon:">
             <font>
                 <Font name="Bodoni MT" size="22.0" />
             </font>
         </Label>
-        <TextArea fx:id="atf_editNote" layoutX="27.0" layoutY="226.0" prefHeight="512.0" prefWidth="346.0" promptText="DiscriptionNote...">
+        <TextArea fx:id="ta_editNote_NoteDiscription" layoutX="27.0" layoutY="226.0" prefHeight="512.0" prefWidth="346.0" promptText="DiscriptionNote...">
             <font>
                 <Font size="18.0" />
             </font>
         </TextArea>
         <HBox alignment="BOTTOM_RIGHT" layoutX="27.0" layoutY="688.0" prefHeight="100.0" prefWidth="346.0" style="-fx-spacing: 40;">
             <children>
-                <Button fx:id="btn_editNote_Save" mnemonicParsing="false" style="-fx-background-color: #dcde54; -fx-cursor: hand;" text="DeleteNote" textFill="WHITE">
+                <Button mnemonicParsing="false" onAction="#handleSaveNote" style="-fx-background-color: #dcde54; -fx-cursor: hand;" text="DeleteNote" textFill="WHITE">
                     <font>
                         <Font size="20.0" />
                     </font>
                 </Button>
             </children>
         </HBox>
-        <CheckBox layoutX="37.0" layoutY="59.0" mnemonicParsing="false" />
-        <TextField layoutX="65.0" layoutY="54.0" text="NoteName" />
-        <MenuButton layoutX="85.0" layoutY="88.0" mnemonicParsing="false" text="MenuButton">
+        <CheckBox fx:id="cb_editNote_isDone" layoutX="37.0" layoutY="59.0" mnemonicParsing="false" />
+        <TextField fx:id="tf_editNote_NoteName" layoutX="65.0" layoutY="54.0" text="NoteName" />
+        <MenuButton fx:id="mb_editNote_Icon" layoutX="85.0" layoutY="88.0" mnemonicParsing="false" text="MenuButton">
             <items>
                 <MenuItem mnemonicParsing="false" text="Action 1" />
                 <MenuItem mnemonicParsing="false" text="Action 2" />
             </items>
         </MenuButton>
         <Label layoutX="33.0" layoutY="130.0" text="Category:" />
-        <MenuButton layoutX="97.0" layoutY="125.0" mnemonicParsing="false" text="MenuButton">
+        <MenuButton fx:id="mb_editNote_Category" layoutX="97.0" layoutY="125.0" mnemonicParsing="false" text="MenuButton">
             <items>
                 <MenuItem mnemonicParsing="false" text="Action 1" />
                 <MenuItem mnemonicParsing="false" text="Action 2" />
             </items>
         </MenuButton>
-        <Label layoutX="26.0" layoutY="738.0" text="DateTime Create" />
+        <Label fx:id="lbCreatedDate" layoutX="26.0" layoutY="738.0" text="DateTime Create" />
+      <Button layoutX="15.0" layoutY="755.0" mnemonicParsing="false" onAction="#handleClose" text="&lt;--">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
     </children>
 </Pane>

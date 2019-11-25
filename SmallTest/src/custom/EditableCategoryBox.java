@@ -25,7 +25,6 @@ public class EditableCategoryBox extends HBox {
         picker.setFont(Font.font("system", 20));
         picker.setPadding(new Insets(5));
         picker.setText(categoryBox.getCategory().getIcon());
-
         lbIcon = new Label();
         lbIcon.setAlignment(Pos.CENTER_LEFT);
         lbIcon.setPadding(new Insets(5));
