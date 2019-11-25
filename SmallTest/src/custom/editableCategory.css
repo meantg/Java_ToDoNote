@@ -1,0 +1,21 @@
+.text-field {
+    -fx-background-color: transparent;
+    -fx-padding: 5 5 5 5;
+}
+
+.text-field: hover{
+    -fx-background-color: grey;
+}
+
+.label: hover{
+    -fx-background-color: grey;
+}
+
+.label {
+    -fx-padding: 5 5 5 5;
+}
+
+
+#mybox {
+    -fx-background-color: blue;
+}

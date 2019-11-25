@@ -30,6 +30,13 @@ public class NoteDTO {
         this.noiDung = noiDung;
     }
 
+    public NoteDTO(Integer maPhanLoai, String tieuDe, String noiDung, Integer maTinhTrang) {
+        this.maPhanLoai = maPhanLoai;
+        this.tieuDe = tieuDe;
+        this.noiDung = noiDung;
+        this.maTinhTrang = maTinhTrang;
+    }
+
 
     public Integer getMaNote() {
         return maNote;
@@ -54,6 +61,8 @@ public class NoteDTO {
     public LocalDate getHanChot() {
         return hanChot;
     }
+
+    public LocalDate getNgayTao() {return ngayTao;}
 
     //Set Methods
 

@@ -2,15 +2,25 @@ package custom;
 
 import BUS.CategoryBUS;
 import DTO.CategoryDTO;
+import controller.MainController;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Side;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.sql.SQLException;
 
@@ -19,7 +29,9 @@ public class CategoryBox extends HBox {
     private Label lbIcon;
     private Label lbTitle;
     private Label lbNumOfNotes;
+    final ContextMenu contextMenu;
     private boolean isClicked = false;
+    private boolean isEditable = false;
     public CategoryBox(CategoryDTO category) throws SQLException {
         this.category = category;
 
@@ -46,8 +58,29 @@ public class CategoryBox extends HBox {
         this.setAlignment(Pos.CENTER_LEFT);
         this.setPadding(new Insets(10));
         this.getChildren().clear();
-        this.getChildren().addAll(lbIcon,lbTitle);
-        if(numOfNotes > 0) this.getChildren().add(lbNumOfNotes);
+        this.getChildren().addAll(lbIcon,lbTitle, lbNumOfNotes);
+        if (numOfNotes > 0) {
+            lbNumOfNotes.setVisible(true);
+        } else {
+            lbNumOfNotes.setVisible(false);
+        }
+
+
+        contextMenu = new ContextMenu();
+        contextMenu.setPrefWidth(300);
+        MenuItem item1 = new MenuItem("Delete");
+        item1.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                try {
+                    CategoryBUS.deleteCategory(getCategory().getMaPhanLoai());
+                    Runnable reloadMenuPane = (Runnable) getUserData();
+                    reloadMenuPane.run();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        contextMenu.getItems().addAll(item1);
 
         /*
         this.setOnMouseEntered(e -> {
@@ -63,13 +96,47 @@ public class CategoryBox extends HBox {
         */
     }
 
+    public void showContextMenu(MouseEvent event) {
+        contextMenu.show(this, Side.TOP, event.getSceneX(), 0);
+    }
+    public void editCategoryBox() {
+        //TODO: set auto focus textfield
+        EditableCategoryBox editableCategoryBox = new EditableCategoryBox(this);
+        editableCategoryBox.setEditable(true);
+        this.getChildren().clear();
+        this.getChildren().add(editableCategoryBox);
+    }
+
     public void changeBackgroundColor(Color color) {
         this.setBackground(
                 new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
+    public void updateNumOfNotes() throws SQLException {
+        Integer numOfNotes = CategoryBUS.getNumOfNotesByMaPhanLoai(category.getMaPhanLoai());
+        lbNumOfNotes.setText(numOfNotes.toString());
+        if (numOfNotes > 0) {
+            lbNumOfNotes.setVisible(true);
+        } else {
+            lbNumOfNotes.setVisible(false);
+        }
+    }
+
     public CategoryDTO getCategory() {
         return category;
     }
+    public boolean isEditable() {return isEditable; }
+    public void setEditable(boolean b) {
+        isEditable = b;
 
+        this.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.isSecondaryButtonDown()) {
+                    showContextMenu(event);
+                }
+            }
+        });
+
+    }
 }

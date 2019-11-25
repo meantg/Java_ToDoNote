@@ -2,12 +2,15 @@ package controller;
 
 import BUS.CategoryBUS;
 import BUS.NoteBUS;
+import DTO.CategoryDTO;
 import DTO.NoteDTO;
 import DTO.UserDTO;
 import custom.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -16,63 +19,99 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
-import java.awt.geom.NoninvertibleTransformException;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.ResourceBundle;
 
 
 public class MainController{
 
     @FXML
-    VBox done_note_box;
-    @FXML
     VBox note_box;
-    @FXML
-    BorderPane root;
-    @FXML
-    Text lbIcon_Content;
-    @FXML
-    Text lbNameCategory_Content;
 
     @FXML
-    TilePane menu_pane;
+    BorderPane root;
+
+    @FXML
+    AnchorPane title_pane;
+
+    @FXML
+    VBox menu_pane;
 
     //UserDTO user -> userID = user.getID();
     private UserDTO user;
     private Pane pane;
-    private NoteDTO selectedNote;
+    private TilePane categoryPane;
+    private CategoryBox curCategoryBox;
+    private NoteBox curNoteBox;
 
-    public NoteDTO getselectedNoteDTO(){return selectedNote;}
-
-    public void initialize(UserDTO user) throws IOException {
-        menu_pane.getScene().getRoot().setOnMousePressed(e-> menu_pane.getScene().getRoot().requestFocus());
-        lbIcon_Content.getParent().setOnMousePressed(e->lbIcon_Content.getParent().requestFocus());
+    public void initialize(UserDTO user){
+        menu_pane.setOnMousePressed(e-> menu_pane.requestFocus());
+        title_pane.setOnMousePressed(e->title_pane.requestFocus());
         this.user = user;
-        loadMenu();
+        initMenu();
+
+
     }
 
-    public void loadContent(CategoryBox categoryBox) {
-        lbIcon_Content.setText(categoryBox.getCategory().getIcon());
-        lbNameCategory_Content.setText(categoryBox.getCategory().getTenPhanLoai());
+    public void handleAddNote() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/application/EditPane.fxml"));
+        pane = loader.load();
+        pane.setPrefWidth(400);
+        pane.setUserData(reloadNotePane);
+        EditPaneController editPaneController = loader.getController();
+        editPaneController.newNote(curCategoryBox.getCategory().getMaPhanLoai());
+        root.setRight(pane);
     }
 
-    public void loadMenu() throws IOException {
+    public void initMenu() {
         menu_pane.getChildren().clear();
         menu_pane.getChildren().add(new UserBox(user));
+        categoryPane = new TilePane();
+        loadCategories();
+        menu_pane.getChildren().add(categoryPane);
+        curCategoryBox = (CategoryBox)categoryPane.getChildren().get(0);
+        loadNotePane();
+        loadTitlePane();
+        //Add New List
+        AddListBox addListBox = new AddListBox();
+        addListBox.setOnMouseClicked(e-> {
+            try {
+                CategoryBUS.insertCategory(new CategoryDTO(user.getMaNguoiDung(), "Untitled List", "☰"));
+                loadCategories();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        });
+        menu_pane.getChildren().add(addListBox);
+
+    }
+    public void loadTitlePane() {
+        title_pane.getChildren().clear();
+        title_pane.getChildren().add(new EditableCategoryBox(curCategoryBox));
+    }
+    public void loadCategories() {
         //Add categoryBox
+        categoryPane.getChildren().clear();
+
         try {
             ListCategory listCategory = new ListCategory(CategoryBUS.getListCategory(user.getMaNguoiDung()));
             listCategory.getList().stream().forEach(categoryBox -> {
-                loadNotePane(categoryBox);
                 categoryBox.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-                    loadContent(categoryBox);
-                    loadNotePane(categoryBox);
+                    curCategoryBox = categoryBox;
+                    if(listCategory.getList().indexOf(categoryBox) > 2) {
+                        categoryBox.setEditable(true);
+                    }
+                    loadNotePane();
+                    loadTitlePane();
                 });
-                menu_pane.getChildren().add(categoryBox);
+                categoryBox.setUserData(reloadMenuPane);
+                categoryPane.getChildren().add(categoryBox);
             });
-            loadContent(listCategory.getList().get(0));
-            loadNotePane(listCategory.getList().get(0));
+
         }
         catch (SQLException SQLException) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -82,58 +121,49 @@ public class MainController{
             alert.showAndWait();
             SQLException.printStackTrace();
         }
-        //Add New List
-        menu_pane.getChildren().add(new AddListBox());
-
-
-
-    }
-    public void loadeditNote(NoteDTO noteDTO) throws IOException {
-        Button closeButton = new Button("Close");
-        closeButton.setOnAction(e->{
-            root.getChildren().remove(root.getRight());
-        });
-
-        //CustomPane
-
     }
 
-    public void loadNotePane(CategoryBox categoryBox) {
+    public void loadNotePane() {
         note_box.getChildren().clear();
 
         try {
-            List<NoteDTO> listNotes = NoteBUS.getToDoList(categoryBox.getCategory().getMaPhanLoai(), 12002);
+            List<NoteDTO> listNotes = NoteBUS.getToDoList(curCategoryBox.getCategory().getMaPhanLoai(), 12002);
             listNotes.stream().forEach(note -> {
+
                 try {
                     NoteBox noteBox = new NoteBox(note);
-                    noteBox.setOnMouseClicked(e-> {
-                        FXMLLoader loader = new FXMLLoader();
-                        loader.setLocation(getClass().getResource("/application/editNote.fxml"));
-                        try {
-                            pane = loader.load();
-                        } catch (IOException ex) {
-                            ex.printStackTrace();
+                    noteBox.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+                        if(root.getRight() != null && noteBox == curNoteBox) {
+                            root.getChildren().remove(root.getRight());
                         }
-                        editNoteController editNoteController = loader.getController();
-                        editNoteController.loadNote(note);
-                        pane.setPrefWidth(400);
-
-                        System.out.print(note.getTieuDe());
-                        System.out.println(selectedNote.getTieuDe());
+                        else {
+                            try {
+                                FXMLLoader loader = new FXMLLoader();
+                                loader.setLocation(getClass().getResource("/application/EditPane.fxml"));
+                                pane = loader.load();
+                                EditPaneController editPaneController = loader.getController();
+                                editPaneController.loadNote(note);
+                                pane.setPrefWidth(400);
+                                pane.setUserData(reloadNotePane);
+                            } catch (IOException exception) {
+                                System.out.println("Can't load fxml file");
+                                exception.printStackTrace();
+                            }
+                            root.setRight(pane);
+                        }
+                        curNoteBox = noteBox;
                     });
-                    CheckBox checkBox = (CheckBox)noteBox.getCheckBtn();
+                    CheckBox checkBox = noteBox.getCheckBtn();
                     checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
                         @Override
                         public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                             noteBox.changedStatus(note);
-                            loadNotePane(categoryBox);
-
+                            loadNotePane();
                             try {
-                                loadMenu();
-                            } catch (IOException e) {
+                                curCategoryBox.updateNumOfNotes();
+                            } catch (SQLException e) {
                                 e.printStackTrace();
                             }
-
                         }
                     });
                     note_box.getChildren().add(noteBox);
@@ -142,33 +172,22 @@ public class MainController{
                     e.printStackTrace();
                 }
             });
-            List<NoteDTO> listFinishedNotes = NoteBUS.getToDoList(categoryBox.getCategory().getMaPhanLoai(), 12001);
+            List<NoteDTO> listFinishedNotes = NoteBUS.getToDoList(curCategoryBox.getCategory().getMaPhanLoai(), 12001);
             listFinishedNotes.stream().forEach(note -> {
                 try {
                     NoteBox noteBox = new NoteBox(note);
-                    noteBox.setOnMouseClicked(e-> {
-                        selectedNote = note;
-                        try {
-                            loadeditNote(note);
-                        } catch (IOException ex) {
-                            ex.printStackTrace();
-                        }
-                        System.out.print(note.getTieuDe());
-                    });
-
+                    noteBox.setOnMouseClicked(e-> root.setRight(pane));
                     CheckBox checkBox = (CheckBox)noteBox.getCheckBtn();
                     checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
                         @Override
                         public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                             noteBox.changedStatus(note);
-                            loadNotePane(categoryBox);
-
+                            loadNotePane();
                             try {
-                                loadMenu();
-                            } catch (IOException e) {
+                                curCategoryBox.updateNumOfNotes();
+                            } catch (SQLException e) {
                                 e.printStackTrace();
                             }
-
                         }
                     });
                     note_box.getChildren().add(noteBox);
@@ -182,7 +201,26 @@ public class MainController{
             e.printStackTrace();
         }
     }
-    public void handleButton(){
-    }
+
+
+    Runnable reloadMenuPane = () -> {
+        ObservableList list = categoryPane.getChildren();
+        int curIndex = list.indexOf(curCategoryBox);
+        loadCategories();
+        curCategoryBox = (CategoryBox)categoryPane.getChildren().get((curIndex -1));
+        curCategoryBox.requestFocus();
+        loadNotePane();
+        loadTitlePane();
+
+    };
+
+    Runnable reloadTitlePane = () -> {
+        loadTitlePane();
+    };
+
+    Runnable reloadNotePane = () -> {
+        loadNotePane();
+    };
+
 
 }

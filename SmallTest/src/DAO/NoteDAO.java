@@ -64,8 +64,23 @@ public class NoteDAO {
         return records > 0;
     }
 
+    public static boolean updateNote(NoteDTO noteDTO) throws SQLException{
+        Connection conn = DBHelper.getConnection();
+        String query = "UPDATE todo_note SET MaPhanLoai = ?, TieuDe = ?, NoiDung = ?, MaTinhTrang = ? WHERE MaNote = ?";
+        PreparedStatement statement = conn.prepareStatement(query);
+        statement.setInt(1,noteDTO.getMaPhanLoai());
+        statement.setString(2,noteDTO.getTieuDe());
+        statement.setString(3,noteDTO.getNoiDung());
+        statement.setInt(4,noteDTO.getMaTinhTrang());
+        statement.setInt(5,noteDTO.getMaNote());
+        int records = statement.executeUpdate();
+        conn.close();
+        return records > 0;
+
+    }
+
     public static boolean insertNote(NoteDTO noteDTO) throws SQLException {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
         Connection conn = DBHelper.getConnection();
         String query = "INSERT INTO `todolist`.`todo_note` (" +
@@ -86,23 +101,12 @@ public class NoteDAO {
         return records > 0;
     }
 
-    public static boolean updateNote(NoteDTO noteDTO) throws SQLException{
+    public static boolean deleteNote(String nameNote) throws SQLException {
         Connection conn = DBHelper.getConnection();
-        String query = "UPDATE `todolist`.`todo_note` SET  " +
-                "`MaPhanLoai` = ?"+
-                "`TieuDe` = ?" +
-                "`NoiDung` = ?" +
-                "`MaTinhTrang` = ?" +
-                "WHERE (`MaNote` = '?')";
+        String query = "DELETE FROM `todolist`.`todo_note` WHERE (`TieuDe` = '"+nameNote+"')";
         PreparedStatement statement = conn.prepareStatement(query);
-        statement.setInt(1,noteDTO.getMaPhanLoai());
-        statement.setString(2,noteDTO.getTieuDe());
-        statement.setString(3,noteDTO.getNoiDung());
-        statement.setInt(4,noteDTO.getMaTinhTrang());
-        statement.setInt(5,noteDTO.getMaNote());
         int records = statement.executeUpdate();
         conn.close();
         return records > 0;
-
     }
 }

@@ -22,8 +22,8 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class SignUpController implements Initializable {
-    private Stage mainStage;
-    private MainController mainController;
+    //private Stage mainStage;
+    //private MainController mainController;
 
     @FXML
     private TextField tfName;
@@ -46,7 +46,7 @@ public class SignUpController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        mainStage = PopupHelper.createStage("/application/todo_main.fxml", 1280, 800);
+/*        mainStage = PopupHelper.createStage("/application/todo_main.fxml", 1280, 800);
         mainStage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, e -> {
             if (ConfirmDialogHelper.confirm("Xác nhận thoát ?")) {
                 PopupHelper.createStage("/application/LoginForm.fxml", 825, 522).show();
@@ -55,7 +55,7 @@ public class SignUpController implements Initializable {
             }
         });
         FXMLLoader loader = (FXMLLoader) mainStage.getUserData();
-        mainController = loader.getController();
+        mainController = loader.getController();*/
 
         cdGender_F.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -86,7 +86,6 @@ public class SignUpController implements Initializable {
     }
 
     public void handleSignUp() throws SQLException {
-        System.out.print("SignUp");
         String name = tfName.getText();
         String email = tfEmail.getText();
         String phonenumber = tfPhoneNumber.getText();

@@ -26,4 +26,8 @@ public class NoteBUS {
     public static boolean updateNote(NoteDTO noteDTO) throws SQLException{
         return NoteDAO.updateNote(noteDTO);
     }
+
+    public static boolean deleteNote(String nameNote) throws SQLException{
+        return NoteDAO.deleteNote(nameNote);
+    }
 }

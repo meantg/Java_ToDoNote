@@ -37,7 +37,7 @@ CREATE TABLE `phanloai` (
 
 LOCK TABLES `phanloai` WRITE;
 /*!40000 ALTER TABLE `phanloai` DISABLE KEYS */;
-INSERT INTO `phanloai` VALUES (10001,11001,'To Do','?'),(10002,11001,'Work','?'),(10003,11001,'Groceries','?'),(10007,11002,'To Do','?'),(10008,11002,'Work','?'),(10009,11002,'Groceries','?'),(10010,11003,'To Do ','?'),(10011,11003,'Work','?'),(10012,11003,'Groceries','?'),(10013,11004,'To Do ','?'),(10014,11004,'Work','?'),(10015,11004,'Groceries','?'),(10016,11005,'To Do ','?'),(10017,11005,'Work','?'),(10018,11005,'Groceries','?'),(10019,11006,'To Do ','?'),(10020,11006,'Work','?'),(10021,11006,'Groceries','?'),(10022,11007,'To Do ','?'),(10023,11007,'Work','?'),(10024,11007,'Groceries','?');
+INSERT INTO `phanloai` VALUES (10001,11001,'To Do','➤'),(10002,11001,'Work','?'),(10003,11001,'Groceries','?'),(10007,11002,'To Do','?'),(10008,11002,'Work','?'),(10009,11002,'Groceries','?'),(10010,11003,'To Do ','?'),(10011,11003,'Work','?'),(10012,11003,'Groceries','?'),(10013,11004,'To Do ','?'),(10014,11004,'Work','?'),(10015,11004,'Groceries','?'),(10016,11005,'To Do ','?'),(10017,11005,'Work','?'),(10018,11005,'Groceries','?'),(10019,11006,'To Do ','?'),(10020,11006,'Work','?'),(10021,11006,'Groceries','?'),(10022,11007,'To Do ','?'),(10023,11007,'Work','?'),(10024,11007,'Groceries','?');
 /*!40000 ALTER TABLE `phanloai` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

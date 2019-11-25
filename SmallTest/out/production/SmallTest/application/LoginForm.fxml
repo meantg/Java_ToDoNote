@@ -46,6 +46,7 @@
                </font>
             </Text>
             <TextField fx:id="tfUsername" layoutX="55.0" layoutY="207.0" prefHeight="31.0" prefWidth="307.0" promptText="UserName" />
+            <PasswordField fx:id="pfPassword" layoutX="55.0" layoutY="267.0" prefHeight="31.0" prefWidth="307.0" promptText="Password" />
             <Button layoutX="55.0" layoutY="352.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="53.0" prefWidth="307.0" style="-fx-background-color: #dcde54; -fx-background-radius: 50;" text="Login" textFill="WHITE">
                <font>
                   <Font name="Berlin Sans FB" size="27.0" />
@@ -57,7 +58,6 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Text>
-            <PasswordField fx:id="pfPassword" layoutX="55.0" layoutY="267.0" prefHeight="31.0" prefWidth="307.0" promptText="Password" />
             <Hyperlink layoutX="245.0" layoutY="419.0" onAction="#handleSignUp" text="Sign up">
                <font>
                   <Font name="System Italic" size="15.0" />
