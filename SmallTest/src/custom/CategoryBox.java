@@ -109,10 +109,10 @@ public class CategoryBox extends HBox {
         Runnable reloadMenuPane = (Runnable) getChildren().get(0).getUserData();
         EditableCategoryBox editableCategoryBox = new EditableCategoryBox(this);
         editableCategoryBox.setEditable(true);
-        editableCategoryBox.setFocusTextfield();
         editableCategoryBox.setUserData(reloadMenuPane);
         this.getChildren().clear();
         this.getChildren().add(editableCategoryBox);
+        editableCategoryBox.setFocusTextfield();
     }
 
     public void changeBackgroundColor(Color color) {

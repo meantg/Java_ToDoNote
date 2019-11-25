@@ -141,6 +141,9 @@ public class EditableCategoryBox extends HBox {
 
     public void setFocusTextfield() {
         tfCategoryName.requestFocus();
+        tfCategoryName.selectAll();
+        picker.setId("menubutton");
+        this.setId("mybox");
     }
     public void computeWidth() {
         Text t = new Text(tfCategoryName.getText());
