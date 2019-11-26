@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -14,14 +15,19 @@
                 <SplitPane dividerPositions="0.16693679092382496" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
                         <AnchorPane fx:id="title_pane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="200.0">
                             <children>
-                                <VBox fx:id="note_box" layoutX="22.0" layoutY="42.0" minHeight="50.0" minWidth="50.0" prefHeight="455.0" prefWidth="529.0" style="-fx-cursor: hand; -fx-border-style: solid inside; -fx-padding: 20;" />
+                                <VBox fx:id="note_box" layoutX="22.0" layoutY="42.0" minHeight="50.0" minWidth="50.0" prefHeight="430.0" prefWidth="533.0" style="-fx-cursor: hand; -fx-padding: 20; -fx-spacing: 3;" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0" />
                                 <Text layoutX="22.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NoteList">
                                     <font>
                                         <Font name="Bodoni MT" size="20.0" />
                                     </font>
                                 </Text>
+                                <Button fx:id="btn_AddNote" layoutX="506.0" layoutY="447.0" mnemonicParsing="false" onAction="#handleAddNote" prefHeight="46.0" prefWidth="50.0" style="-fx-background-color: #dcde54; -fx-background-radius: 50;" text="➕" textFill="WHITE" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="50.0">
+                                    <font>
+                                        <Font size="21.0" />
+                                    </font>
+                                </Button>
                             </children>
                         </AnchorPane>
                     </items>
@@ -31,9 +37,9 @@
     </center>
     <left>
         <AnchorPane prefHeight="619.0" prefWidth="299.0" BorderPane.alignment="CENTER">
-         <children>
-            <VBox fx:id="menu_pane" layoutY="8.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #dcde54;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-         </children>
+            <children>
+                <VBox fx:id="menu_pane" layoutY="8.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            </children>
         </AnchorPane>
     </left>
 </BorderPane>

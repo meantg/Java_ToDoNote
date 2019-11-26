@@ -43,7 +43,7 @@ public class AddListBox extends HBox {
 
         this.setOnMouseExited(e -> {
             this.setBackground(
-                    new Background(new BackgroundFill(Color.valueOf("dcde54"), CornerRadii.EMPTY, Insets.EMPTY)));
+                    new Background(new BackgroundFill(Color.rgb(244, 244, 244), CornerRadii.EMPTY, Insets.EMPTY)));
         });
 
     }

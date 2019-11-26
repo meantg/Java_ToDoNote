@@ -18,4 +18,16 @@ public class NoteBUS {
     public static boolean updateTinhTrang(Integer maTinhTrang, Integer maNote) throws SQLException {
         return NoteDAO.updateTinhTrang(maTinhTrang, maNote);
     }
+
+    public static boolean insertNote(NoteDTO noteDTO) throws SQLException {
+        return NoteDAO.insertNote(noteDTO);
+    }
+
+    public static boolean updateNote(NoteDTO noteDTO) throws SQLException{
+        return NoteDAO.updateNote(noteDTO);
+    }
+
+    public static boolean deleteNote(String nameNote) throws SQLException{
+        return NoteDAO.deleteNote(nameNote);
+    }
 }

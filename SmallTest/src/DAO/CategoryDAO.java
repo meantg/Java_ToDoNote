@@ -58,6 +58,21 @@ public class CategoryDAO {
         return output;
     }
 
+    public static int checkDuplicateCategory(CategoryDTO category) throws SQLException {
+        Connection conn = DBHelper.getConnection();
+        try {
+            String query = "SELECT COUNT(*) FROM PhanLoai WHERE TenPhanLoai = ?";
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setString(1, category.getTenPhanLoai());
+            ResultSet rs = statement.executeQuery();
+            rs.next();
+            int output = rs.getInt(1);
+            return output;
+        } finally {
+            conn.close();
+        }
+    }
+
     public static boolean insertCategory(CategoryDTO category) throws SQLException {
         Connection conn = DBHelper.getConnection();
         try {

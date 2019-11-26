@@ -24,7 +24,7 @@ public class ListCategory {
                     curCategory.changeBackgroundColor(Color.LIGHTGRAY);
                 }
                 category.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-                    curCategory.changeBackgroundColor(Color.valueOf("dcde54"));
+                    curCategory.changeBackgroundColor(Color.TRANSPARENT);
                     curCategory = category;
                     category.changeBackgroundColor(Color.LIGHTGRAY);
                 });
@@ -40,7 +40,7 @@ public class ListCategory {
     }
 
     public void setCurCategory(CategoryBox categoryBox) {
-        curCategory.changeBackgroundColor(Color.valueOf("dcde54"));
+        curCategory.changeBackgroundColor(Color.TRANSPARENT);
         curCategory = categoryBox;
         curCategory.changeBackgroundColor(Color.LIGHTGRAY);
     }

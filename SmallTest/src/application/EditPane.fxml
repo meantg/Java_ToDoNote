@@ -18,21 +18,21 @@
                 <Font name="Bodoni MT" size="22.0" />
             </font>
         </Label>
-        <TextArea fx:id="ta_editNote_NoteDiscription" layoutX="27.0" layoutY="226.0" prefHeight="512.0" prefWidth="346.0" promptText="DiscriptionNote...">
+        <TextArea fx:id="ta_editNote_NoteDiscription" layoutX="27.0" layoutY="176.0" prefHeight="512.0" prefWidth="346.0" promptText="DiscriptionNote...">
             <font>
                 <Font size="18.0" />
             </font>
         </TextArea>
-        <HBox alignment="BOTTOM_RIGHT" layoutX="27.0" layoutY="688.0" prefHeight="100.0" prefWidth="346.0" style="-fx-spacing: 40;">
+        <HBox alignment="BOTTOM_RIGHT" layoutX="27.0" layoutY="728.0" prefHeight="58.0" prefWidth="346.0" style="-fx-spacing: 40;">
             <children>
-                <Button mnemonicParsing="false" onAction="#handleSaveNote" style="-fx-background-color: #dcde54; -fx-cursor: hand;" text="DeleteNote" textFill="WHITE">
+                <Button mnemonicParsing="false" onAction="#handleDeleteNote" style="-fx-background-color: #dcde54; -fx-cursor: hand;" text="DeleteNote" textFill="WHITE">
                     <font>
                         <Font size="20.0" />
                     </font>
                 </Button>
             </children>
         </HBox>
-        <CheckBox fx:id="btnCheck" layoutX="37.0" layoutY="59.0" mnemonicParsing="false" stylesheets="@../custom/styles.css" />
+        <CheckBox fx:id="cb_editNote_isDone" layoutX="37.0" layoutY="59.0" mnemonicParsing="false" />
         <TextField fx:id="tf_editNote_NoteName" layoutX="65.0" layoutY="54.0" text="NoteName" />
         <MenuButton fx:id="mb_editNote_Icon" layoutX="85.0" layoutY="88.0" mnemonicParsing="false" text="MenuButton">
             <items>
@@ -47,11 +47,12 @@
                 <MenuItem mnemonicParsing="false" text="Action 2" />
             </items>
         </MenuButton>
-        <Label fx:id="lbCreatedDate" layoutX="26.0" layoutY="738.0" text="DateTime Create" />
-      <Button layoutX="15.0" layoutY="755.0" mnemonicParsing="false" onAction="#handleClose" text="&lt;--">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Button>
+        <Label fx:id="lbCreatedDate" layoutX="52.0" layoutY="697.0" text="DateTime Create" />
+        <Label layoutX="27.0" layoutY="695.0" text="🕐 " />
+        <Button fx:id="btn_Close" layoutX="-23.0" layoutY="356.0" mnemonicParsing="false" onAction="#handleClose" prefHeight="44.0" prefWidth="47.0" style="-fx-background-color: #dcde54; -fx-border-radius: 50; -fx-background-radius: 50;" text="➤" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="19.0" />
+            </font>
+        </Button>
     </children>
 </Pane>

@@ -24,10 +24,11 @@ public class NoteDTO {
         //this.hanChot = hanChot;
     }
 
-    public NoteDTO(Integer maPhanLoai, String tieuDe, String noiDung) {
+    public NoteDTO(Integer maPhanLoai, String tieuDe, String noiDung, Integer maTinhTrang) {
         this.maPhanLoai = maPhanLoai;
         this.tieuDe = tieuDe;
         this.noiDung = noiDung;
+        this.maTinhTrang = maTinhTrang;
     }
 
     public Integer getMaNote() {

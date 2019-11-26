@@ -32,26 +32,26 @@ public class CategoryBox extends HBox {
 
         lbIcon = new Label();
         lbIcon.setText(category.getIcon());
-        lbIcon.setPrefSize(70,10);
-        lbIcon.setFont(Font.font("system", 20));
+        lbIcon.setPrefSize(50,10);
+        lbIcon.setFont(Font.font("system", 16));
         lbIcon.setAlignment(Pos.CENTER);
 
         lbTitle = new Label();
         lbTitle.setText(category.getTenPhanLoai());
         lbTitle.setAlignment(Pos.CENTER_LEFT);
-        lbTitle.setFont(Font.font("system", 20));
-        lbTitle.setPrefSize(150,10);
+        lbTitle.setFont(Font.font("system", 16));
+        lbTitle.setPrefSize(230,10);
 
         Integer numOfNotes = CategoryBUS.getNumOfNotesByMaPhanLoai(category.getMaPhanLoai());
         lbNumOfNotes = new Label();
         lbNumOfNotes.setText(numOfNotes.toString());
         lbNumOfNotes.setAlignment(Pos.CENTER_RIGHT);
-        lbNumOfNotes.setPrefSize(70,10);
-        lbNumOfNotes.setFont(Font.font("system", 20));
+        lbNumOfNotes.setPrefSize(50,10);
+        lbNumOfNotes.setFont(Font.font("system", 16));
 
         this.setPrefWidth(330);
         this.setAlignment(Pos.CENTER_LEFT);
-        this.setPadding(new Insets(10));
+        this.setPadding(new Insets(5));
         this.getChildren().clear();
         this.getChildren().addAll(lbIcon,lbTitle, lbNumOfNotes);
         if (numOfNotes > 0) {
@@ -87,17 +87,6 @@ public class CategoryBox extends HBox {
         });
         contentItems.getChildren().addAll(b2, b);
         CustomMenuItem item = new CustomMenuItem(contentItems);
-/*        item1.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                try {
-                    CategoryBUS.deleteCategory(getCategory().getMaPhanLoai());
-                    Runnable reloadMenuPane = (Runnable) getUserData();
-                    reloadMenuPane.run();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });*/
         contextMenu.getItems().addAll(item);
     }
 

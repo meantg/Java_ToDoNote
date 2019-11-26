@@ -57,6 +57,17 @@ public class MainController{
 
     }
 
+    public void handleAddNote() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/application/EditPane.fxml"));
+        pane = loader.load();
+        pane.setPrefWidth(400);
+        pane.setUserData(reloadNotePane);
+        EditPaneController editPaneController = loader.getController();
+        editPaneController.newNote(curCategoryBox.getCategory().getMaPhanLoai());
+        root.setRight(pane);
+    }
+
 
     public void initMenu() {
         menu_pane.getChildren().clear();
@@ -139,6 +150,7 @@ public class MainController{
                                 pane = loader.load();
                                 EditPaneController editPaneController = loader.getController();
                                 editPaneController.loadNote(note);
+                                pane.setUserData(reloadNotePane);
                                 pane.setPrefWidth(400);
                             } catch (IOException exception) {
                                 System.out.println("Can't load fxml file");
@@ -183,6 +195,7 @@ public class MainController{
                                 EditPaneController editPaneController = loader.getController();
                                 editPaneController.loadNote(note);
                                 pane.setPrefWidth(400);
+                                pane.setUserData(reloadNotePane);
                             } catch (IOException exception) {
                                 System.out.println("Can't load fxml file");
                                 exception.printStackTrace();
