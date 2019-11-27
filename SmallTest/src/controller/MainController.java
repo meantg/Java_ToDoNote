@@ -44,6 +44,7 @@ public class MainController{
     private UserDTO user;
     private Pane pane;
     private TilePane categoryPane;
+    private TilePane noteboxPane;
     private ListCategory listCategory;
     private CategoryBox curCategoryBox;
     private NoteBox curNoteBox;
@@ -76,8 +77,9 @@ public class MainController{
         loadCategories();
         menu_pane.getChildren().add(categoryPane);
         curCategoryBox = listCategory.getList().get(0);
-
+        noteboxPane = new TilePane();
         loadNotePane();
+        note_box.getChildren().add(noteboxPane);
         loadTitlePane();
         //Add New List
         AddListBox addListBox = new AddListBox();
@@ -131,7 +133,7 @@ public class MainController{
     }
 
     public void loadNotePane() {
-        note_box.getChildren().clear();
+        noteboxPane.getChildren().clear();
 
         try {
             List<NoteDTO> listNotes = NoteBUS.getToDoList(curCategoryBox.getCategory().getMaPhanLoai(), 12002);
@@ -173,7 +175,7 @@ public class MainController{
                             }
                         }
                     });
-                    note_box.getChildren().add(noteBox);
+                    noteboxPane.getChildren().add(noteBox);
                 }
                 catch (SQLException e) {
                     e.printStackTrace();
@@ -217,7 +219,7 @@ public class MainController{
                             }
                         }
                     });
-                    note_box.getChildren().add(noteBox);
+                    noteboxPane.getChildren().add(noteBox);
                 }
                 catch (SQLException e) {
                     e.printStackTrace();
