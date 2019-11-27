@@ -11,6 +11,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -72,14 +74,20 @@ public class MainController{
 
     public void initMenu() {
         menu_pane.getChildren().clear();
+        //note_box.getChildren().clear();
         menu_pane.getChildren().add(new UserBox(user));
         categoryPane = new TilePane();
+        categoryPane.setVgap(1);
         loadCategories();
         menu_pane.getChildren().add(categoryPane);
         curCategoryBox = listCategory.getList().get(0);
         noteboxPane = new TilePane();
-        loadNotePane();
+        noteboxPane.setVgap(1);
         note_box.getChildren().add(noteboxPane);
+        loadNotePane();
+        noteboxPane.setStyle("-fx-background-color: red");
+
+
         loadTitlePane();
         //Add New List
         AddListBox addListBox = new AddListBox();
@@ -141,6 +149,7 @@ public class MainController{
 
                 try {
                     NoteBox noteBox = new NoteBox(note);
+                    noteBox.setPrefWidth(noteboxPane.getMaxWidth());
                     noteBox.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
                         if(root.getRight() != null && noteBox == curNoteBox) {
                             root.getChildren().remove(root.getRight());

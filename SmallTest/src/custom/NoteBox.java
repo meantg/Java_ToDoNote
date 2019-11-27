@@ -33,24 +33,25 @@ public class NoteBox extends HBox {
         this.getStylesheets().add("custom/styles.css");
         checkBtn = new CheckBox();
         checkBtn.setSelected(note.getMaTinhTrang() == 12001 ? true : false);
-        checkBtn.setPrefSize(30,30);
+        /*checkBtn.setPrefSize(30,30);*/
 
         VBox contentBox = new VBox();
-        contentBox.setSpacing(3);
+        contentBox.setSpacing(1);
         lbTitle = new Label(note.getTieuDe());
-        lbTitle.setPrefSize(400, 30);
-        lbTitle.setFont(Font.font("System", 20));
+/*        lbTitle.setPrefSize(400, 30);*/
+        lbTitle.setFont(Font.font("System", 16));
 
         lbDescription = new Label(note.getNoiDung());
-        lbDescription.setFont(Font.font("System", 14));
+        lbDescription.setFont(Font.font("System", 10));
 
-        contentBox.setPrefWidth(200);
+        contentBox.setPrefWidth(900);
+        contentBox.setAlignment(Pos.CENTER_LEFT);
         contentBox.getChildren().add(lbTitle);
         if(!lbDescription.getText().isEmpty()) {
             contentBox.getChildren().add(lbDescription);
         }
 
-        this.setPrefWidth(600);
+        //this.setPrefWidth(920);
         this.setPadding(new Insets(10));
         this.getChildren().addAll(checkBtn, contentBox);
 
