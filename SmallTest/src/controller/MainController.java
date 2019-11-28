@@ -210,8 +210,6 @@ public class MainController {
         listNoteBox.stream().forEach(noteBox -> {
             noteBox.setPrefWidth(noteboxPane.getPrefWidth() - noteboxPane.getPadding().getLeft() - noteboxPane.getPadding().getRight());
             noteBox.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-
-                System.out.println(curNoteBoxIndex);
                 if(root.getRight() != null && listNoteBox.indexOf(noteBox) == curNoteBoxIndex) {
                     root.getChildren().remove(root.getRight());
                     root.applyCss();
@@ -264,11 +262,12 @@ public class MainController {
                 @Override
                 public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                     noteBox.changedStatus(noteBox.getNote());
-                    if(root.getRight() != null) {
+                    if(root.getRight() != null && listNoteBox.indexOf(noteBox) == curNoteBoxIndex) {
                         EditPaneController editController = (EditPaneController)pane.getChildren().get(0).getUserData();
                         editController.checkBtn.setSelected(newValue.booleanValue());
                     }
                     loadNotePane();
+                    curNoteBoxIndex = listNoteBox.indexOf(noteBox);
                     try {
                         curCategoryBox.updateNumOfNotes();
                     } catch (SQLException e) {
