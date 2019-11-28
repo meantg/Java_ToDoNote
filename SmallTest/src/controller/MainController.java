@@ -224,19 +224,22 @@ public class MainController {
                     }
                     scroll_note_pane.setPrefWidth(scroll_note_pane.getWidth() - 10);
                 }
-                else if(root.getRight() != null && listNoteBox.indexOf(noteBox) != curNoteBoxIndex) {
-                    System.out.println("Change");
-                    curNoteBoxIndex = listNoteBox.indexOf(noteBox);
-                    EditPaneController editController = (EditPaneController)pane.getChildren().get(0).getUserData();
-                    try {
-                        editController.handleSaveNote();
-                        editController.loadNote(noteBox);
-                    } catch (SQLException ex) {
-                        ex.printStackTrace();
-                    }
-                }
+
                 else {
                     curNoteBoxIndex = listNoteBox.indexOf(noteBox);
+                    if(root.getRight() !=null) {
+
+                        EditPaneController editController = (EditPaneController) pane.getChildren().get(0).getUserData();
+                        try {
+                            editController.handleSaveNote();
+                            root.getChildren().remove(root.getRight());
+                            root.applyCss();
+                            root.layout();
+                            scroll_note_pane.setPrefWidth(scroll_note_pane.getWidth() - 10);
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
                     try {
                         FXMLLoader loader = new FXMLLoader();
                         loader.setLocation(getClass().getResource("/application/EditPane.fxml"));
