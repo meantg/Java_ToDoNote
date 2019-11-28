@@ -4,7 +4,10 @@ package controller;
 import BUS.NoteBUS;
 import DTO.NoteDTO;
 import custom.EditableCategoryBox;
+import custom.NoteBox;
 import helper.DBHelper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -33,15 +36,11 @@ public class EditPaneController {
     @FXML
     Label lbCreatedDate;
     @FXML
-    Label lbeditNote_Name;
-    @FXML
     TextField tf_editNote_NoteName;
     @FXML
     TextArea ta_editNote_NoteDiscription;
     @FXML
-    MenuButton mb_editNote_Category;
-    @FXML
-    CheckBox cb_editNote_isDone;
+    CheckBox checkBtn;
     @FXML
     Button btn_Close;
 
@@ -50,6 +49,7 @@ public class EditPaneController {
     int maPhanLoai;
 
     public EditPaneController() {
+
     }
 
     public void newNote(int maPhanLoai){
@@ -57,14 +57,31 @@ public class EditPaneController {
         this.maPhanLoai = maPhanLoai;
     }
 
-    public void loadNote(NoteDTO noteDTO) {
-        if(noteDTO.getMaTinhTrang() == 12002) {
-            cb_editNote_isDone.setSelected(false);
+    public void loadNote(NoteBox noteBox) {
+        this.noteDTO = noteBox.getNote();
+        if(noteBox.getNote().getMaTinhTrang() == 12002) {
+            checkBtn.setSelected(false);
         }
         else {
-            cb_editNote_isDone.setSelected(true);
+            checkBtn.setSelected(true);
         }
-        this.noteDTO = noteDTO;
+
+        checkBtn.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+               /* noteBox.getCheckBtn().setSelected(newValue.booleanValue());*/
+                try {
+                    handleSaveNote();
+                    Runnable reloadMenuPane = (Runnable) btn_Close.getParent().getUserData();
+                    reloadMenuPane.run();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        btn_Close.setUserData(this);
+
         tf_editNote_NoteName.setText(noteDTO.getTieuDe());
         ta_editNote_NoteDiscription.setText(noteDTO.getNoiDung());
         LocalDate createdDate = noteDTO.getNgayTao();
@@ -75,12 +92,25 @@ public class EditPaneController {
     public void handleExit(){}
 
     public void handleSaveNote() throws SQLException {
-        NoteDTO note = new NoteDTO(noteDTO.getMaNote(),noteDTO.getMaPhanLoai(),tf_editNote_NoteName.getText(),ta_editNote_NoteDiscription.getText(),noteDTO.getMaTinhTrang(),noteDTO.getNgayTao());
+        NoteDTO note = new NoteDTO(noteDTO.getMaNote(),
+                                   noteDTO.getMaPhanLoai(),
+                                   tf_editNote_NoteName.getText(),
+                                   ta_editNote_NoteDiscription.getText(),
+                                   checkBtn.isSelected() ? 12001: 12002,
+                                   noteDTO.getNgayTao()
+                                  );
         NoteBUS.updateNote(note);
     }
 
     public void handleAddNote() throws SQLException {
-        NoteDTO note = new NoteDTO(maPhanLoai, tf_editNote_NoteName.getText(), ta_editNote_NoteDiscription.getText(), 12002);
+        if(tf_editNote_NoteName.getText().trim().isEmpty()) {
+            return;
+        }
+        NoteDTO note = new NoteDTO(maPhanLoai,
+                                   tf_editNote_NoteName.getText(),
+                                   ta_editNote_NoteDiscription.getText(),
+                       12002
+                                  );
         NoteBUS.insertNote(note);
     }
 
@@ -93,14 +123,15 @@ public class EditPaneController {
         else {
             handleAddNote();
         }
-        Runnable reloadNotePane = (Runnable) tf_editNote_NoteName.getParent().getUserData();
-        reloadNotePane.run();
+        Runnable reloadMenuPane = (Runnable) btn_Close.getParent().getUserData();
+        reloadMenuPane.run();
     }
 
     public void handleDeleteNote() throws SQLException {
-        String nameNote = tf_editNote_NoteName.getText();
-        NoteBUS.deleteNote(nameNote);
-        Runnable reloadNotePane = (Runnable) tf_editNote_NoteName.getParent().getUserData();
-        reloadNotePane.run();
+        NoteBUS.deleteNote(noteDTO.getMaNote());
+        Runnable reloadMenuPane = (Runnable) btn_Close.getParent().getUserData();
+        reloadMenuPane.run();
+        BorderPane root = (BorderPane) tf_editNote_NoteName.getScene().getRoot();
+        root.getChildren().remove(root.getRight());
     }
 }

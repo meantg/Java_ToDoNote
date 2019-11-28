@@ -4,10 +4,7 @@ import helper.DBHelper;
 import helper.PopupHelper;
 import DTO.NoteDTO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -92,11 +89,11 @@ public class NoteDAO {
         return records > 0;
     }
 
-    public static boolean deleteNote(String nameNote) throws SQLException {
+    public static boolean deleteNote(Integer maNote) throws SQLException {
         Connection conn = DBHelper.getConnection();
-        String query = "DELETE FROM todo_note WHERE (TieuDe = '" + nameNote + "')";
-        PreparedStatement statement = conn.prepareStatement(query);
-        int records = statement.executeUpdate();
+        String query = "DELETE FROM todo_note WHERE MaNote = " + maNote;
+        Statement statement = conn.createStatement();
+        int records = statement.executeUpdate(query);
         conn.close();
         return records > 0;
     }

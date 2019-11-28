@@ -1,6 +1,6 @@
 package DTO;
 
-public class TinhTrangDTO {
+public class TinhTrangDTO implements Comparable<TinhTrangDTO> {
     private Integer maTinhTrang;
     private String tenTinhTrang;
 
@@ -15,5 +15,10 @@ public class TinhTrangDTO {
 
     public String getTenTinhTrang() {
         return tenTinhTrang;
+    }
+
+    @Override
+    public int compareTo(TinhTrangDTO o) {
+        return this.getMaTinhTrang().compareTo(o.getMaTinhTrang());
     }
 }

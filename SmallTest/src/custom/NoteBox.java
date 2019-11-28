@@ -17,6 +17,7 @@ public class NoteBox extends HBox {
     private CheckBox checkBtn;
     private Label lbTitle;
     private Label lbDescription;
+    private NoteDTO note;
     private enum TinhTrang{
         DONE(12001),
         WORKING(12002);
@@ -31,6 +32,7 @@ public class NoteBox extends HBox {
 
     public NoteBox(NoteDTO note) throws SQLException {
         this.getStylesheets().add("custom/styles.css");
+        this.note = note;
         checkBtn = new CheckBox();
         checkBtn.setSelected(note.getMaTinhTrang() == 12001 ? true : false);
         /*checkBtn.setPrefSize(30,30);*/
@@ -44,7 +46,7 @@ public class NoteBox extends HBox {
         lbDescription = new Label(note.getNoiDung());
         lbDescription.setFont(Font.font("System", 10));
 
-        contentBox.setPrefWidth(900);
+        //contentBox.setPrefWidth(900);
         contentBox.setAlignment(Pos.CENTER_LEFT);
         contentBox.getChildren().add(lbTitle);
         if(!lbDescription.getText().isEmpty()) {
@@ -90,6 +92,8 @@ public class NoteBox extends HBox {
             }
         }
     }
+
+    public NoteDTO getNote() { return note; }
     public CheckBox getCheckBtn() {
         return checkBtn;
     }
