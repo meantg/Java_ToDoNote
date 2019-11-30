@@ -1,0 +1,27 @@
+.check-box .box {
+ -fx-position: absolute;
+ -fx-top: 0;
+ -fx-left: 0;
+ -fx-height: 25px;
+ -fx-width: 25px;
+ -fx-background-color: #eee;
+ -fx-background-radius: 50px;
+ -fx-border-radius: 50px;
+}
+
+.check-box .box:hover{
+    -fx-background-color: #ccc;
+}
+
+.check-box:selected .box{
+    -fx-background-color: #14de3c;
+}
+
+.check-box:selected .mark {
+    -fx-left: 9px;
+    -fx-top: 5px;
+    -fx-width: 5px;
+    -fx-height: 10px;
+    -fx-border: solid white;
+    -fx-background-color: white;
+}

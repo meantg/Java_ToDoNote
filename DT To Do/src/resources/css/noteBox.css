@@ -1,0 +1,14 @@
+#strikethrough .text{
+    -fx-strikethrough: true;
+}
+
+#un-strike-through .text{
+    -fx-strikethrough: false;
+}
+
+#done {
+    -fx-background-color: #a8e880
+}
+#undone {
+    -fx-background-color: #eee;
+}
