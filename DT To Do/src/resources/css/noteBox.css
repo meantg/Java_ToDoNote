@@ -7,8 +7,24 @@
 }
 
 #done {
-    -fx-background-color: #a8e880
+    -fx-background-color: #a8e880;
+        -fx-border-radius: 5px;
+        -fx-background-radius: 5px;
 }
 #undone {
-    -fx-background-color: #eee;
+    -fx-background-color: white;
+        -fx-border-radius: 7px;
+        -fx-background-radius: 7px;
+}
+
+#hbox {
+    -fx-background-color: white;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+#hover{
+    -fx-background-color: lightgray;
+      -fx-border-radius: 5px;
+        -fx-background-radius: 5px;
 }

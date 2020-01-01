@@ -8,6 +8,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 import java.sql.SQLException;
@@ -24,6 +25,8 @@ public class EditPaneController {
     CheckBox checkBtn;
     @FXML
     Button btn_Close;
+    @FXML
+    AnchorPane pane;
 
     private NoteDTO noteDTO;
     private boolean isNewNote = false;
@@ -52,7 +55,7 @@ public class EditPaneController {
                 /* noteBox.getCheckBtn().setSelected(newValue.booleanValue());*/
                 try {
                     handleSaveNote();
-                    Runnable updateNoteStatus = (Runnable) btn_Close.getParent().getUserData();
+                    Runnable updateNoteStatus = (Runnable) pane.getUserData();
                     updateNoteStatus.run();
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -99,13 +102,13 @@ public class EditPaneController {
         else {
             handleAddNote();
         }
-        Runnable reloadMenuPane = (Runnable) btn_Close.getParent().getUserData();
+        Runnable reloadMenuPane = (Runnable) pane.getUserData();
         reloadMenuPane.run();
     }
 
     public void handleDeleteNote() throws SQLException {
         NoteBUS.deleteNote(noteDTO.getMaNote());
-        Runnable updateNoteStatus = (Runnable) btn_Close.getParent().getUserData();
+        Runnable updateNoteStatus = (Runnable) pane.getUserData();
         updateNoteStatus.run();
         BorderPane root = (BorderPane) tf_editNote_NoteName.getScene().getRoot();
         root.getChildren().remove(root.getRight());

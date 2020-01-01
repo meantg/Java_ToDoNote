@@ -31,7 +31,7 @@ public class CategoryBox extends HBox {
 
         lbIcon = new Label();
         lbIcon.setText(category.getIcon());
-        lbIcon.setPrefSize(50,10);
+        //lbIcon.setPrefSize(50,10);
         lbIcon.setFont(Font.font("system", 16));
         lbIcon.setAlignment(Pos.CENTER);
 
@@ -39,20 +39,26 @@ public class CategoryBox extends HBox {
         lbTitle.setText(category.getTenPhanLoai());
         lbTitle.setAlignment(Pos.CENTER_LEFT);
         lbTitle.setFont(Font.font("system", 16));
-        lbTitle.setPrefSize(230,10);
+        //lbTitle.setPrefSize(230,10);
+        HBox.setHgrow(lbTitle, Priority.ALWAYS);
 
         Integer numOfNotes = CategoryBUS.getNumOfNotesByMaPhanLoai(category.getMaPhanLoai());
         lbNumOfNotes = new Label();
         lbNumOfNotes.setText(numOfNotes.toString());
         lbNumOfNotes.setAlignment(Pos.CENTER_RIGHT);
-        lbNumOfNotes.setPrefSize(50,10);
+        //lbNumOfNotes.setPrefSize(50,10);
         lbNumOfNotes.setFont(Font.font("system", 16));
 
-        this.setPrefWidth(330);
+        final Pane spacer = new Pane();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+        spacer.setMinSize(10, 1);
+
+        this.setPrefSize(295, 45);
         this.setAlignment(Pos.CENTER_LEFT);
-        this.setPadding(new Insets(5));
+        this.setSpacing(15);
+        this.setPadding(new Insets(0, 15,0,15));
         this.getChildren().clear();
-        this.getChildren().addAll(lbIcon,lbTitle, lbNumOfNotes);
+        this.getChildren().addAll(lbIcon,lbTitle, spacer, lbNumOfNotes);
         if (numOfNotes > 0) {
             lbNumOfNotes.setVisible(true);
         } else {

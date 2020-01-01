@@ -1,7 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/../.idea/Java_ToDoNote.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/fontawesomefx_8_9.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DT To Do.iml" beforeDir="false" afterPath="$PROJECT_DIR$/DT To Do.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/controller/EditPaneController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/controller/EditPaneController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/controller/EditPaneController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/controller/EditPaneController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/controller/MainController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/controller/MainController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/controller/MainController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/controller/MainController$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/controller/MainController$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/controller/MainController$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/controller/MainController$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/controller/MainController$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/controller/MainController$SORT.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/controller/MainController$SORT.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/controller/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/controller/MainController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/custom/CategoryBox$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/custom/CategoryBox$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/custom/CategoryBox$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/custom/CategoryBox$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/custom/CategoryBox$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/custom/CategoryBox$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/custom/CategoryBox.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/custom/CategoryBox.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/custom/ListNoteBox.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/custom/ListNoteBox.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/custom/NoteBox$TinhTrang.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/custom/NoteBox$TinhTrang.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/custom/NoteBox.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/custom/NoteBox.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/helper/PopupHelper.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/helper/PopupHelper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/resources/css/checkbox.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/resources/css/checkbox.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/resources/css/editableCategory.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/resources/css/editableCategory.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/resources/css/noteBox.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/resources/css/noteBox.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/resources/css/scrollpane.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/resources/css/scrollpane.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/resources/fxml/EditPane.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/resources/fxml/EditPane.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/resources/fxml/todo_main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/resources/fxml/todo_main.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/EditPaneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/EditPaneController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/custom/CategoryBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/custom/CategoryBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/custom/ListNoteBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/custom/ListNoteBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/custom/NoteBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/custom/NoteBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/helper/PopupHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/helper/PopupHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/css/checkbox.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/css/checkbox.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/css/editableCategory.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/css/editableCategory.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/css/noteBox.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/css/noteBox.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/css/scrollpane.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/css/scrollpane.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/fxml/EditPane.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/EditPane.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/fxml/todo_main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/todo_main.fxml" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,8 +104,12 @@
       <setting name="OPEN_NEW_TAB" value="false" />
     </FindUsagesManager>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectId" id="1UIES7vmkg6VVePljl46WsxwkvB" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
   </component>
@@ -77,9 +121,10 @@
     <property name="MemberChooser.showClasses" value="true" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="OverrideImplement.combined" value="false" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/helper" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../App To-Do-Note/Icon/fontawesomefx-icons525-3.0.0.jar!/" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -196,6 +241,19 @@
   </component>
   <component name="TimeTrackingManager">
     <option name="totallyTimeSpent" value="1302000" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />

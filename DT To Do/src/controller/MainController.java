@@ -10,9 +10,11 @@ import DTO.UserDTO;
 import custom.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
@@ -39,7 +41,10 @@ public class MainController {
     BorderPane root;
 
     @FXML
-    AnchorPane title_pane;
+    HBox title_pane;
+
+    @FXML
+    HBox title_bar;
 
     @FXML
     VBox menu_pane;
@@ -64,10 +69,10 @@ public class MainController {
 
     private Scene mainScene;
     private Scene userProfileScene;
-    private TilePane noteboxPane;
+    //private TilePane noteboxPane;
     private UserDTO user;
-    private Pane pane;
-    private TilePane categoryPane;
+    private AnchorPane pane;
+    //private TilePane categoryPane;
     private ListCategory listCategory;
     private ListNoteBox listNoteBox;
     private CategoryBox curCategoryBox;
@@ -82,6 +87,41 @@ public class MainController {
         WORKING
     };
 
+
+    double x, y;
+
+    public void TitleBarDragged(MouseEvent mouseEvent) {
+        Stage stage = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
+        stage.setX(mouseEvent.getScreenX() - x);
+        stage.setY(mouseEvent.getScreenY() - y);
+    }
+
+    public void TitleBarPressed(MouseEvent mouseEvent) {
+        x = mouseEvent.getSceneX();
+        y = mouseEvent.getSceneY();
+    }
+
+    public void handleMinimizeApp(ActionEvent actionEvent) {
+        Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        stage.setIconified(true);
+    }
+
+    public void handleResizeApp(ActionEvent actionEvent) {
+        Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        if(stage.isFullScreen()) {
+            stage.setFullScreen(false);
+        }
+        else {
+            stage.setFullScreen(true);
+            stage.setFullScreenExitHint(" ");
+        }
+    }
+
+    public void handleCloseApp(ActionEvent actionEvent) {
+        Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        stage.close();
+    }
+
     public void initialize(UserDTO user){
         this.user = user;
         root.applyCss();
@@ -90,15 +130,15 @@ public class MainController {
         title_pane.setOnMousePressed(e->title_pane.requestFocus());
         mainScene = root.getScene();
 
-        categoryPane = new TilePane();
-        categoryPane.setVgap(1);
-        menu_pane.getChildren().add(categoryPane);
+//        categoryPane = new TilePane();
+//        categoryPane.setVgap(1);
+//        menu_pane.getChildren().add(categoryPane);
         initSideMenu();
 
-        noteboxPane = new TilePane();
-        noteboxPane.setVgap(1);
-        noteboxPane.setPadding(new Insets(5));
-        note_box.getChildren().add(noteboxPane);
+//        noteboxPane = new TilePane();
+//        noteboxPane.setVgap(1);
+//        noteboxPane.setPadding(new Insets(5));
+//        note_box.getChildren().add(noteboxPane);
         initNotePane();
         loadTitlePane();
     }
@@ -106,14 +146,13 @@ public class MainController {
     public void handleAddNote() throws IOException {
         FXMLLoader loader =  new FXMLLoader(URL.class.getResource("/resources/fxml/EditPane.fxml"));
         pane = loader.load();
-        pane.setPrefWidth(400);
         pane.setUserData(updateNoteStatus);
         EditPaneController editPaneController = loader.getController();
         editPaneController.newNote(curCategoryBox.getCategory().getMaPhanLoai());
         root.setRight(pane);
         root.applyCss();
         root.layout();
-        scroll_note_pane.setPrefWidth(scroll_note_pane.getWidth() - 10);
+        scroll_note_pane.setPrefWidth(scroll_note_pane.getWidth());
         pane.getStylesheets().add("/resources/css/noteBox.css");
     }
 
@@ -133,7 +172,7 @@ public class MainController {
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 scroll_note_pane.setPrefWidth(newValue.doubleValue());
                 note_box.setPrefWidth(newValue.doubleValue());
-                noteboxPane.setPrefWidth(newValue.doubleValue() - 2);
+                //note_box.setPrefWidth(newValue.doubleValue() - 2);
                 loadNotePane();
             }
         });
@@ -143,7 +182,7 @@ public class MainController {
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 scroll_note_pane.setPrefHeight(newValue.doubleValue());
                 note_box.setPrefHeight(newValue.doubleValue());
-                noteboxPane.setPrefHeight(newValue.doubleValue() - 2);
+                //note_box.setPrefHeight(newValue.doubleValue() - 2);
                 //loadNotePane();
             }
         });
@@ -193,7 +232,7 @@ public class MainController {
 
     public void initCategories() {
         //Create a Tilepane contains CategoryBox
-        categoryPane.getChildren().clear();
+        menu_pane.getChildren().clear();
 
         //Add category box into category pane
         try {
@@ -214,7 +253,7 @@ public class MainController {
                 }
                 categoryBox.setUserData(deleteCategoryBox);
                 categoryBox.getChildren().get(0).setUserData(reloadMenuPane);
-                categoryPane.getChildren().add(categoryBox);
+                menu_pane.getChildren().add(categoryBox);
             });
         }
         catch (SQLException SQLException) {
@@ -235,11 +274,11 @@ public class MainController {
     }
 
     public void loadNotePane() {
-        noteboxPane.getChildren().clear();
+        note_box.getChildren().clear();
         switch(curSortType) {
             case NORMALLY:
                 try {
-                    listNoteBox = new ListNoteBox(NoteBUS.getToDoList(curCategoryBox.getCategory().getMaPhanLoai()),noteboxPane);
+                    listNoteBox = new ListNoteBox(NoteBUS.getToDoList(curCategoryBox.getCategory().getMaPhanLoai()),note_box);
                 }
                 catch (SQLException e) {
                     e.printStackTrace();
@@ -252,7 +291,7 @@ public class MainController {
                     List<NoteDTO> listNotes = new ArrayList<NoteDTO>();
                     listNotes.addAll(listDone);
                     listNotes.addAll(listWorking);
-                    listNoteBox = new ListNoteBox(listNotes, noteboxPane);
+                    listNoteBox = new ListNoteBox(listNotes, note_box);
                 }
                 catch (SQLException e) {
                     e.printStackTrace();
@@ -265,7 +304,7 @@ public class MainController {
                     List<NoteDTO> listNotes = new ArrayList<NoteDTO>();
                     listNotes.addAll(listWorking);
                     listNotes.addAll(listDone);
-                    listNoteBox = new ListNoteBox(listNotes, noteboxPane);
+                    listNoteBox = new ListNoteBox(listNotes, note_box);
                 }
                 catch (SQLException e) {
                     e.printStackTrace();
@@ -312,7 +351,7 @@ public class MainController {
                     }
                 }
             });
-            noteboxPane.getChildren().add(noteBox);
+            note_box.getChildren().add(noteBox);
         });
     }
 
@@ -322,7 +361,7 @@ public class MainController {
             root.getChildren().remove(root.getRight());
             root.applyCss();
             root.layout();
-            scroll_note_pane.setPrefWidth(scroll_note_pane.getWidth() - 10);
+            scroll_note_pane.setPrefWidth(scroll_note_pane.getWidth());
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -335,7 +374,7 @@ public class MainController {
             pane = loader.load();
             editPaneController = loader.getController();
             editPaneController.loadNote(curNoteBox);
-            pane.setPrefWidth(400);
+            //pane.setPrefWidth(400);
             pane.setUserData(updateNoteStatus);
             pane.getStylesheets().add("/resources/css/noteBox.css");
         } catch (IOException exception) {
@@ -345,7 +384,7 @@ public class MainController {
         root.setRight(pane);
         root.applyCss();
         root.layout();
-        scroll_note_pane.setPrefWidth(scroll_note_pane.getWidth() - 10);
+        scroll_note_pane.setPrefWidth(scroll_note_pane.getWidth());
     }
 
     Runnable reloadMenuPane = () -> {
@@ -371,7 +410,7 @@ public class MainController {
         root.applyCss();
         root.layout();
         if(root.getRight() == null) {
-            scroll_note_pane.setPrefWidth(scroll_note_pane.getWidth() - 10);
+            scroll_note_pane.setPrefWidth(scroll_note_pane.getWidth());
         }
         else {
             loadNotePane();

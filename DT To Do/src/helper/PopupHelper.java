@@ -7,6 +7,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
@@ -15,6 +16,7 @@ public class PopupHelper {
     public static Stage createStage(String link, Integer width, Integer height) {
         try {
             Stage stage = new Stage();
+            stage.initStyle(StageStyle.TRANSPARENT);
             FXMLLoader loader = new FXMLLoader(URL.class.getResource(link));
             Scene scene = new Scene(loader.load(), width, height);
             stage.setUserData(loader);

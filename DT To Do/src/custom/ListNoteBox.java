@@ -3,6 +3,7 @@ package custom;
 import DTO.NoteDTO;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 public class ListNoteBox {
     private List<NoteBox> listNoteBox;
 
-    public ListNoteBox(List<NoteDTO> dsNote, TilePane noteboxPane) {
+    public ListNoteBox(List<NoteDTO> dsNote, VBox noteboxPane) {
         listNoteBox = new ArrayList<NoteBox>();
 
         dsNote.stream().forEach(note -> {

@@ -2,11 +2,13 @@
  -fx-position: absolute;
  -fx-top: 0;
  -fx-left: 0;
- -fx-height: 25px;
- -fx-width: 25px;
+ -fx-height: 40px;
+ -fx-width: 40px;
+ -fx-padding: 6px;
  -fx-background-color: #eee;
  -fx-background-radius: 50px;
  -fx-border-radius: 50px;
+ -fx-border-color: black;
 }
 
 .check-box .box:hover{
