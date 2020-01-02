@@ -1,56 +1,58 @@
 package DTO;
 
 public class UserDTO {
-    private Integer maNguoiDung;
-    private String tenNguoiDung;
-    private String tenDangNhap;
-    private String matKhau;
-    private String gioiTinh;
-    private String soDienThoai;
-    private String Email;
+    private Integer userID;
+    private String fullname;
+    private String username;
+    private String password;
+    private String gender;
+    private String phoneNumber;
+    private String email;
 
-    public UserDTO(Integer maNguoiDung, String tenNguoiDung, String tenDangNhap, String matKhau, String gioiTinh, String soDienThoai, String Email) {
-        this.maNguoiDung = maNguoiDung;
-        this.tenNguoiDung = tenNguoiDung;
-        this.tenDangNhap = tenDangNhap;
-        this.matKhau = matKhau;
-        this.gioiTinh = gioiTinh;
-        this.soDienThoai = soDienThoai;
-        this.Email = Email;
+    public UserDTO(Integer userID, String fullname, String username, String password, String gender, String phoneNumber, String email) {
+        this.userID = userID;
+        this.fullname = fullname;
+        this.username = username;
+        this.password = password;
+        this.gender = gender;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
     }
 
-    public UserDTO(String tenNguoiDung, String tenDangNhap, String matKhau, String gioiTinh, String soDienThoai, String Email) {
-        this.tenNguoiDung = tenNguoiDung;
-        this.tenDangNhap = tenDangNhap;
-        this.matKhau = matKhau;
-        this.gioiTinh = gioiTinh;
-        this.soDienThoai = soDienThoai;
-        this.Email = Email;
+    public UserDTO(String fullname, String username, String password, String gender, String phoneNumber, String email) {
+        this.fullname = fullname;
+        this.username = username;
+        this.password = password;
+        this.gender = gender;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
     }
 
-    public Integer getMaNguoiDung() {
-        return maNguoiDung;
+    public Integer getUserID() {
+        return userID;
     }
 
-    public String getTenDangNhap() {
-        return tenDangNhap;
+    public String getFullname() {
+        return fullname;
     }
 
-    public String getMatKhau() { return matKhau; }
-
-    public String getTenNguoiDung() {
-        return tenNguoiDung;
+    public String getUsername() {
+        return username;
     }
 
-    public String getGioiTinh() {
-        return gioiTinh;
+    public String getPassword() {
+        return password;
     }
 
-    public String getSoDienThoai() {
-        return soDienThoai;
+    public String getGender() {
+        return gender;
     }
 
-    public  String getEmail() {
-        return Email;
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

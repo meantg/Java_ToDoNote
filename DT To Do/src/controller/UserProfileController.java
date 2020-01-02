@@ -34,11 +34,11 @@ public class UserProfileController {
     }
 
     public void initialize(UserDTO user) {
-        lbName.setText(user.getTenNguoiDung());
-        lbAvatar.setText(user.getGioiTinh().equals("Nam") ? "+" : "-" );
-        lbUsername.setText(user.getTenDangNhap());
-        lbGender.setText(user.getGioiTinh());
+        lbName.setText(user.getUsername());
+        lbAvatar.setText(user.getGender().equals("Nam") ? "+" : "-" );
+        lbUsername.setText(user.getUsername());
+        lbGender.setText(user.getGender());
         lbEmail.setText(user.getEmail());
-        lbPhoneNumber.setText(user.getSoDienThoai());
+        lbPhoneNumber.setText(user.getPhoneNumber());
     }
 }

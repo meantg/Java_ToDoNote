@@ -83,13 +83,13 @@ public class SignUpController implements Initializable {
     public void handleSignUp() throws SQLException {
         String name = tfName.getText();
         String email = tfEmail.getText();
-        String phonenumber = tfPhoneNumber.getText();
+        String phoneNumber = tfPhoneNumber.getText();
         String username = tfUserName.getText();
         String password = pfPassword.getText();
-        String repassword = pfRePassword.getText();
+        String rePassword = pfRePassword.getText();
         String gender = cdGender_F.isSelected() ? "Nữ" : cdGender_M.isSelected() ? "Nam" : "Other";
 
-        if(!password.equals(repassword))
+        if(!password.equals(rePassword))
         {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Lỗi");
@@ -99,7 +99,7 @@ public class SignUpController implements Initializable {
             return;
         }
 
-        UserDTO user = new UserDTO(name, username, password, gender, phonenumber, email);
+        UserDTO user = new UserDTO(name, username, password, gender, phoneNumber, email);
 
         if(UserBUS.insertUser(user)){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

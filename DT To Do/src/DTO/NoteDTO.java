@@ -1,81 +1,137 @@
 package DTO;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class NoteDTO {
-    private Integer maNote;
-    private Integer maPhanLoai;
-    private String tieuDe;
-    private String noiDung;
-    private Integer maTinhTrang;
-    private LocalDate ngayTao;
-    private LocalDate hanChot;
+    private Integer noteID;
+    private Integer categoryID;
+    private Integer userID;
+    private String title;
+    private String description;
+    private Integer stateID;
+    private Boolean isMyDay;
+    private Boolean isImportance;
+    private LocalDate createDate;
+    private LocalDate dueDate;
 
-    public NoteDTO(Integer maNote, Integer maPhanLoai,
-                   String tieuDe, String noiDung, Integer maTinhTrang,
-                   LocalDate ngayTao)
-    {
-        this.maNote = maNote;
-        this.maPhanLoai = maPhanLoai;
-        this.tieuDe = tieuDe;
-        this.noiDung = noiDung;
-        this.maTinhTrang = maTinhTrang;
-        this.ngayTao = ngayTao;
-        //this.hanChot = hanChot;
+    public void setNoteID(Integer noteID) {
+        this.noteID = noteID;
     }
 
-    public NoteDTO(Integer maPhanLoai, String tieuDe, String noiDung, Integer maTinhTrang) {
-        this.maPhanLoai = maPhanLoai;
-        this.tieuDe = tieuDe;
-        this.noiDung = noiDung;
-        this.maTinhTrang = maTinhTrang;
+    public Integer getUserID() {
+        return userID;
     }
 
-    public Integer getMaNote() {
-        return maNote;
+    public void setUserID(Integer userID) {
+        this.userID = userID;
     }
 
-    public Integer getMaPhanLoai() {
-        return maPhanLoai;
+    public void setCategoryID(Integer categoryID) {
+        this.categoryID = categoryID;
     }
 
-    public String getTieuDe() {
-        return tieuDe;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getNoiDung() {
-        return noiDung;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Integer getMaTinhTrang() {
-        return maTinhTrang;
+    public void setStateID(Integer stateID) {
+        this.stateID = stateID;
     }
 
-    public LocalDate getHanChot() {
-        return hanChot;
+    public void setMyDay(Boolean myDay) {
+        isMyDay = myDay;
     }
 
-    public LocalDate getNgayTao() {return ngayTao;}
-
-    //Set Methods
-
-    public void setMaPhanLoai(Integer maPhanLoai) {
-        this.maPhanLoai = maPhanLoai;
+    public void setImportance(Boolean importance) {
+        isImportance = importance;
     }
 
-    public void setMaTinhTrang(Integer maTinhTrang) {
-        this.maTinhTrang = maTinhTrang;
+    public void setCreateDate(LocalDate createDate) {
+        this.createDate = createDate;
     }
 
-    public void setTieuDe(String tieuDe) {
-        this.tieuDe = tieuDe;
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
     }
 
-    public void setNoiDung(String noiDung) {
-        this.noiDung = noiDung;
+    public Integer getNoteID() {
+        return noteID;
     }
 
-    public void setHanChot(LocalDate hanChot) {
-        this.hanChot = hanChot;
+    public Integer getCategoryID() {
+        if(categoryID != null)
+            return categoryID;
+        else return 0;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Integer getStateID() {
+        return stateID;
+    }
+
+    public Boolean getMyDay() {
+        return isMyDay;
+    }
+
+    public Boolean getImportance() {
+        return isImportance;
+    }
+
+    public Date getCreateDate() {
+        return java.sql.Date.valueOf(createDate);
+    }
+
+    public Date getDueDate() {
+        if(dueDate != null) return java.sql.Date.valueOf(dueDate);
+        else return null;
+    }
+
+    public NoteDTO(Integer noteID, Integer userID, Integer categoryID, String title, String description, Integer stateID, Boolean isMyDay, Boolean isImportance, LocalDate createDate, LocalDate dueDate) {
+        this.noteID = noteID;
+        this.userID = userID;
+        this.categoryID = categoryID;
+        this.title = title;
+        this.description = description;
+        this.stateID = stateID;
+        this.isMyDay = isMyDay;
+        this.isImportance = isImportance;
+        this.createDate = createDate;
+        this.dueDate = dueDate;
+    }
+
+    public NoteDTO(Integer userID, Integer categoryID, String title, String description, Integer stateID, Boolean isMyDay, Boolean isImportance, LocalDate createDate, LocalDate dueDate) {
+        this.userID = userID;
+        this.categoryID = categoryID;
+        this.title = title;
+        this.description = description;
+        this.stateID = stateID;
+        this.isMyDay = isMyDay;
+        this.isImportance = isImportance;
+        this.createDate = createDate;
+        this.dueDate = dueDate;
+    }
+
+    public NoteDTO(Integer categoryID, Integer userID, String title, Boolean isMyDay, Boolean isImportance, LocalDate dueDate) {
+        this.categoryID = categoryID;
+        this.userID = userID;
+        this.title = title;
+        this.stateID = 12002;
+        this.description = "";
+        this.isMyDay = isMyDay;
+        this.isImportance = isImportance;
+        this.createDate = LocalDate.now();
+        this.dueDate = dueDate;
     }
 }

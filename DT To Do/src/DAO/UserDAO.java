@@ -12,7 +12,7 @@ public class UserDAO {
     public static boolean checkLoginUser(String username, String password) throws SQLException {
         Connection conn = DBHelper.getConnection();
         try {
-            String query = "call login_NguoiDung(?,?)";
+            String query = "call login_user(?,?)";
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setString(1, username);
             statement.setString(2, password);
@@ -29,10 +29,10 @@ public class UserDAO {
     public static boolean checkInsUser(UserDTO user) throws SQLException {
         Connection conn = DBHelper.getConnection();
         try {
-            String query = "SELECT (EXISTS (SELECT 1 FROM NguoiDung WHERE TenDangNhap = ?))"
-                    + "OR (EXISTS (SELECT 1 FROM NguoiDung WHERE Email = ?))";
+            String query = "SELECT (EXISTS (SELECT 1 FROM User WHERE Username = ?))"
+                    + "OR (EXISTS (SELECT 1 FROM User WHERE Email = ?))";
             PreparedStatement statement = conn.prepareStatement(query);
-            statement.setString(1, user.getTenDangNhap());
+            statement.setString(1, user.getUsername());
             statement.setString(2, user.getEmail());
             ResultSet rs = statement.executeQuery();
             rs.next();
@@ -46,14 +46,14 @@ public class UserDAO {
     public static boolean insertUser(UserDTO user) throws SQLException {
         Connection conn = DBHelper.getConnection();
         try {
-            String query = "INSERT INTO NguoiDung (TenNguoiDung, TenDangNhap, MatKhau, GioiTinh,"
-                    + "SoDienThoai, Email) VALUES (?,?,?,?,?,?)";
+            String query = "INSERT INTO User (Fullname, Username, Password, Gender,"
+                    + "PhoneNumber, Email) VALUES (?,?,?,?,?,?)";
             PreparedStatement statement = conn.prepareStatement(query);
-            statement.setString(1, user.getTenNguoiDung());
-            statement.setString(2, user.getTenDangNhap());
-            statement.setString(3, user.getMatKhau());
-            statement.setString(4, user.getGioiTinh());
-            statement.setString(5, user.getSoDienThoai());
+            statement.setString(1, user.getFullname());
+            statement.setString(2, user.getUsername());
+            statement.setString(3, user.getPassword());
+            statement.setString(4, user.getGender());
+            statement.setString(5, user.getPhoneNumber());
             statement.setString(6, user.getEmail());
             int records = statement.executeUpdate();
             return records > 0;
@@ -66,13 +66,13 @@ public class UserDAO {
     public static UserDTO getUserByUsername(String username) throws SQLException {
         Connection conn = DBHelper.getConnection();
         try {
-            String query = "SELECT * FROM NguoiDung WHERE TenDangNhap = ?";
+            String query = "SELECT * FROM User WHERE Username = ?";
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setString(1, username);
             ResultSet rs = statement.executeQuery();
             rs.next();
-            UserDTO output = new UserDTO(rs.getInt("MaNguoiDung"), rs.getString("TenNguoiDung"), rs.getString("TenDangNhap"),
-                    rs.getString("MatKhau"), rs.getString("GioiTinh"), rs.getString("SoDienThoai"), rs.getString("Email"));
+            UserDTO output = new UserDTO(rs.getInt("UserID"), rs.getString("Fullname"), rs.getString("Username"),
+                    rs.getString("Password"), rs.getString("Gender"), rs.getString("PhoneNumber"), rs.getString("Email"));
             return output;
         } finally {
             conn.close();

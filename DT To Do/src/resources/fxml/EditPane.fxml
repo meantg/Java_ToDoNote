@@ -26,9 +26,9 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </TextField>
-            <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" style="-fx-background-color: transparent;">
+            <Button fx:id="star_button" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" style="-fx-background-color: transparent;">
                <graphic>
-                  <MaterialDesignIconView fill="TRANSPARENT" glyphName="STAR" size="24" stroke="BLACK" strokeType="INSIDE" />
+                  <MaterialDesignIconView fx:id="star_icon" fill="TRANSPARENT" glyphName="STAR" size="24" stroke="BLACK" strokeType="INSIDE" />
                </graphic>
             </Button>
          </children>
@@ -64,15 +64,15 @@
                 </Button>
             </children>
         </HBox>
-      <HBox alignment="CENTER_LEFT" layoutX="36.0" layoutY="127.0" prefHeight="55.0" prefWidth="340.0" spacing="20.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+      <HBox fx:id="addMyDay" alignment="CENTER_LEFT" layoutX="36.0" layoutY="127.0" prefHeight="55.0" prefWidth="340.0" spacing="20.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
          <children>
-            <WeatherIconView glyphName="WU_MOSTLYSUNNY" size="24" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add to My Day" wrappingWidth="210.6103515625" HBox.hgrow="ALWAYS">
+            <WeatherIconView fx:id="iconMyDay" glyphName="WU_MOSTLYSUNNY" size="24" />
+            <Text fx:id="lbMyDay" strokeType="OUTSIDE" strokeWidth="0.0" text="Add to My Day" wrappingWidth="210.6103515625" HBox.hgrow="ALWAYS">
                <font>
                   <Font size="18.0" />
                </font>
             </Text>
-            <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" style="-fx-background-color: transparent;">
+            <Button fx:id="btnDelMyDay" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" style="-fx-background-color: transparent;">
                <graphic>
                   <MaterialDesignIconView glyphName="CLOSE" />
                </graphic>
@@ -82,15 +82,15 @@
             <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
          </padding>
       </HBox>
-      <HBox alignment="CENTER_LEFT" layoutX="36.0" layoutY="206.0" prefHeight="55.0" prefWidth="340.0" spacing="20.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+      <HBox fx:id="addDueDate" alignment="CENTER_LEFT" layoutX="36.0" layoutY="206.0" prefHeight="55.0" prefWidth="340.0" spacing="20.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
          <children>
-            <MaterialDesignIconView glyphName="CALENDAR_TODAY" size="24" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add due date" wrappingWidth="210.140625" HBox.hgrow="ALWAYS">
+            <MaterialDesignIconView fx:id="iconDueDate" glyphName="CALENDAR_TODAY" size="24" />
+            <Text fx:id="lbDueDate" strokeType="OUTSIDE" strokeWidth="0.0" text="Add due date" wrappingWidth="210.140625" HBox.hgrow="ALWAYS">
                <font>
                   <Font size="18.0" />
                </font>
             </Text>
-            <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" style="-fx-background-color: transparent;">
+            <Button fx:id="btnDelDueDate" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" style="-fx-background-color: transparent;">
                <graphic>
                   <MaterialDesignIconView glyphName="CLOSE" />
                </graphic>

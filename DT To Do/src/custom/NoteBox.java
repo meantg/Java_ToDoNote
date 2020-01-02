@@ -42,16 +42,16 @@ public class NoteBox extends HBox {
         this.note = note;
         checkBtn = new CheckBox();
         checkBtn.getStylesheets().add("resources/css/checkbox.css");
-        checkBtn.setSelected(note.getMaTinhTrang() == 12001 ? true : false);
+        checkBtn.setSelected(note.getStateID() == 12001 ? true : false);
         /*checkBtn.setPrefSize(30,30);*/
 
         VBox contentBox = new VBox();
         //contentBox.setSpacing(1);
-        lbTitle = new Label(note.getTieuDe());
+        lbTitle = new Label(note.getTitle());
         /*        lbTitle.setPrefSize(400, 30);*/
         lbTitle.setFont(Font.font("System", 12));
 
-        lbDescription = new Label(note.getNoiDung());
+        lbDescription = new Label(note.getDescription());
         lbDescription.setFont(Font.font("System", 12));
 
         //contentBox.setPrefWidth(900);
@@ -68,10 +68,16 @@ public class NoteBox extends HBox {
         starButton = new Button();
         starButton.setStyle("-fx-background-color: transparent");
         MaterialDesignIconView icon = new MaterialDesignIconView(MaterialDesignIcon.STAR);
-        icon.setStroke(Color.BLACK);
         icon.setGlyphSize(24);
-        icon.setFill(Color.TRANSPARENT);
-        //isImportance = note.isImportance;
+        isImportance = note.getImportance();
+        if (isImportance) {
+            icon.setFill(Color.YELLOW);
+            icon.setStroke(Color.TRANSPARENT);
+        } else {
+            icon.setFill(Color.TRANSPARENT);
+            icon.setStroke(Color.BLACK);
+        }
+
         starButton.setGraphic(icon);
         starButton.setMinSize(Button.USE_PREF_SIZE, Button.USE_PREF_SIZE);
         starButton.setOnMouseClicked(e -> {
@@ -79,9 +85,18 @@ public class NoteBox extends HBox {
             if (isImportance) {
                 icon.setFill(Color.YELLOW);
                 icon.setStroke(Color.TRANSPARENT);
+                note.setImportance(true);
+
             } else {
                 icon.setFill(Color.TRANSPARENT);
                 icon.setStroke(Color.BLACK);
+                note.setImportance(false);
+            }
+            try {
+                NoteBUS.updateNote(note);
+                ListSmartCategoryBox.getList().get(1).reloadBox(note.getUserID());
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
         });
         HBox.setHgrow(starButton, Priority.ALWAYS);

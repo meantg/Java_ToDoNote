@@ -18,12 +18,14 @@ public class ListCategory {
         dsPhanLoai.stream().forEach(phanLoai -> {
             try {
                 CategoryBox category = new CategoryBox(phanLoai);
-                if (curCategoryBox == null) {
-                    curCategoryBox = category;
-                    curCategoryBox.changeBackgroundColor(Color.LIGHTGRAY);
-                }
+                category.updateNumOfNotes();
+//                if (curCategoryBox == null) {
+//                    curCategoryBox = category;
+//                    curCategoryBox.changeBackgroundColor(Color.LIGHTGRAY);
+//                }
                 category.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-                    curCategoryBox.changeBackgroundColor(Color.TRANSPARENT);
+                    if(curCategoryBox != null)
+                        curCategoryBox.changeBackgroundColor(Color.TRANSPARENT);
                     curCategoryBox = category;
                     category.changeBackgroundColor(Color.LIGHTGRAY);
                 });
@@ -42,7 +44,8 @@ public class ListCategory {
     public CategoryBox getCurCategory() { return curCategoryBox; }
 
     public void setCurCategory(CategoryBox categoryBox) {
-        curCategoryBox.changeBackgroundColor(Color.TRANSPARENT);
+        if(curCategoryBox != null)
+            curCategoryBox.changeBackgroundColor(Color.TRANSPARENT);
         curCategoryBox = categoryBox;
         curCategoryBox.changeBackgroundColor(Color.LIGHTGRAY);
     }

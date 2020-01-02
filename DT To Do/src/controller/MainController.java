@@ -8,27 +8,29 @@ import DTO.NoteDTO;
 import DTO.TinhTrangDTO;
 import DTO.UserDTO;
 import custom.*;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -56,29 +58,53 @@ public class MainController {
     HBox userBox;
 
     @FXML
+    HBox add_note_box;
+
+    @FXML
+    MaterialDesignIconView Icon_PLUS;
+
+    @FXML
+    Button btnAddNote;
+
+    @FXML
+    Button btnDueDate;
+
+    @FXML
+    Button btnRemind;
+
+    @FXML
+    Button btnRepeat;
+
+    @FXML
+    TextField tfTitle;
+
+    @FXML
     ScrollPane scroll_note_pane;
 
     @FXML
     ScrollPane scroll_category_pane;
 
     @FXML
-    Label lbAvatar;
-
-    @FXML
     Label lbName;
 
     private Scene mainScene;
     private Scene userProfileScene;
-    //private TilePane noteboxPane;
     private UserDTO user;
     private AnchorPane pane;
-    //private TilePane categoryPane;
     private ListCategory listCategory;
+    private ListSmartCategoryBox listSmartCategory;
+    private List<CategoryDTO> smartLists;
     private ListNoteBox listNoteBox;
     private CategoryBox curCategoryBox;
+    private SmartCategoryBox curSmartCategoryBox;
     private NoteBox curNoteBox;
     private SORT curSortType = SORT.WORKING;
     private EditPaneController editPaneController;
+
+    private LocalDate dueDate;
+    private LocalDate repeat;
+    private LocalDateTime reminder;
+    private Integer add_note_box_categoryID;
 
 
     private enum SORT {
@@ -130,39 +156,128 @@ public class MainController {
         title_pane.setOnMousePressed(e->title_pane.requestFocus());
         mainScene = root.getScene();
 
-//        categoryPane = new TilePane();
-//        categoryPane.setVgap(1);
-//        menu_pane.getChildren().add(categoryPane);
         initSideMenu();
-
-//        noteboxPane = new TilePane();
-//        noteboxPane.setVgap(1);
-//        noteboxPane.setPadding(new Insets(5));
-//        note_box.getChildren().add(noteboxPane);
         initNotePane();
+        initAddNoteBox();
         loadTitlePane();
     }
 
-    public void handleAddNote() throws IOException {
-        FXMLLoader loader =  new FXMLLoader(URL.class.getResource("/resources/fxml/EditPane.fxml"));
-        pane = loader.load();
-        pane.setUserData(updateNoteStatus);
-        EditPaneController editPaneController = loader.getController();
-        editPaneController.newNote(curCategoryBox.getCategory().getMaPhanLoai());
-        root.setRight(pane);
-        root.applyCss();
-        root.layout();
-        scroll_note_pane.setPrefWidth(scroll_note_pane.getWidth());
-        pane.getStylesheets().add("/resources/css/noteBox.css");
+    public void initAddNoteBox() {
+        add_note_box_categoryID = null;
+        dueDate = null;
+        repeat = null;
+        add_note_box.getChildren().removeAll(btnDueDate, btnRemind, btnRepeat);
+        tfTitle.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if(newValue.isEmpty()) {
+                    add_note_box.getChildren().removeAll(btnDueDate, btnRemind, btnRepeat);
+//                    btnDueDate.setVisible(false);
+//                    btnRepeat.setVisible(false);
+//                    btnRemind.setVisible(false);
+                }
+                else {
+                    if(!add_note_box.getChildren().contains(btnDueDate))
+                        add_note_box.getChildren().addAll(btnDueDate, btnRemind, btnRepeat);
+//                    btnDueDate.setVisible(true);
+//                    btnRemind.setVisible(true);
+//                    btnRepeat.setVisible(true);
+                }
+            }
+        });
+
+        btnAddNote.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            if(tfTitle.getText().isEmpty() && !tfTitle.isFocused()) {
+                tfTitle.requestFocus();
+            }
+            else {
+                //TODO: add note
+                try {
+                    if (curCategoryBox != null) {
+                        NoteDTO note = new NoteDTO(curCategoryBox.getCategory().getCategoryID(), user.getUserID(), tfTitle.getText(), false, false, dueDate);
+                        NoteBUS.insertNote(note);
+                        curCategoryBox.updateNumOfNotes();
+                    }
+                    else if (curSmartCategoryBox != null) {
+                        NoteDTO note = new NoteDTO(add_note_box_categoryID, user.getUserID(), tfTitle.getText(), false, false, dueDate);
+                        NoteBUS.insertNote(note);
+                        listSmartCategory.getList().forEach(smartCategoryBox -> {
+                            smartCategoryBox.reloadBox(user.getUserID());
+                        });
+                    }
+
+                    tfTitle.clear();
+                    add_note_box_categoryID = null;
+                    dueDate = null;
+                    repeat = null;
+                    loadNotePane();
+                }catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        tfTitle.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(newValue) {
+                    System.out.println("Request focus tf");
+                    tfTitle.requestFocus();
+                    Icon_PLUS.setGlyphName("CHECKBOX_BLANK_CIRCLE_OUTLINE");
+                }
+                else {
+                    if(!(btnDueDate.isFocused() || btnRemind.isFocused() || btnRepeat.isFocused())) {
+                        Icon_PLUS.setGlyphName("PLUS");
+                    }
+                }
+            }
+        });
+
+        btnDueDate.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(!newValue) {
+                    if(!(tfTitle.isFocused() || btnRemind.isFocused() || btnRepeat.isFocused())) {
+                        Icon_PLUS.setGlyphName("PLUS");
+                    }
+                }
+            }
+        });
+
+        btnRemind.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(!newValue) {
+                    if(!(tfTitle.isFocused() || btnDueDate.isFocused() || btnRepeat.isFocused())) {
+                        Icon_PLUS.setGlyphName("PLUS");
+                    }
+                }
+            }
+        });
+
+        btnRepeat.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(!newValue) {
+                    if(!(tfTitle.isFocused() || btnRemind.isFocused() || btnDueDate.isFocused())) {
+                        Icon_PLUS.setGlyphName("PLUS");
+                    }
+                }
+            }
+        });
+
     }
 
-
     public void initSideMenu() {
+        initSmartCategoriesList(user);
         initCategories();
         initUserBox(user);
         initAddListBox();
-        curCategoryBox = listCategory.getCurCategory();
+
+        curSmartCategoryBox = listSmartCategory.getList().get(0);
+        listSmartCategory.setCurSmartCategory(curSmartCategoryBox);
     }
+
     public void initNotePane() {
         scroll_note_pane.applyCss();
         scroll_note_pane.layout();
@@ -191,8 +306,7 @@ public class MainController {
     }
 
     public void initUserBox(UserDTO user) {
-        lbAvatar.setText(user.getGioiTinh().equals("Nam") ? "➕" : user.getGioiTinh().equals("Other") ? "Other" : "Nữ");
-        lbName.setText(user.getTenNguoiDung());
+        lbName.setText(user.getFullname());
         userBox.setOnMouseClicked(e-> {
             try {
                 Stage stage = (Stage)userBox.getScene().getWindow();
@@ -210,11 +324,22 @@ public class MainController {
         });
     }
 
+    public void initSmartCategoriesList(UserDTO user){
+        Integer userID = user.getUserID();
+        smartLists = new ArrayList<CategoryDTO>();
+        smartLists.add(new CategoryDTO(userID, "My Day"));
+        smartLists.add(new CategoryDTO(userID, "Importance"));
+        smartLists.add(new CategoryDTO(userID, "Planned"));
+        smartLists.add(new CategoryDTO(userID, "Tasks"));
+    }
+
+
     public void initAddListBox() {
         addListBox.setOnMouseClicked(e-> {
             try {
-                CategoryBUS.insertCategory(new CategoryDTO(user.getMaNguoiDung(), "Untitled List", "☰"));
+                CategoryBUS.insertCategory(new CategoryDTO(user.getUserID(), "Untitled List", "☰", 0));
                 initCategories();
+                curSmartCategoryBox = null;
                 curCategoryBox = listCategory.getList().get(listCategory.getList().size() - 1);
                 curCategoryBox.requestFocus();
                 listCategory.setCurCategory(curCategoryBox);
@@ -231,26 +356,49 @@ public class MainController {
     }
 
     public void initCategories() {
-        //Create a Tilepane contains CategoryBox
         menu_pane.getChildren().clear();
 
+        try {
+            listSmartCategory = new ListSmartCategoryBox(smartLists);
+            listSmartCategory.getList().stream().forEach(smartCategoryBox -> {
+                smartCategoryBox.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                    if(curSmartCategoryBox != smartCategoryBox && root.getRight() != null) {
+                        closeEditPane();
+                    }
+                    if(curCategoryBox != null)
+                    curCategoryBox.changeBackgroundColor(Color.TRANSPARENT);
+                    curCategoryBox = null;
+                    curSmartCategoryBox = smartCategoryBox;
+                    loadNotePane();
+                    loadTitlePane();
+                });
+                smartCategoryBox.setUserData(deleteCategoryBox);
+                smartCategoryBox.getChildren().get(0).setUserData(reloadMenuPane);
+                menu_pane.getChildren().add(smartCategoryBox);
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Separator sp = new Separator();
+        sp.setPadding(new Insets(0,15,0,15));
+        menu_pane.getChildren().add(sp);
         //Add category box into category pane
         try {
             //Get list category by UserID
-            listCategory = new ListCategory(CategoryBUS.getListCategory(user.getMaNguoiDung()));
+            listCategory = new ListCategory(CategoryBUS.getListCategory(user.getUserID()));
             listCategory.getList().stream().forEach(categoryBox -> {
                 categoryBox.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
                     if(curCategoryBox != categoryBox && root.getRight() != null) {
                         closeEditPane();
                     }
+                    if(curSmartCategoryBox != null)
+                        curSmartCategoryBox.changeBackgroundColor(Color.TRANSPARENT);
+                    curSmartCategoryBox = null;
                     curCategoryBox = categoryBox;
                     loadNotePane();
                     loadTitlePane();
                 });
-
-                if(listCategory.getList().indexOf(categoryBox) > 2) {
-                    categoryBox.setEditable(true);
-                }
                 categoryBox.setUserData(deleteCategoryBox);
                 categoryBox.getChildren().get(0).setUserData(reloadMenuPane);
                 menu_pane.getChildren().add(categoryBox);
@@ -266,11 +414,19 @@ public class MainController {
         }
     }
 
+    //TODO: add thêm hàm set theme color
+
     public void loadTitlePane() {
         title_pane.getChildren().clear();
-        EditableCategoryBox editBox = new EditableCategoryBox(curCategoryBox);
-        editBox.setUserData(reloadMenuPane);
-        title_pane.getChildren().add(editBox);
+        if(curCategoryBox != null) {
+            EditableCategoryBox editBox = new EditableCategoryBox(curCategoryBox);
+            editBox.setUserData(reloadMenuPane);
+            title_pane.getChildren().add(editBox);
+        }
+        else if(curSmartCategoryBox != null) {
+            EditableCategoryBox titleBox = new EditableCategoryBox(curSmartCategoryBox);
+            title_pane.getChildren().add(titleBox);
+        }
     }
 
     public void loadNotePane() {
@@ -278,7 +434,28 @@ public class MainController {
         switch(curSortType) {
             case NORMALLY:
                 try {
-                    listNoteBox = new ListNoteBox(NoteBUS.getToDoList(curCategoryBox.getCategory().getMaPhanLoai()),note_box);
+                    if(curCategoryBox != null) {
+                        listNoteBox = new ListNoteBox(NoteBUS.getToDoList(curCategoryBox.getCategory().getCategoryID()), note_box);
+                    }
+                    else if(curSmartCategoryBox != null) {
+                        switch(curSmartCategoryBox.getName()) {
+                            case "My Day":
+                                listNoteBox = new ListNoteBox(NoteBUS.getMyDayNotes(user.getUserID()), note_box);
+                                break;
+                            case "Importance":
+                                listNoteBox = new ListNoteBox(NoteBUS.getImportanceNotes(user.getUserID()), note_box);
+                                break;
+                            case "Planned":
+                                listNoteBox = new ListNoteBox(NoteBUS.getPlannedNotes(user.getUserID()), note_box);
+                                break;
+                            case "Tasks":
+                                listNoteBox = new ListNoteBox(NoteBUS.getTasksNotes(user.getUserID()), note_box);
+                                break;
+                            default:
+                                System.out.println("ERROR");
+                                break;
+                        }
+                    }
                 }
                 catch (SQLException e) {
                     e.printStackTrace();
@@ -286,12 +463,28 @@ public class MainController {
                 break;
             case DONE:
                 try {
-                    List<NoteDTO> listDone = NoteBUS.getToDoList(curCategoryBox.getCategory().getMaPhanLoai(), 12001);
-                    List<NoteDTO> listWorking = NoteBUS.getToDoList(curCategoryBox.getCategory().getMaPhanLoai(), 12002);
-                    List<NoteDTO> listNotes = new ArrayList<NoteDTO>();
-                    listNotes.addAll(listDone);
-                    listNotes.addAll(listWorking);
-                    listNoteBox = new ListNoteBox(listNotes, note_box);
+                    if(curCategoryBox != null) {
+                        listNoteBox = new ListNoteBox(NoteBUS.getToDoList(curCategoryBox.getCategory().getCategoryID(), false), note_box);
+                    }
+                    else if(curSmartCategoryBox != null) {
+                        switch(curSmartCategoryBox.getName()) {
+                            case "My Day":
+                                listNoteBox = new ListNoteBox(NoteBUS.getMyDayNotes(user.getUserID(), false), note_box);
+                                break;
+                            case "Importance":
+                                listNoteBox = new ListNoteBox(NoteBUS.getImportanceNotes(user.getUserID(), false), note_box);
+                                break;
+                            case "Planned":
+                                listNoteBox = new ListNoteBox(NoteBUS.getPlannedNotes(user.getUserID(), false), note_box);
+                                break;
+                            case "Tasks":
+                                listNoteBox = new ListNoteBox(NoteBUS.getTasksNotes(user.getUserID(), false), note_box);
+                                break;
+                            default:
+                                System.out.println("ERROR");
+                                break;
+                        }
+                    }
                 }
                 catch (SQLException e) {
                     e.printStackTrace();
@@ -299,12 +492,28 @@ public class MainController {
                 break;
             case WORKING:
                 try {
-                    List<NoteDTO> listDone = NoteBUS.getToDoList(curCategoryBox.getCategory().getMaPhanLoai(), 12001);
-                    List<NoteDTO> listWorking = NoteBUS.getToDoList(curCategoryBox.getCategory().getMaPhanLoai(), 12002);
-                    List<NoteDTO> listNotes = new ArrayList<NoteDTO>();
-                    listNotes.addAll(listWorking);
-                    listNotes.addAll(listDone);
-                    listNoteBox = new ListNoteBox(listNotes, note_box);
+                    if(curCategoryBox != null) {
+                        listNoteBox = new ListNoteBox(NoteBUS.getToDoList(curCategoryBox.getCategory().getCategoryID(), true), note_box);
+                    }
+                    else if(curSmartCategoryBox != null) {
+                        switch(curSmartCategoryBox.getName()) {
+                            case "My Day":
+                                listNoteBox = new ListNoteBox(NoteBUS.getMyDayNotes(user.getUserID(), true), note_box);
+                                break;
+                            case "Importance":
+                                listNoteBox = new ListNoteBox(NoteBUS.getImportanceNotes(user.getUserID(), true), note_box);
+                                break;
+                            case "Planned":
+                                listNoteBox = new ListNoteBox(NoteBUS.getPlannedNotes(user.getUserID(), true), note_box);
+                                break;
+                            case "Tasks":
+                                listNoteBox = new ListNoteBox(NoteBUS.getTasksNotes(user.getUserID(), true), note_box);
+                                break;
+                            default:
+                                System.out.println("ERROR");
+                                break;
+                        }
+                    }
                 }
                 catch (SQLException e) {
                     e.printStackTrace();
@@ -318,7 +527,7 @@ public class MainController {
             noteBox.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
                 curNoteBox = noteBox;
                 if(editPaneController != null) {
-                    if (root.getRight() != null & curNoteBox.getNote().getMaNote().equals(editPaneController.getNoteEditing().getMaNote())) {
+                    if (root.getRight() != null & curNoteBox.getNote().getNoteID().equals(editPaneController.getNoteEditing().getNoteID())) {
                         closeEditPane();
                     } else {
                         openEditPane();
@@ -333,19 +542,24 @@ public class MainController {
                 @Override
                 public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                     curNoteBox = noteBox;
-                    if(root.getRight() != null && curNoteBox.getNote().getMaNote().equals(editPaneController.getNoteEditing().getMaNote())) {
+                    if(root.getRight() != null && curNoteBox.getNote().getNoteID().equals(editPaneController.getNoteEditing().getNoteID())) {
                         editPaneController.checkBtn.setSelected(newValue.booleanValue());
                     }
                     else {
                         try {
-                            NoteBUS.updateTinhTrang(newValue ? 12001 : 12002 ,curNoteBox.getNote().getMaNote());
+                            NoteBUS.updateTinhTrang(newValue ? 12001 : 12002,curNoteBox.getNote().getNoteID());
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }
                     }
                     loadNotePane();
                     try {
-                        curCategoryBox.updateNumOfNotes();
+                        if(curCategoryBox != null) {
+                            curCategoryBox.updateNumOfNotes();
+                        }
+                        else if(curSmartCategoryBox != null) {
+                           curSmartCategoryBox.reloadBox(user.getUserID());
+                        }
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -388,20 +602,39 @@ public class MainController {
     }
 
     Runnable reloadMenuPane = () -> {
-        int curIndex = listCategory.getList().indexOf(curCategoryBox);
-        initCategories();
-        curCategoryBox = listCategory.getList().get((curIndex));
-        listCategory.setCurCategory(curCategoryBox);
+        if(curCategoryBox != null) {
+            int curIndex = listCategory.getList().indexOf(curCategoryBox);
+            initCategories();
+            curCategoryBox = listCategory.getList().get((curIndex));
+            listCategory.setCurCategory(curCategoryBox);
+        }
+        else if(curSmartCategoryBox != null) {
+            int curSmartIndex = listSmartCategory.getList().indexOf(curSmartCategoryBox);
+            initCategories();
+            curSmartCategoryBox = listSmartCategory.getList().get(curSmartIndex);
+            listSmartCategory.setCurSmartCategory(curSmartCategoryBox);
+        }
         loadNotePane();
         loadTitlePane();
     };
 
     Runnable deleteCategoryBox = () -> {
-        int curIndex = listCategory.getList().indexOf(curCategoryBox);
-        initCategories();
-        curCategoryBox = listCategory.getList().get((curIndex -1));
-        curCategoryBox.requestFocus();
-        listCategory.setCurCategory(curCategoryBox);
+        if(curCategoryBox != null) {
+            int curIndex = listCategory.getList().indexOf(curCategoryBox);
+            if(curIndex - 1 >= 0) {
+                initCategories();
+                curCategoryBox = listCategory.getList().get((curIndex - 1));
+                curCategoryBox.requestFocus();
+                listCategory.setCurCategory(curCategoryBox);
+            }
+            else {
+                curCategoryBox = null;
+                initCategories();
+                curSmartCategoryBox = listSmartCategory.getList().get(listSmartCategory.getList().size() - 1);
+                curSmartCategoryBox.requestFocus();
+                listSmartCategory.setCurSmartCategory(curSmartCategoryBox);
+            }
+        }
         loadTitlePane();
         loadNotePane();
     };
@@ -416,7 +649,11 @@ public class MainController {
             loadNotePane();
         }
         try {
-            curCategoryBox.updateNumOfNotes();
+            if(curCategoryBox != null)
+                curCategoryBox.updateNumOfNotes();
+            else if(curSmartCategoryBox != null) {
+                curSmartCategoryBox.reloadBox(user.getUserID());
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

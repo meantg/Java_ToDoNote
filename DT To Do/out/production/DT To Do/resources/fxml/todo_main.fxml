@@ -19,7 +19,7 @@
             <children>
             <VBox layoutY="-45.0" prefHeight="664.0" prefWidth="583.0" style="-fx-background-color: #ffe6ea;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-45.0">
                <children>
-                  <HBox fx:id="title_pane" prefHeight="45.0" prefWidth="200.0">
+                  <HBox fx:id="title_pane" maxHeight="45.0" minHeight="45.0" prefHeight="45.0" prefWidth="515.0">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
@@ -32,30 +32,33 @@
                            </content>
                         </ScrollPane>
                      </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="25.0" />
+                     </VBox.margin>
                   </AnchorPane>
-                  <HBox alignment="CENTER_LEFT" maxHeight="45.0" minHeight="45.0" prefHeight="45.0" style="-fx-background-color: #ffccd4; -fx-border-radius: 4; -fx-background-radius: 4;">
+                  <HBox fx:id="add_note_box" alignment="CENTER_LEFT" maxHeight="45.0" minHeight="45.0" prefHeight="45.0" style="-fx-background-color: #ffccd4; -fx-border-radius: 4; -fx-background-radius: 4;">
                      <children>
-                        <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" style="-fx-background-color: transparent;">
+                        <Button fx:id="btnAddNote" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" style="-fx-background-color: transparent;">
                            <graphic>
-                              <MaterialDesignIconView fill="#ff99a2" glyphName="PLUS" size="25" />
+                              <MaterialDesignIconView fx:id="Icon_PLUS" fill="#ff99a2" glyphName="PLUS" size="25" />
                            </graphic>
                         </Button>
-                        <TextField promptText="Add task" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="tfTitle" promptText="Add task" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </TextField>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+                        <Button fx:id="btnDueDate" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
                            <graphic>
                               <MaterialDesignIconView fill="#ff99a2f2" glyphName="CALENDAR" size="20" />
                            </graphic>
                         </Button>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: transparent;">
+                        <Button fx:id="btnRemind" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: transparent;">
                            <graphic>
                               <MaterialDesignIconView fill="#ff99a2" glyphName="BELL_OUTLINE" size="20" />
                            </graphic>
                         </Button>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: transparent;">
+                        <Button fx:id="btnRepeat" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: transparent;">
                            <graphic>
                               <MaterialDesignIconView fill="#ff99a2" glyphName="REPEAT" size="20" strokeLineCap="ROUND" />
                            </graphic>
@@ -68,11 +71,6 @@
                         <Insets left="10.0" right="10.0" />
                      </padding>
                   </HBox>
-                          <Button fx:id="btn_AddNote" mnemonicParsing="false" onAction="#handleAddNote" prefHeight="46.0" prefWidth="50.0" style="-fx-background-color: #dcde54; -fx-background-radius: 50;" text="➕" textFill="WHITE">
-                              <font>
-                                  <Font size="21.0" />
-                              </font>
-                          </Button>
                </children>
                <padding>
                   <Insets bottom="30.0" left="35.0" right="35.0" top="45.0" />
@@ -114,16 +112,12 @@
                   </VBox>
                </center>
                <top>
-                  <HBox fx:id="userBox" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="295.0" spacing="15.0">
+                  <HBox fx:id="userBox" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="295.0" spacing="10.0">
                      <children>
-                        <Label fx:id="lbAvatar" text="Avatar">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
+                        <MaterialDesignIconView fill="#eeeded" glyphName="ACCOUNT_CIRCLE" size="28" stroke="BLACK" strokeType="INSIDE" />
                         <Label fx:id="lbName" text="Name">
                            <font>
-                              <Font size="20.0" />
+                              <Font size="16.0" />
                            </font>
                         </Label>
                      </children>

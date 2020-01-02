@@ -2,6 +2,10 @@ package custom;
 
 import BUS.CategoryBUS;
 import DTO.CategoryDTO;
+import de.jensd.fx.glyphs.icons525.Icons525;
+import de.jensd.fx.glyphs.icons525.Icons525View;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -16,6 +20,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+import javax.swing.*;
 import java.sql.SQLException;
 
 public class CategoryBox extends HBox {
@@ -25,7 +30,6 @@ public class CategoryBox extends HBox {
     private Label lbNumOfNotes;
     final ContextMenu contextMenu;
     private boolean isClicked = false;
-    private boolean isEditable = false;
     public CategoryBox(CategoryDTO category) throws SQLException {
         this.category = category;
 
@@ -36,13 +40,13 @@ public class CategoryBox extends HBox {
         lbIcon.setAlignment(Pos.CENTER);
 
         lbTitle = new Label();
-        lbTitle.setText(category.getTenPhanLoai());
+        lbTitle.setText(category.getCategoryName());
         lbTitle.setAlignment(Pos.CENTER_LEFT);
         lbTitle.setFont(Font.font("system", 16));
         //lbTitle.setPrefSize(230,10);
         HBox.setHgrow(lbTitle, Priority.ALWAYS);
 
-        Integer numOfNotes = CategoryBUS.getNumOfNotesByMaPhanLoai(category.getMaPhanLoai());
+        Integer numOfNotes = category.getNumOfNotes();
         lbNumOfNotes = new Label();
         lbNumOfNotes.setText(numOfNotes.toString());
         lbNumOfNotes.setAlignment(Pos.CENTER_RIGHT);
@@ -66,14 +70,26 @@ public class CategoryBox extends HBox {
         }
 
         contextMenu = new ContextMenu();
-        VBox contentItems = new VBox();
-        contentItems.setPrefWidth(300);
-        Button btnDelete = new Button("Delete");
-        btnDelete.setOnAction(new EventHandler<ActionEvent>() {
+        Icons525View icons525View = new Icons525View(Icons525.REMOVE);
+        icons525View.setGlyphSize(20);
+        icons525View.setFill(Color.valueOf("#d41124"));
+        HBox remove = new HBox();
+        remove.setMaxSize(265, 35);
+        remove.setMinSize(265,35);
+        remove.setPrefSize(265, 35);
+        Label lbRemove = new Label();
+        lbRemove.setText("Delete");
+        lbRemove.setFont(Font.font("system", 14));
+        lbRemove.setTextFill(Color.valueOf("#d41124"));
+        remove.setSpacing(25);
+        remove.setAlignment(Pos.CENTER_LEFT);
+        remove.setPadding(new Insets(10, 15,10, 15));
+        remove.getChildren().addAll(icons525View, lbRemove);
+        remove.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(ActionEvent event) {
+            public void handle(MouseEvent event) {
                 try {
-                    if(CategoryBUS.deleteCategory(category.getMaPhanLoai())) {
+                    if(CategoryBUS.deleteCategory(category.getCategoryID())) {
                         Runnable deleteCategoryBox = (Runnable) getUserData();
                         deleteCategoryBox.run();
                     }
@@ -82,26 +98,51 @@ public class CategoryBox extends HBox {
                 }
             }
         });
-        Button btnRename = new Button("Rename");
-        btnRename.setOnAction(new EventHandler<ActionEvent>() {
+
+        HBox rename = new HBox();
+        MaterialDesignIconView icon = new MaterialDesignIconView(MaterialDesignIcon.PENCIL);
+        icon.setGlyphSize(20);
+        icon.setFill(Color.LIGHTGRAY);
+        Label lbRename = new Label();
+        lbRename.setText("Rename list");
+        lbRename.setFont(Font.font("system", 14));
+        rename.setSpacing(25);
+        rename.setAlignment(Pos.CENTER_LEFT);
+        rename.setPadding(new Insets(10, 15,10, 15));
+        rename.getChildren().addAll(icon, lbRename);
+        rename.setMaxSize(265, 35);
+        rename.setMinSize(265,35);
+        rename.setPrefSize(265, 35);
+
+        rename.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(ActionEvent event) {
+            public void handle(MouseEvent event) {
                 CreateEditCategoryBox();
             }
         });
-        contentItems.getChildren().addAll(btnRename, btnDelete);
-        CustomMenuItem item = new CustomMenuItem(contentItems);
-        contextMenu.getItems().addAll(item);
+        //contentItems.getChildren().addAll(btnRename, btnDelete);
+        CustomMenuItem item1 = new CustomMenuItem(rename);
+        CustomMenuItem item2 = new CustomMenuItem(remove);
+        contextMenu.getItems().addAll(item1, item2);
+
+        this.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.isSecondaryButtonDown()) {
+                    showContextMenu(event);
+                }
+            }
+        });
     }
 
     public void showContextMenu(MouseEvent event) {
         contextMenu.show(this, Side.TOP, 10, 0);
     }
+
     public void CreateEditCategoryBox() {
         //TODO: set auto focus textfield
         Runnable reloadMenuPane = (Runnable) getChildren().get(0).getUserData();
         EditableCategoryBox editableCategoryBox = new EditableCategoryBox(this);
-        editableCategoryBox.setEditable(true);
         editableCategoryBox.setUserData(reloadMenuPane);
         this.getChildren().clear();
         this.getChildren().add(editableCategoryBox);
@@ -114,7 +155,7 @@ public class CategoryBox extends HBox {
     }
 
     public void updateNumOfNotes() throws SQLException {
-        Integer numOfNotes = CategoryBUS.getNumOfNotesByMaPhanLoai(category.getMaPhanLoai());
+        Integer numOfNotes = CategoryBUS.getNumOfNotesByID(category.getCategoryID());
         lbNumOfNotes.setText(numOfNotes.toString());
         if (numOfNotes > 0) {
             lbNumOfNotes.setVisible(true);
@@ -125,20 +166,5 @@ public class CategoryBox extends HBox {
 
     public CategoryDTO getCategory() {
         return category;
-    }
-
-    public boolean isEditable() {return isEditable; }
-
-    public void setEditable(boolean flag) {
-        isEditable = flag;
-        this.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (event.isSecondaryButtonDown()) {
-                    showContextMenu(event);
-                }
-            }
-        });
-
     }
 }

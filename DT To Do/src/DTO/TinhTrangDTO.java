@@ -1,24 +1,24 @@
 package DTO;
 
 public class TinhTrangDTO implements Comparable<TinhTrangDTO> {
-    private Integer maTinhTrang;
-    private String tenTinhTrang;
+    private Integer stateID;
+    private String stateName;
 
-    public TinhTrangDTO(Integer maTinhTrang, String tenTinhTrang) {
-        this.maTinhTrang = maTinhTrang;
-        this.tenTinhTrang = tenTinhTrang;
+    public TinhTrangDTO(Integer stateID, String stateName) {
+        this.stateID = stateID;
+        this.stateName = stateName;
     }
 
-    public Integer getMaTinhTrang() {
-        return maTinhTrang;
+    public Integer getStateID() {
+        return stateID;
     }
 
-    public String getTenTinhTrang() {
-        return tenTinhTrang;
+    public String getStateName() {
+        return stateName;
     }
 
     @Override
     public int compareTo(TinhTrangDTO o) {
-        return this.getMaTinhTrang().compareTo(o.getMaTinhTrang());
+        return this.getStateID().compareTo(o.getStateID());
     }
 }

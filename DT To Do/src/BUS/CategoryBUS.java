@@ -7,16 +7,16 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class CategoryBUS {
-    public static List<CategoryDTO> getListCategory(Integer maNguoiDung) throws SQLException {
-        return CategoryDAO.getListCategory(maNguoiDung);
+    public static List<CategoryDTO> getListCategory(Integer userID) throws SQLException {
+        return CategoryDAO.getListCategory(userID);
     }
 
-    public static Integer getNumOfNotesByMaPhanLoai(Integer maPhanLoai) throws SQLException {
-        return CategoryDAO.getNumOfNotesByMaPhanLoai(maPhanLoai);
+    public static Integer getNumOfNotesByID(Integer categoryID) throws SQLException {
+        return CategoryDAO.getNumOfNotesByID(categoryID);
     }
 
-    public static String getTenPhanLoaiByMa(Integer maPhanLoai) throws SQLException {
-        return CategoryDAO.getTenPhanLoaiByMa(maPhanLoai);
+    public static String getCategoryNameByID(Integer categoryID) throws SQLException {
+        return CategoryDAO.getCategoryNameByID(categoryID);
     }
 
     public static boolean insertCategory(CategoryDTO category) throws SQLException {
@@ -27,7 +27,7 @@ public class CategoryBUS {
         return CategoryDAO.updateCategory(category);
     }
 
-    public static boolean deleteCategory(Integer maPhanLoai) throws SQLException {
-        return CategoryDAO.deleteCategory(maPhanLoai);
+    public static boolean deleteCategory(Integer categoryID) throws SQLException {
+        return CategoryDAO.deleteCategory(categoryID);
     }
 }
