@@ -12,6 +12,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -76,7 +77,7 @@ public class EditPaneController {
 
     public void loadNote(NoteBox noteBox) {
         this.noteDTO = noteBox.getNote();
-        System.out.println(noteDTO.getUserID());
+
         if(noteBox.getNote().getStateID() == 12002) {
             checkBtn.setSelected(false);
         }
@@ -106,27 +107,77 @@ public class EditPaneController {
                 }
             }
         });
+        star_button.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            isImportance = !isImportance;
+            if (isImportance) {
+                star_icon.setFill(Color.YELLOW);
+                star_icon.setStroke(Color.TRANSPARENT);
+                //ListSmartCategoryBox.getList().get(1).reloadBox(noteDTO.getUserID());
+            } else {
+                star_icon.setFill(Color.TRANSPARENT);
+                star_icon.setStroke(Color.BLACK);
+                //ListSmartCategoryBox.getList().get(1).reloadBox(noteDTO.getUserID());
+            }
+            try {
+                handleSaveNote();
+                ListSmartCategoryBox.getList().get(1).reloadBox(noteDTO.getUserID());
+                Runnable updateNoteStatus = (Runnable) pane.getUserData();
+                updateNoteStatus.run();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
 
         tf_editNote_NoteName.setText(noteDTO.getTitle());
         ta_editNote_NoteDiscription.setText(noteDTO.getDescription());
         LocalDate createdDate = noteDTO.getCreateDate().toLocalDate();
         lbCreatedDate.setText(String.format("Create on %s, %s %s", createdDate.getDayOfWeek(), createdDate.getMonth(), createdDate.getYear()));
         //System.out.printf("Create on %s, %s %s", createdDate.getDayOfWeek(), createdDate.getMonth(), createdDate.getYear());
+        reloadEditPane();
+        addMyDay.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            isMyDay = true;
+            try {
+                handleSaveNote();
+                ListSmartCategoryBox.getList().get(0).reloadBox(noteDTO.getUserID());
+                Runnable updateNoteStatus = (Runnable) pane.getUserData();
+                updateNoteStatus.run();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            reloadEditPane();
+        });
+        btnDelMyDay.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            isMyDay = false;
+            try{
+                handleSaveNote();
+                ListSmartCategoryBox.getList().get(0).reloadBox(noteDTO.getUserID());
+                Runnable updateNoteStatus = (Runnable) pane.getUserData();
+                updateNoteStatus.run();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            reloadEditPane();
+        });
+
+    }
+
+    public void reloadEditPane() {
         if (isImportance) {
             star_icon.setFill(Color.YELLOW);
             star_icon.setStroke(Color.TRANSPARENT);
-            ListSmartCategoryBox.getList().get(1).reloadBox(noteDTO.getUserID());
+            //ListSmartCategoryBox.getList().get(1).reloadBox(noteDTO.getUserID());
         } else {
             star_icon.setFill(Color.TRANSPARENT);
             star_icon.setStroke(Color.BLACK);
-            ListSmartCategoryBox.getList().get(1).reloadBox(noteDTO.getUserID());
+            //ListSmartCategoryBox.getList().get(1).reloadBox(noteDTO.getUserID());
         }
+
         if(isMyDay) {
             lbMyDay.setFill(Color.BLUE);
             lbMyDay.setText("Added to My Day");
             iconMyDay.setFill(Color.BLUE);
             btnDelMyDay.setVisible(true);
-            ListSmartCategoryBox.getList().get(0).reloadBox(noteDTO.getUserID());
+
         }
         else {
             lbMyDay.setText("Add to My Day");
@@ -151,9 +202,12 @@ public class EditPaneController {
         }
     }
 
+    public void setImportance() {
+        isImportance = !isImportance;
+        reloadEditPane();
+    }
     public void handleSaveNote() throws SQLException {
         //TODO: isMyDay và isImportance set nếu button được bấm, dueDate sẽ chọn ngày.
-        System.out.println(noteDTO.getCategoryID());
         NoteDTO note = new NoteDTO(
                                    noteDTO.getNoteID(),
                                    noteDTO.getUserID(),

@@ -11,11 +11,11 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 
 public class NoteBox extends HBox {
@@ -80,7 +80,8 @@ public class NoteBox extends HBox {
 
         starButton.setGraphic(icon);
         starButton.setMinSize(Button.USE_PREF_SIZE, Button.USE_PREF_SIZE);
-        starButton.setOnMouseClicked(e -> {
+
+        starButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             isImportance = !isImportance;
             if (isImportance) {
                 icon.setFill(Color.YELLOW);
@@ -149,4 +150,5 @@ public class NoteBox extends HBox {
     public CheckBox getCheckBtn() {
         return checkBtn;
     }
+    public Button getStarButton() { return starButton; }
 }

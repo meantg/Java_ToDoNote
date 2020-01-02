@@ -2,66 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/custom/ListSmartCategoryBox.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/custom/SmartCategoryBox.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/BUS/CategoryBUS.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/BUS/CategoryBUS.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/BUS/NoteBUS.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/BUS/NoteBUS.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/DAO/CategoryDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/DAO/CategoryDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/DAO/NoteDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/DAO/NoteDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/DAO/TinhTrangDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/DAO/TinhTrangDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/DAO/UserDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/DAO/UserDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/DTO/CategoryDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/DTO/CategoryDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/DTO/NoteDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/DTO/NoteDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/DTO/TinhTrangDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/DTO/TinhTrangDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/DTO/UserDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/DTO/UserDTO.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/DT To Do/controller/EditPaneController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/controller/EditPaneController$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/DT To Do/controller/EditPaneController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/controller/EditPaneController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/controller/MainController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/controller/MainController$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/controller/MainController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/controller/MainController$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/controller/MainController$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/controller/MainController$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/controller/MainController$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/controller/MainController$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/controller/MainController$SORT.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/controller/MainController$SORT.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/DT To Do/controller/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/controller/MainController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/controller/SignUpController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/controller/SignUpController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/controller/UserProfileController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/controller/UserProfileController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/custom/CategoryBox$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/custom/CategoryBox$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/custom/CategoryBox$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/custom/CategoryBox$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/custom/CategoryBox$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/custom/CategoryBox$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/custom/CategoryBox.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/custom/CategoryBox.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/custom/EditableCategoryBox$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/custom/EditableCategoryBox$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/custom/EditableCategoryBox$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/custom/EditableCategoryBox$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/custom/EditableCategoryBox$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/custom/EditableCategoryBox$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/custom/EditableCategoryBox$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/custom/EditableCategoryBox$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/custom/EditableCategoryBox.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/custom/EditableCategoryBox.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/custom/ListCategory.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/custom/ListCategory.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/DT To Do/custom/NoteBox.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/custom/NoteBox.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/helper/DBHelper.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/helper/DBHelper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/resources/css/editableCategory.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/resources/css/editableCategory.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/resources/fxml/EditPane.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/resources/fxml/EditPane.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/resources/fxml/todo_main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/resources/fxml/todo_main.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BUS/CategoryBUS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BUS/CategoryBUS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BUS/NoteBUS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BUS/NoteBUS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/CategoryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/CategoryDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/NoteDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/NoteDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/TinhTrangDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/TinhTrangDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/UserDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DTO/CategoryDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DTO/CategoryDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DTO/NoteDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DTO/NoteDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DTO/TinhTrangDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DTO/TinhTrangDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DTO/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DTO/UserDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/EditPaneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/EditPaneController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/SignUpController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/SignUpController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/UserProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/UserProfileController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/custom/CategoryBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/custom/CategoryBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/custom/EditableCategoryBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/custom/EditableCategoryBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/custom/ListCategory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/custom/ListCategory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/custom/NoteBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/custom/NoteBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/helper/DBHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/helper/DBHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/css/editableCategory.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/css/editableCategory.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/fxml/EditPane.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/EditPane.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/fxml/todo_main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/todo_main.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/custom/SmartCategoryBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/custom/SmartCategoryBox.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

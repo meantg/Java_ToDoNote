@@ -537,6 +537,15 @@ public class MainController {
                     openEditPane();
                 }
             });
+
+            Button startButton = (Button)noteBox.getStarButton();
+            startButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+                curNoteBox = noteBox;
+                if(root.getRight() != null && curNoteBox.getNote().getNoteID().equals(editPaneController.getNoteEditing().getNoteID())) {
+                    editPaneController.setImportance();
+                }
+            });
+
             CheckBox checkBox = (CheckBox)noteBox.getCheckBtn();
             checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
                 @Override
@@ -548,6 +557,9 @@ public class MainController {
                     else {
                         try {
                             NoteBUS.updateTinhTrang(newValue ? 12001 : 12002,curNoteBox.getNote().getNoteID());
+                            ListSmartCategoryBox.getList().stream().forEach(smartCategoryBox -> {
+                                smartCategoryBox.reloadBox(user.getUserID());
+                            });
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }

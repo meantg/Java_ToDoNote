@@ -152,6 +152,12 @@ public class SmartCategoryBox extends HBox {
         lbNumOfNotes.setText(numOfNotes.toString());
         lbNumOfNotes.setAlignment(Pos.CENTER_RIGHT);
         lbNumOfNotes.setFont(Font.font("system", 16));
+        if(numOfNotes > 0) {
+            lbNumOfNotes.setVisible(true);
+        }
+        else {
+            lbNumOfNotes.setVisible(false);
+        }
     }
 
     public String getName() {
