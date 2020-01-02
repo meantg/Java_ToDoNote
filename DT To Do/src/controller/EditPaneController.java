@@ -69,6 +69,7 @@ public class EditPaneController {
     private NoteDTO noteDTO;
     private boolean isMyDay;
     private boolean isImportance;
+    private Integer stateID;
     private LocalDate dueDate;
     private int maPhanLoai;
 
@@ -87,36 +88,31 @@ public class EditPaneController {
         isImportance = noteDTO.getImportance();
         isMyDay = noteDTO.getMyDay();
         if(noteDTO.getDueDate() != null) {
-         dueDate = noteDTO.getDueDate().toLocalDate();
+            dueDate = noteDTO.getDueDate().toLocalDate();
         }
         else {
             dueDate = null;
         }
 
         checkBtn.getStylesheets().add("/resources/css/checkbox.css");
-        checkBtn.selectedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                /* noteBox.getCheckBtn().setSelected(newValue.booleanValue());*/
-                try {
-                    handleSaveNote();
-                    Runnable updateNoteStatus = (Runnable) pane.getUserData();
-                    updateNoteStatus.run();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+        checkBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            try {
+                handleSaveNote();
+                Runnable updateNoteStatus = (Runnable) pane.getUserData();
+                updateNoteStatus.run();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         });
+
         star_button.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             isImportance = !isImportance;
             if (isImportance) {
                 star_icon.setFill(Color.YELLOW);
                 star_icon.setStroke(Color.TRANSPARENT);
-                //ListSmartCategoryBox.getList().get(1).reloadBox(noteDTO.getUserID());
             } else {
                 star_icon.setFill(Color.TRANSPARENT);
                 star_icon.setStroke(Color.BLACK);
-                //ListSmartCategoryBox.getList().get(1).reloadBox(noteDTO.getUserID());
             }
             try {
                 handleSaveNote();
@@ -206,6 +202,9 @@ public class EditPaneController {
         isImportance = !isImportance;
         reloadEditPane();
     }
+
+
+
     public void handleSaveNote() throws SQLException {
         //TODO: isMyDay và isImportance set nếu button được bấm, dueDate sẽ chọn ngày.
         NoteDTO note = new NoteDTO(
@@ -221,18 +220,6 @@ public class EditPaneController {
                                    dueDate);
         NoteBUS.updateNote(note);
     }
-
-//    public void handleAddNote() throws SQLException {
-//        if(tf_editNote_NoteName.getText().trim().isEmpty()) {
-//            return;
-//        }
-//        NoteDTO note = new NoteDTO(maPhanLoai,
-//                                   tf_editNote_NoteName.getText(),
-//                                   ta_editNote_NoteDiscription.getText(),
-//                       12002
-//                                  );
-//        NoteBUS.insertNote(note);
-//    }
 
     public void handleClose() throws SQLException {
         BorderPane root = (BorderPane) tf_editNote_NoteName.getScene().getRoot();

@@ -35,6 +35,7 @@ public class SmartCategoryBox extends HBox {
                 weatherIconView.setGlyphSize(20);
                 weatherIconView.setFill(Color.valueOf("#ffa100"));
                 this.getChildren().add(weatherIconView);
+
                 try {
                     numOfNotes = NoteBUS.getMyDayNumOfNotes(category.getUserID());
                 } catch (SQLException e) {

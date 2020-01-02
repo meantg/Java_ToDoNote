@@ -98,6 +98,7 @@ public class MainController {
     private CategoryBox curCategoryBox;
     private SmartCategoryBox curSmartCategoryBox;
     private NoteBox curNoteBox;
+    private NoteDTO oldNote;
     private SORT curSortType = SORT.WORKING;
     private EditPaneController editPaneController;
 
@@ -221,7 +222,6 @@ public class MainController {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if(newValue) {
-                    System.out.println("Request focus tf");
                     tfTitle.requestFocus();
                     Icon_PLUS.setGlyphName("CHECKBOX_BLANK_CIRCLE_OUTLINE");
                 }
@@ -366,7 +366,7 @@ public class MainController {
                         closeEditPane();
                     }
                     if(curCategoryBox != null)
-                    curCategoryBox.changeBackgroundColor(Color.TRANSPARENT);
+                        curCategoryBox.changeBackgroundColor(Color.TRANSPARENT);
                     curCategoryBox = null;
                     curSmartCategoryBox = smartCategoryBox;
                     loadNotePane();
@@ -381,7 +381,7 @@ public class MainController {
         }
 
         Separator sp = new Separator();
-        sp.setPadding(new Insets(0,15,0,15));
+        sp.setPadding(new Insets(10,15,10,15));
         menu_pane.getChildren().add(sp);
         //Add category box into category pane
         try {
@@ -430,6 +430,9 @@ public class MainController {
     }
 
     public void loadNotePane() {
+        if(curNoteBox != null) {
+            oldNote = curNoteBox.getNote();
+        }
         note_box.getChildren().clear();
         switch(curSortType) {
             case NORMALLY:
@@ -524,10 +527,15 @@ public class MainController {
         }
 
         listNoteBox.getList().stream().forEach(noteBox -> {
+            if(oldNote != null) {
+                if (noteBox.getNote().getNoteID().equals(oldNote.getNoteID())) {
+                    curNoteBox = noteBox;
+                }
+            }
             noteBox.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
                 curNoteBox = noteBox;
                 if(editPaneController != null) {
-                    if (root.getRight() != null & curNoteBox.getNote().getNoteID().equals(editPaneController.getNoteEditing().getNoteID())) {
+                    if (root.getRight() != null && curNoteBox.getNote().getNoteID().equals(editPaneController.getNoteEditing().getNoteID())) {
                         closeEditPane();
                     } else {
                         openEditPane();
@@ -538,43 +546,69 @@ public class MainController {
                 }
             });
 
-            Button startButton = (Button)noteBox.getStarButton();
-            startButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+            noteBox.getStarButton().setOnAction(e-> {
                 curNoteBox = noteBox;
-                if(root.getRight() != null && curNoteBox.getNote().getNoteID().equals(editPaneController.getNoteEditing().getNoteID())) {
+                if (root.getRight() != null && curNoteBox.getNote().getNoteID().equals(editPaneController.getNoteEditing().getNoteID())) {
                     editPaneController.setImportance();
+                }
+                curNoteBox.setImportance();
+                loadNotePane();
+                try {
+                    if(curCategoryBox != null) {
+                        curCategoryBox.updateNumOfNotes();
+                        listSmartCategory.getList().stream().forEach(smartCategoryBox -> {
+                            smartCategoryBox.reloadBox(user.getUserID());
+                        });
+                    }
+                    else if(curSmartCategoryBox != null) {
+                        listCategory.getList().stream().forEach(categoryBox -> {
+                            if(categoryBox.getCategory().getCategoryID().equals(curNoteBox.getNote().getCategoryID())) {
+                                try {
+                                    categoryBox.updateNumOfNotes();
+                                } catch (SQLException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                        });
+                        listSmartCategory.getList().stream().forEach(smartCategoryBox -> {
+                            smartCategoryBox.reloadBox(user.getUserID());
+                        });
+                    }
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
                 }
             });
 
-            CheckBox checkBox = (CheckBox)noteBox.getCheckBtn();
-            checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
-                @Override
-                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                    curNoteBox = noteBox;
-                    if(root.getRight() != null && curNoteBox.getNote().getNoteID().equals(editPaneController.getNoteEditing().getNoteID())) {
-                        editPaneController.checkBtn.setSelected(newValue.booleanValue());
+            noteBox.getCheckBtn().selectedProperty().addListener((observable, oldValue, newValue) -> {
+                curNoteBox = noteBox;
+                if (root.getRight() != null && curNoteBox.getNote().getNoteID().equals(editPaneController.getNoteEditing().getNoteID())) {
+                    editPaneController.checkBtn.setSelected(newValue.booleanValue());
+                }
+                curNoteBox.setNewState(newValue);
+                loadNotePane();
+                try {
+                    if(curCategoryBox != null) {
+                        curCategoryBox.updateNumOfNotes();
+                        listSmartCategory.getList().stream().forEach(smartCategoryBox -> {
+                            smartCategoryBox.reloadBox(user.getUserID());
+                        });
                     }
-                    else {
-                        try {
-                            NoteBUS.updateTinhTrang(newValue ? 12001 : 12002,curNoteBox.getNote().getNoteID());
-                            ListSmartCategoryBox.getList().stream().forEach(smartCategoryBox -> {
-                                smartCategoryBox.reloadBox(user.getUserID());
-                            });
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
+                    else if(curSmartCategoryBox != null) {
+                        listCategory.getList().stream().forEach(categoryBox -> {
+                            if(categoryBox.getCategory().getCategoryID().equals(curNoteBox.getNote().getCategoryID())) {
+                                try {
+                                    categoryBox.updateNumOfNotes();
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                        listSmartCategory.getList().stream().forEach(smartCategoryBox -> {
+                            smartCategoryBox.reloadBox(user.getUserID());
+                        });
                     }
-                    loadNotePane();
-                    try {
-                        if(curCategoryBox != null) {
-                            curCategoryBox.updateNumOfNotes();
-                        }
-                        else if(curSmartCategoryBox != null) {
-                           curSmartCategoryBox.reloadBox(user.getUserID());
-                        }
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             });
             note_box.getChildren().add(noteBox);
@@ -600,7 +634,6 @@ public class MainController {
             pane = loader.load();
             editPaneController = loader.getController();
             editPaneController.loadNote(curNoteBox);
-            //pane.setPrefWidth(400);
             pane.setUserData(updateNoteStatus);
             pane.getStylesheets().add("/resources/css/noteBox.css");
         } catch (IOException exception) {
@@ -661,10 +694,25 @@ public class MainController {
             loadNotePane();
         }
         try {
-            if(curCategoryBox != null)
+            if(curCategoryBox != null) {
                 curCategoryBox.updateNumOfNotes();
+                listSmartCategory.getList().stream().forEach(smartCategoryBox -> {
+                    smartCategoryBox.reloadBox(user.getUserID());
+                });
+            }
             else if(curSmartCategoryBox != null) {
-                curSmartCategoryBox.reloadBox(user.getUserID());
+                listCategory.getList().stream().forEach(categoryBox -> {
+                    if(categoryBox.getCategory().getCategoryID().equals(curNoteBox.getNote().getCategoryID())) {
+                        try {
+                            categoryBox.updateNumOfNotes();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                listSmartCategory.getList().stream().forEach(smartCategoryBox -> {
+                    smartCategoryBox.reloadBox(user.getUserID());
+                });
             }
         } catch (SQLException e) {
             e.printStackTrace();

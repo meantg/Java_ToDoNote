@@ -133,6 +133,7 @@ public class CategoryBox extends HBox {
                 }
             }
         });
+
     }
 
     public void showContextMenu(MouseEvent event) {

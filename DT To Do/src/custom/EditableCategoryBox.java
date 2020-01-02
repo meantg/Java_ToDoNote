@@ -130,7 +130,6 @@ public class EditableCategoryBox extends HBox {
         this.getChildren().clear();
         switch(smartCategoryBox.getName()) {
             case "My Day":
-                System.out.println("SUNNY");
                 WeatherIconView weatherIconView = new WeatherIconView(WeatherIcon.DAY_SUNNY);
                 weatherIconView.setGlyphSize(20);
                 weatherIconView.setFill(Color.valueOf("#ffa100"));
