@@ -1,6 +1,8 @@
+CREATE DATABASE  IF NOT EXISTS `dttodo` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `dttodo`;
 -- MySQL dump 10.13  Distrib 8.0.17, for Win64 (x86_64)
 --
--- Host: localhost    Database: todolist
+-- Host: localhost    Database: dttodo
 -- ------------------------------------------------------
 -- Server version	8.0.17
 
@@ -16,27 +18,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tinhtrang`
+-- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `tinhtrang`;
+DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tinhtrang` (
-  `MaTinhTrang` int(11) NOT NULL AUTO_INCREMENT,
-  `TenTinhTrang` varchar(45) NOT NULL,
-  PRIMARY KEY (`MaTinhTrang`)
-) ENGINE=InnoDB AUTO_INCREMENT=12004 DEFAULT CHARSET=utf8;
+CREATE TABLE `user` (
+  `UserID` int(11) NOT NULL AUTO_INCREMENT,
+  `Fullname` varchar(45) NOT NULL,
+  `Username` varchar(45) NOT NULL,
+  `Password` varchar(45) NOT NULL,
+  `Gender` varchar(10) DEFAULT NULL,
+  `PhoneNumber` varchar(45) DEFAULT NULL,
+  `Email` varchar(45) NOT NULL,
+  PRIMARY KEY (`UserID`)
+) ENGINE=InnoDB AUTO_INCREMENT=11002 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tinhtrang`
+-- Dumping data for table `user`
 --
 
-LOCK TABLES `tinhtrang` WRITE;
-/*!40000 ALTER TABLE `tinhtrang` DISABLE KEYS */;
-INSERT INTO `tinhtrang` VALUES (12001,'Done'),(12002,'Working');
-/*!40000 ALTER TABLE `tinhtrang` ENABLE KEYS */;
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (11001,'Dat Vuang','datvt99','datvt99','Nam','0782369351','17520343@gm.uit.edu.vn');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -48,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-30 14:47:17
+-- Dump completed on 2020-01-02 17:25:27
