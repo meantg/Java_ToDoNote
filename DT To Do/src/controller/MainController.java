@@ -555,19 +555,9 @@ public class MainController {
                 }
             });
 
-            noteBox.getStarButton().setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    setImportance(noteBox);
-                }
-            });
+            noteBox.getStarButton().setOnAction(e -> setImportance(noteBox));
 
-            noteBox.getCheckBtn().setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    setState(noteBox);
-                }
-            });
+            noteBox.getCheckBtn().setOnAction(e->setState(noteBox));
 
         });
     }
