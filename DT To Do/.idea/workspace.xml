@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/controller/MainController$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/controller/MainController$8.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DT To Do/controller/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DT To Do/controller/MainController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/EditPaneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/EditPaneController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/fxml/UserProfile.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/fxml/UserProfile.fxml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -90,9 +87,9 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../App To-Do-Note/Icon/fontawesomefx-icons525-3.0.0.jar!/" />
-    <property name="project.structure.last.edited" value="SDKs" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/resources/fxml" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.1525" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
     <property name="settings.editor.selected.configurable" value="com.codota.intellij.common.configuration.CodotaConfigurable" />
@@ -100,11 +97,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Third Year\OAD\Java_ToDoNote\DT To Do\src\resources\fxml" />
       <recent name="D:\Third Year\App To-Do-Note\DT To Do\src\helper" />
       <recent name="D:\Third Year\App To-Do-Note\DT To Do\src\resources\css" />
       <recent name="D:\Third Year\App To-Do-Note\DT To Do\src\custom" />
       <recent name="D:\Third Year\App To-Do-Note\DT To Do\src\BUS" />
-      <recent name="D:\Third Year\App To-Do-Note\DT To Do\src\controller" />
     </key>
   </component>
   <component name="RunDashboard">
