@@ -2,6 +2,7 @@
 
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -42,6 +43,9 @@
                            <graphic>
                               <MaterialDesignIconView fx:id="Icon_PLUS" fill="#ff99a2" glyphName="PLUS" size="25" />
                            </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Button>
                         <TextField fx:id="tfTitle" promptText="Add task" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
                            <font>
@@ -52,16 +56,25 @@
                            <graphic>
                               <MaterialDesignIconView fill="#ff99a2f2" glyphName="CALENDAR" size="20" />
                            </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Button>
                         <Button fx:id="btnRemind" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: transparent;">
                            <graphic>
                               <MaterialDesignIconView fill="#ff99a2" glyphName="BELL_OUTLINE" size="20" />
                            </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Button>
                         <Button fx:id="btnRepeat" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: transparent;">
                            <graphic>
                               <MaterialDesignIconView fill="#ff99a2" glyphName="REPEAT" size="20" strokeLineCap="ROUND" />
                            </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Button>
                      </children>
                      <VBox.margin>
@@ -107,6 +120,9 @@
                            <padding>
                               <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
                            </padding>
+                           <cursor>
+                              <Cursor fx:constant="OPEN_HAND" />
+                           </cursor>
                         </HBox>
                      </children>
                   </VBox>
@@ -124,6 +140,9 @@
                      <padding>
                         <Insets bottom="10.0" left="15.0" right="15.0" top="55.0" />
                      </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </HBox>
                </top>
             </BorderPane>

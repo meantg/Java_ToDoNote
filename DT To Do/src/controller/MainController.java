@@ -2,14 +2,13 @@ package controller;
 
 import BUS.CategoryBUS;
 import BUS.NoteBUS;
-import BUS.TinhTrangBUS;
 import DTO.CategoryDTO;
 import DTO.NoteDTO;
-import DTO.TinhTrangDTO;
 import DTO.UserDTO;
 import custom.*;
-import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -98,14 +97,14 @@ public class MainController {
     private CategoryBox curCategoryBox;
     private SmartCategoryBox curSmartCategoryBox;
     private NoteBox curNoteBox;
-    private NoteDTO oldNote;
     private SORT curSortType = SORT.WORKING;
     private EditPaneController editPaneController;
 
     private LocalDate dueDate;
+    private boolean isMyDay;
+    private boolean isImportance;
     private LocalDate repeat;
     private LocalDateTime reminder;
-    private Integer add_note_box_categoryID;
 
 
     private enum SORT {
@@ -164,9 +163,12 @@ public class MainController {
     }
 
     public void initAddNoteBox() {
-        add_note_box_categoryID = null;
+
+//        add_note_box_categoryID = null;
         dueDate = null;
         repeat = null;
+        isMyDay = false;
+        isImportance = false;
         add_note_box.getChildren().removeAll(btnDueDate, btnRemind, btnRepeat);
         tfTitle.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -200,7 +202,19 @@ public class MainController {
                         curCategoryBox.updateNumOfNotes();
                     }
                     else if (curSmartCategoryBox != null) {
-                        NoteDTO note = new NoteDTO(add_note_box_categoryID, user.getUserID(), tfTitle.getText(), false, false, dueDate);
+                        switch(curSmartCategoryBox.getName()) {
+                            case "My Day":
+                                isMyDay = true;
+                                break;
+                            case "Importance":
+                                isImportance = true;
+                                break;
+                            case "Planned":
+                                dueDate = LocalDate.now();
+                            default:
+                                break;
+                        }
+                        NoteDTO note = new NoteDTO(null, user.getUserID(), tfTitle.getText(), isMyDay, isImportance, dueDate);
                         NoteBUS.insertNote(note);
                         listSmartCategory.getList().forEach(smartCategoryBox -> {
                             smartCategoryBox.reloadBox(user.getUserID());
@@ -208,9 +222,11 @@ public class MainController {
                     }
 
                     tfTitle.clear();
-                    add_note_box_categoryID = null;
+//                    add_note_box_categoryID = null;
                     dueDate = null;
                     repeat = null;
+                    isMyDay = false;
+                    isImportance = false;
                     loadNotePane();
                 }catch (SQLException e) {
                     e.printStackTrace();
@@ -430,9 +446,6 @@ public class MainController {
     }
 
     public void loadNotePane() {
-        if(curNoteBox != null) {
-            oldNote = curNoteBox.getNote();
-        }
         note_box.getChildren().clear();
         switch(curSortType) {
             case NORMALLY:
@@ -527,91 +540,35 @@ public class MainController {
         }
 
         listNoteBox.getList().stream().forEach(noteBox -> {
-            if(oldNote != null) {
-                if (noteBox.getNote().getNoteID().equals(oldNote.getNoteID())) {
-                    curNoteBox = noteBox;
-                }
-            }
-            noteBox.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+            note_box.getChildren().add(noteBox);
+            //TODO: lúc load lại cần click 2 lần.
+            noteBox.setOnMouseClicked(e -> {
                 curNoteBox = noteBox;
-                if(editPaneController != null) {
+                if (editPaneController != null) {
                     if (root.getRight() != null && curNoteBox.getNote().getNoteID().equals(editPaneController.getNoteEditing().getNoteID())) {
                         closeEditPane();
                     } else {
                         openEditPane();
                     }
-                }
-                else {
+                } else {
                     openEditPane();
                 }
             });
 
-            noteBox.getStarButton().setOnAction(e-> {
-                curNoteBox = noteBox;
-                if (root.getRight() != null && curNoteBox.getNote().getNoteID().equals(editPaneController.getNoteEditing().getNoteID())) {
-                    editPaneController.setImportance();
-                }
-                curNoteBox.setImportance();
-                loadNotePane();
-                try {
-                    if(curCategoryBox != null) {
-                        curCategoryBox.updateNumOfNotes();
-                        listSmartCategory.getList().stream().forEach(smartCategoryBox -> {
-                            smartCategoryBox.reloadBox(user.getUserID());
-                        });
-                    }
-                    else if(curSmartCategoryBox != null) {
-                        listCategory.getList().stream().forEach(categoryBox -> {
-                            if(categoryBox.getCategory().getCategoryID().equals(curNoteBox.getNote().getCategoryID())) {
-                                try {
-                                    categoryBox.updateNumOfNotes();
-                                } catch (SQLException ex) {
-                                    ex.printStackTrace();
-                                }
-                            }
-                        });
-                        listSmartCategory.getList().stream().forEach(smartCategoryBox -> {
-                            smartCategoryBox.reloadBox(user.getUserID());
-                        });
-                    }
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
+            noteBox.getStarButton().setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    setImportance(noteBox);
                 }
             });
 
-            noteBox.getCheckBtn().selectedProperty().addListener((observable, oldValue, newValue) -> {
-                curNoteBox = noteBox;
-                if (root.getRight() != null && curNoteBox.getNote().getNoteID().equals(editPaneController.getNoteEditing().getNoteID())) {
-                    editPaneController.checkBtn.setSelected(newValue.booleanValue());
-                }
-                curNoteBox.setNewState(newValue);
-                loadNotePane();
-                try {
-                    if(curCategoryBox != null) {
-                        curCategoryBox.updateNumOfNotes();
-                        listSmartCategory.getList().stream().forEach(smartCategoryBox -> {
-                            smartCategoryBox.reloadBox(user.getUserID());
-                        });
-                    }
-                    else if(curSmartCategoryBox != null) {
-                        listCategory.getList().stream().forEach(categoryBox -> {
-                            if(categoryBox.getCategory().getCategoryID().equals(curNoteBox.getNote().getCategoryID())) {
-                                try {
-                                    categoryBox.updateNumOfNotes();
-                                } catch (SQLException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
-                        listSmartCategory.getList().stream().forEach(smartCategoryBox -> {
-                            smartCategoryBox.reloadBox(user.getUserID());
-                        });
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
+            noteBox.getCheckBtn().setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    setState(noteBox);
                 }
             });
-            note_box.getChildren().add(noteBox);
+
         });
     }
 
@@ -644,6 +601,76 @@ public class MainController {
         root.applyCss();
         root.layout();
         scroll_note_pane.setPrefWidth(scroll_note_pane.getWidth());
+    }
+
+    public boolean setState(NoteBox noteBox) {
+        curNoteBox = noteBox;
+        if (root.getRight() != null && curNoteBox.getNote().getNoteID().equals(editPaneController.getNoteEditing().getNoteID())) {
+            editPaneController.checkBtn.setSelected(curNoteBox.getCheckBtn().isSelected());
+        }
+        curNoteBox.setNewState(curNoteBox.getCheckBtn().isSelected());
+        loadNotePane();
+        try {
+            if(curCategoryBox != null) {
+                curCategoryBox.updateNumOfNotes();
+                listSmartCategory.getList().stream().forEach(smartCategoryBox -> {
+                    smartCategoryBox.reloadBox(user.getUserID());
+                });
+            }
+            else if(curSmartCategoryBox != null) {
+                listCategory.getList().stream().forEach(categoryBox -> {
+                    if(categoryBox.getCategory().getCategoryID().equals(curNoteBox.getNote().getCategoryID())) {
+                        try {
+                            categoryBox.updateNumOfNotes();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                listSmartCategory.getList().stream().forEach(smartCategoryBox -> {
+                    smartCategoryBox.reloadBox(user.getUserID());
+                });
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public boolean setImportance(NoteBox noteBox) {
+        curNoteBox = noteBox;
+        if (root.getRight() != null && curNoteBox.getNote().getNoteID().equals(editPaneController.getNoteEditing().getNoteID())) {
+            editPaneController.setImportance();
+        }
+        curNoteBox.setImportance();
+        loadNotePane();
+        try {
+            if(curCategoryBox != null) {
+                curCategoryBox.updateNumOfNotes();
+                listSmartCategory.getList().stream().forEach(smartCategoryBox -> {
+                    smartCategoryBox.reloadBox(user.getUserID());
+                });
+            }
+            else if(curSmartCategoryBox != null) {
+
+                listCategory.getList().stream().forEach(categoryBox -> {
+                    if(categoryBox.getCategory().getCategoryID().equals(curNoteBox.getNote().getCategoryID())) {
+                        try {
+                            categoryBox.updateNumOfNotes();
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+                listSmartCategory.getList().stream().forEach(smartCategoryBox -> {
+                    smartCategoryBox.reloadBox(user.getUserID());
+                });
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
 
     Runnable reloadMenuPane = () -> {

@@ -230,11 +230,11 @@ public class EditPaneController {
     }
 
     public void handleDeleteNote() throws SQLException {
+        BorderPane root = (BorderPane) tf_editNote_NoteName.getScene().getRoot();
+        root.getChildren().remove(root.getRight());
         NoteBUS.deleteNote(noteDTO.getNoteID());
         Runnable updateNoteStatus = (Runnable) pane.getUserData();
         updateNoteStatus.run();
-        BorderPane root = (BorderPane) tf_editNote_NoteName.getScene().getRoot();
-        root.getChildren().remove(root.getRight());
     }
 
     public NoteDTO getNoteEditing() {

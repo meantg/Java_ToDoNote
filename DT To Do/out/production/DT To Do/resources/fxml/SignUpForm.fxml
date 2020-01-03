@@ -14,19 +14,19 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="757.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SignUpController">
    <children>
-      <VBox alignment="CENTER" prefHeight="540.0" prefWidth="318.0" style="-fx-background-color: #dcde54;">
+      <VBox alignment="CENTER" prefHeight="540.0" prefWidth="318.0" style="-fx-background-color: #ffe6ea;">
          <children>
             <ImageView fitHeight="196.0" fitWidth="260.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../image/note.png" />
                </image>
             </ImageView>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome To">
+            <Text fill="#b83434" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome To">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="ToDoNote">
+            <Text fill="#b83434" strokeType="OUTSIDE" strokeWidth="0.0" text="DT To Do">
                <font>
                   <Font name="Berlin Sans FB" size="30.0" />
                </font>
@@ -64,7 +64,7 @@
             <PasswordField fx:id="pfRePassword" layoutX="55.0" layoutY="364.0" prefHeight="31.0" prefWidth="307.0" promptText="Re-Password (Type password again)" />
          </children>
       </Pane>
-      <Button layoutX="379.0" layoutY="451.0" mnemonicParsing="false" onAction="#handleSignUp" prefHeight="53.0" prefWidth="298.0" style="-fx-background-color: #dcde54; -fx-background-radius: 50; -fx-font-size: 30;" text="Sign up" textFill="WHITE">
+      <Button layoutX="379.0" layoutY="451.0" mnemonicParsing="false" onAction="#handleSignUp" prefHeight="53.0" prefWidth="298.0" style="-fx-background-color: #ffe6ea; -fx-background-radius: 50; -fx-font-size: 30;" text="Sign up" textFill="#b83434">
          <font>
             <Font name="Berlin Sans FB" size="27.0" />
          </font>

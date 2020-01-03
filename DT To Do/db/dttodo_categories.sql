@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `dttodo` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `dttodo`;
 -- MySQL dump 10.13  Distrib 8.0.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: dttodo
@@ -30,8 +28,10 @@ CREATE TABLE `categories` (
   `CategoryName` longtext NOT NULL,
   `Icon` varchar(45) NOT NULL,
   `NumOfNotes` int(11) DEFAULT '0',
-  PRIMARY KEY (`CategoryID`)
-) ENGINE=InnoDB AUTO_INCREMENT=11013 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`CategoryID`),
+  KEY `userID_idx` (`UserID`),
+  CONSTRAINT `fk_user_categories` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=11027 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `categories` (
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` VALUES (11011,11001,'ad','☰',0),(11012,11001,'Untitled List','☰',0);
+INSERT INTO `categories` VALUES (11025,11001,'Untitled List','☰',0);
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -77,4 +77,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-01-02 17:25:27
+-- Dump completed on 2020-01-03 17:01:33

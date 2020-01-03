@@ -14,19 +14,19 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="533.0" prefWidth="822.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <children>
-      <VBox alignment="CENTER" prefHeight="533.0" prefWidth="354.0" style="-fx-background-color: #dcde54;">
+      <VBox alignment="CENTER" prefHeight="533.0" prefWidth="354.0" style="-fx-background-color: #ffe6ea;">
          <children>
             <ImageView fitHeight="196.0" fitWidth="260.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../image/note.png" />
                </image>
             </ImageView>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome To">
+            <Text fill="#ab2f2f" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome To">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="ToDoNote">
+            <Text fill="#ab2f2f" strokeType="OUTSIDE" strokeWidth="0.0" text="DT To Do">
                <font>
                   <Font name="Berlin Sans FB" size="30.0" />
                </font>
@@ -47,7 +47,7 @@
             </Text>
             <TextField fx:id="tfUsername" layoutX="55.0" layoutY="207.0" prefHeight="31.0" prefWidth="307.0" promptText="UserName" />
             <PasswordField fx:id="pfPassword" layoutX="55.0" layoutY="267.0" prefHeight="31.0" prefWidth="307.0" promptText="Password" />
-            <Button layoutX="55.0" layoutY="352.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="53.0" prefWidth="307.0" style="-fx-background-color: #dcde54; -fx-background-radius: 50;" text="Login" textFill="WHITE">
+            <Button layoutX="55.0" layoutY="352.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="53.0" prefWidth="307.0" style="-fx-background-color: #ffe6ea; -fx-background-radius: 50;" text="Login" textFill="#ab2f2f">
                <font>
                   <Font name="Berlin Sans FB" size="27.0" />
                </font>
