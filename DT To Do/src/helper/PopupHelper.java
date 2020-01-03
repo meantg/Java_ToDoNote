@@ -16,7 +16,7 @@ public class PopupHelper {
     public static Stage createStage(String link, Integer width, Integer height) {
         try {
             Stage stage = new Stage();
-            stage.initStyle(StageStyle.TRANSPARENT);
+            //stage.initStyle(StageStyle.TRANSPARENT);
             FXMLLoader loader = new FXMLLoader(URL.class.getResource(link));
             Scene scene = new Scene(loader.load(), width, height);
             stage.setUserData(loader);

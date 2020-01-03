@@ -12,6 +12,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 import java.net.URL;
@@ -36,6 +37,7 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         mainStage = PopupHelper.createStage("/resources/fxml/todo_main.fxml", 1280, 800);
+        mainStage.initStyle(StageStyle.TRANSPARENT);
         mainStage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, e -> {
             if (ConfirmDialogHelper.confirm("Xác nhận thoát?")) {
                 PopupHelper.createStage("/resources/fxml/LoginForm.fxml", 825, 522).show();

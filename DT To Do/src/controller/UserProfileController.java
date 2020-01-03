@@ -1,7 +1,11 @@
 package controller;
 
 import DTO.UserDTO;
+import helper.ConfirmDialogHelper;
+import helper.PopupHelper;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -40,5 +44,17 @@ public class UserProfileController {
         lbGender.setText(user.getGender());
         lbEmail.setText(user.getEmail());
         lbPhoneNumber.setText(user.getPhoneNumber());
+    }
+
+    public void handleSignOut() {
+        System.out.println("Log out");
+        Stage mainStage = (Stage)lbAvatar.getScene().getWindow();
+
+        if (ConfirmDialogHelper.confirm("Xác nhận thoát?")) {
+            mainStage.close();
+            PopupHelper.createStage("/resources/fxml/LoginForm.fxml", 825, 522).show();
+        } else {
+            return;
+        }
     }
 }
