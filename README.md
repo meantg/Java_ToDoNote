@@ -1,6 +1,10 @@
 # Java_ToDoNote
 Đồ án Java: phần mềm quản lý note (ToDoNote)
 
+## Nhóm thực hiện đồ án : DT
+- Thành viên 1 : Vũ Minh Thắng 17521041
+- Thành viên 2 : Vương Thịnh Đạt 17520343
+
 ## Mục tiêu
 - Đáp ứng được các nhu cầu của người sử dụng về quản lý ghi chú cá nhân.
 - Ứng dụng dễ sử dụng và có tính chính xác cao.
