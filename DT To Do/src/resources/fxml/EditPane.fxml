@@ -17,88 +17,88 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="pane" maxWidth="360.0" minHeight="-Infinity" minWidth="360.0" prefHeight="750.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditPaneController">
-   <children>
-      <HBox alignment="CENTER_LEFT" layoutX="29.0" layoutY="-3.0" prefHeight="110.0" prefWidth="360.0" style="-fx-background-color: white; -fx-border-width: 1;" AnchorPane.bottomAnchor="641.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-              <CheckBox fx:id="checkBtn" mnemonicParsing="false" stylesheets="@../css/checkbox.css" />
-              <TextField fx:id="tf_editNote_NoteName" prefHeight="46.0" prefWidth="333.0" promptText="Note" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </TextField>
-            <Button fx:id="star_button" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" style="-fx-background-color: transparent;">
-               <graphic>
-                  <MaterialDesignIconView fx:id="star_icon" fill="TRANSPARENT" glyphName="STAR" size="24" stroke="BLACK" strokeType="INSIDE" />
-               </graphic>
-            </Button>
-         </children>
-         <padding>
-            <Insets left="20.0" />
-         </padding>
-      </HBox>
+    <children>
+        <HBox alignment="CENTER_LEFT" layoutX="29.0" layoutY="-3.0" maxHeight="110.0" minHeight="110.0" prefHeight="110.0" prefWidth="360.0" style="-fx-background-color: white; -fx-border-width: 1;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <CheckBox fx:id="checkBtn" mnemonicParsing="false" stylesheets="@../css/checkbox.css" />
+                <TextField fx:id="tf_editNote_NoteName" prefHeight="45.0" prefWidth="333.0" promptText="Note" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                </TextField>
+                <Button fx:id="star_button" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" style="-fx-background-color: transparent;">
+                    <graphic>
+                        <MaterialDesignIconView fx:id="star_icon" fill="TRANSPARENT" glyphName="STAR" size="24" stroke="BLACK" strokeType="INSIDE" />
+                    </graphic>
+                </Button>
+            </children>
+            <padding>
+                <Insets left="20.0" />
+            </padding>
+        </HBox>
         <TextArea fx:id="ta_editNote_NoteDiscription" layoutX="10.0" layoutY="282.0" minHeight="200.0" prefWidth="340.0" promptText="Add description" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
             <font>
                 <Font size="18.0" />
             </font>
         </TextArea>
+        <HBox fx:id="addMyDay" alignment="CENTER_LEFT" layoutX="36.0" layoutY="127.0" maxHeight="55.0" minHeight="55.0" prefHeight="55.0" prefWidth="340.0" spacing="20.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="127.0">
+            <children>
+                <WeatherIconView fx:id="iconMyDay" glyphName="WU_MOSTLYSUNNY" size="24" />
+                <Text fx:id="lbMyDay" strokeType="OUTSIDE" strokeWidth="0.0" text="Add to My Day" wrappingWidth="210.6103515625" HBox.hgrow="ALWAYS">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Text>
+                <Button fx:id="btnDelMyDay" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" style="-fx-background-color: transparent;">
+                    <graphic>
+                        <MaterialDesignIconView glyphName="CLOSE" />
+                    </graphic>
+                </Button>
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+            </padding>
+        </HBox>
+        <HBox fx:id="addDueDate" alignment="CENTER_LEFT" layoutX="36.0" layoutY="206.0" maxHeight="55.0" minHeight="55.0" prefHeight="55.0" prefWidth="340.0" spacing="20.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="206.0">
+            <children>
+                <MaterialDesignIconView fx:id="iconDueDate" glyphName="CALENDAR_TODAY" size="24" />
+                <Text fx:id="lbDueDate" strokeType="OUTSIDE" strokeWidth="0.0" text="Add due date" wrappingWidth="210.140625" HBox.hgrow="ALWAYS">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Text>
+                <Button fx:id="btnDelDueDate" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" style="-fx-background-color: transparent;">
+                    <graphic>
+                        <MaterialDesignIconView glyphName="CLOSE" />
+                    </graphic>
+                </Button>
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+            </padding>
+        </HBox>
         <HBox alignment="CENTER" layoutX="24.0" layoutY="651.0" maxHeight="45.0" minHeight="45.0" prefHeight="45.0" prefWidth="340.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <children>
-              <Button fx:id="btn_Close" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#handleClose" prefHeight="44.0" prefWidth="47.0" style="-fx-background-color: transparent;" textFill="WHITE">
-                  <font>
-                      <Font name="System Bold" size="19.0" />
-                  </font>
-               <graphic>
-                  <FontAwesomeIconView fill="#726b6b" glyphName="ANGLE_RIGHT" size="30" />
-               </graphic>
-              </Button>
-            <Pane minWidth="15.0" prefHeight="58.0" prefWidth="21.0" HBox.hgrow="ALWAYS" />
-              <Label fx:id="lbCreatedDate" text="Status" />
-            <Pane minWidth="15.0" prefHeight="200.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
+                <Button fx:id="btn_Close" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#handleClose" prefHeight="44.0" prefWidth="47.0" style="-fx-background-color: transparent;" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="19.0" />
+                    </font>
+                    <graphic>
+                        <FontAwesomeIconView fill="#726b6b" glyphName="ANGLE_RIGHT" size="30" />
+                    </graphic>
+                </Button>
+                <Pane minWidth="15.0" prefHeight="58.0" prefWidth="21.0" HBox.hgrow="ALWAYS" />
+                <Label fx:id="lbCreatedDate" text="Status" />
+                <Pane minWidth="15.0" prefHeight="200.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
                 <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#handleDeleteNote" style="-fx-background-color: transparent; -fx-cursor: hand;" textFill="WHITE">
                     <font>
                         <Font size="20.0" />
                     </font>
-               <graphic>
-                  <Icons525View fill="#726b6b" glyphName="REMOVE" size="24" />
-               </graphic>
+                    <graphic>
+                        <Icons525View fill="#726b6b" glyphName="REMOVE" size="24" />
+                    </graphic>
                 </Button>
             </children>
         </HBox>
-      <HBox fx:id="addMyDay" alignment="CENTER_LEFT" layoutX="36.0" layoutY="127.0" prefHeight="55.0" prefWidth="340.0" spacing="20.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
-         <children>
-            <WeatherIconView fx:id="iconMyDay" glyphName="WU_MOSTLYSUNNY" size="24" />
-            <Text fx:id="lbMyDay" strokeType="OUTSIDE" strokeWidth="0.0" text="Add to My Day" wrappingWidth="210.6103515625" HBox.hgrow="ALWAYS">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Text>
-            <Button fx:id="btnDelMyDay" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" style="-fx-background-color: transparent;">
-               <graphic>
-                  <MaterialDesignIconView glyphName="CLOSE" />
-               </graphic>
-            </Button>
-         </children>
-         <padding>
-            <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
-         </padding>
-      </HBox>
-      <HBox fx:id="addDueDate" alignment="CENTER_LEFT" layoutX="36.0" layoutY="206.0" prefHeight="55.0" prefWidth="340.0" spacing="20.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
-         <children>
-            <MaterialDesignIconView fx:id="iconDueDate" glyphName="CALENDAR_TODAY" size="24" />
-            <Text fx:id="lbDueDate" strokeType="OUTSIDE" strokeWidth="0.0" text="Add due date" wrappingWidth="210.140625" HBox.hgrow="ALWAYS">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Text>
-            <Button fx:id="btnDelDueDate" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" style="-fx-background-color: transparent;">
-               <graphic>
-                  <MaterialDesignIconView glyphName="CLOSE" />
-               </graphic>
-            </Button>
-         </children>
-         <padding>
-            <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
-         </padding>
-      </HBox>
-   </children>
+    </children>
 </AnchorPane>

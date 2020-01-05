@@ -406,7 +406,16 @@ public class EditPaneController implements Initializable {
         Optional<ButtonType> option = alert.showAndWait();
 
         if (option.get() == ButtonType.OK) {
-            lbDueDate.setText(formatter.format(dp.getValue()));
+            dueDate = dp.getValue();
+            try {
+                handleSaveNote();
+                ListSmartCategoryBox.getList().get(0).reloadBox(noteDTO.getUserID());
+                Runnable updateNoteStatus = (Runnable) pane.getUserData();
+                updateNoteStatus.run();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            reloadEditPane();
         } else if (option.get() == ButtonType.CANCEL){
         }
     }

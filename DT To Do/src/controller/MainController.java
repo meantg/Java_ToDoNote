@@ -136,12 +136,20 @@ public class MainController {
         Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
         if(stage.isFullScreen()) {
             stage.setFullScreen(false);
+            root.applyCss();
+            root.layout();
+            scroll_note_pane.setPrefWidth(scroll_note_pane.getWidth());
+            scroll_note_pane.setPrefHeight(scroll_note_pane.getHeight());
         }
         else {
             stage.setFullScreen(true);
-            stage.setFullScreenExitHint(" ");
+            root.applyCss();
+            root.layout();
+            scroll_note_pane.setPrefWidth(scroll_note_pane.getWidth());
+            scroll_note_pane.setPrefHeight(scroll_note_pane.getHeight());
         }
     }
+
 
     public void handleCloseApp(ActionEvent actionEvent) {
         Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
