@@ -282,21 +282,26 @@ public class EditPaneController implements Initializable {
 
 
         MaterialDesignIconView icon = new MaterialDesignIconView(MaterialDesignIcon.HISTORY);
+        icon.setGlyphSize(24);
         MaterialDesignIconView iconNextWeek = new MaterialDesignIconView(MaterialDesignIcon.CALENDAR_PLUS);
+        iconNextWeek.setGlyphSize(24);
         MaterialDesignIconView iconNextMonth = new MaterialDesignIconView(MaterialDesignIcon.CALENDAR_MULTIPLE);
+        iconNextMonth.setGlyphSize(24);
         Icons525View iconPickADate = new Icons525View(Icons525.CALENDAR_OPEN);
+        iconPickADate.setGlyphSize(24);
+
 
         Label lbTomorrow = new Label("Tomorrow");
-        Label lbTomorrow2 = new Label(date.plusDays(1).getDayOfWeek().toString());
+        Label lbTomorrow2 = new Label(date.plusDays(1).getDayOfWeek().toString().substring(0,3));
         final Pane spacer = new Pane();
         HBox.setHgrow(spacer, Priority.ALWAYS);
         spacer.setMinSize(10, 1);
 
         Label lbWeek = new Label("Next week");
-        Label lbWeek2 = new Label(date.plusDays(7).getDayOfWeek().toString());
+        Label lbWeek2 = new Label(date.plusDays(7).getDayOfWeek().toString().substring(0,3));
 
         Label lbMonth = new Label("Next month");
-        Label lbMonth2 = new Label(date.plusDays(30).getDayOfWeek().toString());
+        Label lbMonth2 = new Label(date.plusDays(30).getDayOfWeek().toString().substring(0,3));
 
         Label lbPickDate = new Label("Pick a date");
 
@@ -308,13 +313,21 @@ public class EditPaneController implements Initializable {
         tomorrowBox.setPrefSize(200, 45);
         tomorrowBox.getChildren().addAll(icon, lbTomorrow, spacer, lbTomorrow2);
 
+        final Pane spacer1 = new Pane();
+        HBox.setHgrow(spacer1, Priority.ALWAYS);
+        spacer1.setMinSize(10, 1);
+
         HBox nextWeekBox = new HBox();
         nextWeekBox.setSpacing(15);
         nextWeekBox.setPadding(new Insets(15));
         nextWeekBox.setMaxSize(200, 45);
         nextWeekBox.setMinSize(200, 45);
         nextWeekBox.setPrefSize(200, 45);
-        nextWeekBox.getChildren().addAll(iconNextWeek, lbWeek, spacer, lbWeek2);
+        nextWeekBox.getChildren().addAll(iconNextWeek, lbWeek, spacer1, lbWeek2);
+
+        final Pane spacer2 = new Pane();
+        HBox.setHgrow(spacer2, Priority.ALWAYS);
+        spacer2.setMinSize(10, 1);
 
         HBox nextMonthBox = new HBox();
         nextMonthBox.setSpacing(15);
@@ -322,7 +335,12 @@ public class EditPaneController implements Initializable {
         nextMonthBox.setMaxSize(200, 45);
         nextMonthBox.setMinSize(200, 45);
         nextMonthBox.setPrefSize(200, 45);
-        nextMonthBox.getChildren().addAll(iconNextMonth, lbMonth, spacer, lbMonth2);
+        nextMonthBox.getChildren().addAll(iconNextMonth, lbMonth, spacer2, lbMonth2);
+
+
+        final Pane spacer3 = new Pane();
+        HBox.setHgrow(spacer3, Priority.ALWAYS);
+        spacer3.setMinSize(10, 1);
 
         HBox pickDateBox = new HBox();
         pickDateBox.setSpacing(15);
@@ -330,7 +348,7 @@ public class EditPaneController implements Initializable {
         pickDateBox.setMaxSize(200, 45);
         pickDateBox.setMinSize(200, 45);
         pickDateBox.setPrefSize(200, 45);
-        pickDateBox.getChildren().addAll(iconPickADate, lbPickDate, spacer);
+        pickDateBox.getChildren().addAll(iconPickADate, lbPickDate, spacer3);
 
         CustomMenuItem item1 = new CustomMenuItem();
         item1.setContent(tomorrowBox);
